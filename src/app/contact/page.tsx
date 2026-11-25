@@ -1,6 +1,6 @@
-import PageIntro from "@/components/PageIntro";
+import PageHead from "@/components/PageHead";
+import Band from "@/components/Band";
 import EnquiryForm from "@/components/EnquiryForm";
-import Reveal from "@/components/Reveal";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import { site } from "@/content/site";
 import { pageMeta } from "@/lib/seo";
@@ -12,39 +12,45 @@ export const metadata = pageMeta({
 });
 
 export default function Contact() {
+  const rows = [
+    { label: "WhatsApp & phone", value: site.phoneDisplay, href: `https://wa.me/${site.whatsappNumber}` },
+    { label: "Email", value: site.email, href: `mailto:${site.email}` },
+    { label: "Instagram", value: site.instagram.handle, href: site.instagram.url },
+  ];
   return (
     <>
-      <PageIntro title="Let’s connect.">
+      <PageHead
+        rail="Contact"
+        title="Let’s connect."
+        action={<WhatsAppButton location="contact_head" label="WhatsApp us — fastest reply" />}
+      >
         Share your idea, your story, or a moment you’d like to remember. Whether it’s a portrait session, a couple shoot or a visit to Hong
-        Kong — I’d love to hear about it.
-      </PageIntro>
+        Kong — I’d love to hear about it. {site.replyPromise}
+      </PageHead>
 
-      <section className="container-site pb-section">
-        <div className="grid gap-14 lg:grid-cols-12">
-          <Reveal className="lg:col-span-7">
-            <EnquiryForm />
-          </Reveal>
-          <Reveal className="lg:col-span-4 lg:col-start-9" delay={0.1}>
-            <div className="rounded-field border border-line bg-surface p-7">
-              <h2 className="t-heading">Fastest reply: WhatsApp</h2>
-              <p className="t-body mt-2 text-muted">{site.replyPromise}</p>
-              <div className="mt-6">
-                <WhatsAppButton location="contact_card" full label={site.phoneDisplay} />
-              </div>
-            </div>
-            <dl className="mt-8 space-y-5">
-              <div>
-                <dt className="t-small text-muted">Email</dt>
-                <dd className="t-body mt-1"><a className="underline-offset-4 hover:underline" data-location="contact_page" href={`mailto:${site.email}`}>{site.email}</a></dd>
-              </div>
-              <div>
-                <dt className="t-small text-muted">Instagram</dt>
-                <dd className="t-body mt-1"><a className="underline-offset-4 hover:underline" data-location="contact_page" href={site.instagram.url} target="_blank" rel="noopener">{site.instagram.handle}</a></dd>
-              </div>
-            </dl>
-          </Reveal>
+      <Band rail="Enquire" className="pb-section" gridClassName="gap-y-16">
+        <div data-reveal="text" className="axis-wide lg:col-end-11">
+          <EnquiryForm />
         </div>
-      </section>
+        <dl className="axis-text border-b border-line">
+          {rows.map((r) => (
+            <div key={r.label} className="flex flex-col gap-1 border-t border-line py-5 md:flex-row md:gap-6">
+              <dt className="t-small w-40 shrink-0 pt-1 text-muted">{r.label}</dt>
+              <dd>
+                <a
+                  href={r.href}
+                  data-location="contact_page"
+                  target={r.href.startsWith("http") ? "_blank" : undefined}
+                  rel={r.href.startsWith("http") ? "noopener" : undefined}
+                  className="t-body transition-colors hover:text-accent"
+                >
+                  {r.value}
+                </a>
+              </dd>
+            </div>
+          ))}
+        </dl>
+      </Band>
     </>
   );
 }

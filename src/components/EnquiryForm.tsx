@@ -46,31 +46,33 @@ export default function EnquiryForm({ defaultType }: { defaultType?: string }) {
     else window.location.href = url; // pop-up blocked: go straight to WhatsApp
   }
 
-  const field = "mt-2 block w-full rounded-field border border-line bg-surface px-4 py-3 t-body text-ink placeholder:text-muted/60 transition-colors focus:border-accent focus:outline-none";
+  // Quiet underlined fields: no boxes, the line is the field.
+  const field =
+    "mt-2 block w-full border-0 border-b border-line bg-transparent px-0 py-3 t-body text-ink placeholder:text-muted/60 transition-colors focus:border-ink focus:outline-none";
 
   return (
-    <form onSubmit={onSubmit} noValidate className="grid gap-6 sm:grid-cols-2">
-      <label className="t-small sm:col-span-1">
+    <form onSubmit={onSubmit} noValidate className="grid gap-x-6 gap-y-8 sm:grid-cols-2">
+      <label className="t-small text-muted sm:col-span-1">
         Your name
         <input name="name" autoComplete="name" required className={field} placeholder="Chris Wong" />
       </label>
-      <label className="t-small sm:col-span-1">
+      <label className="t-small text-muted sm:col-span-1">
         Type of shoot
-        <select name="type" defaultValue={defaultType ?? enquiryTypes[0]} className={`${field} appearance-none bg-[url('data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 16 16%22><path d=%22M4 6l4 4 4-4%22 fill=%22none%22 stroke=%22%235f564d%22 stroke-width=%221.5%22/></svg>')] bg-[length:16px] bg-[right_1rem_center] bg-no-repeat pr-10`}>
+        <select name="type" defaultValue={defaultType ?? enquiryTypes[0]} className={`${field} appearance-none bg-[url('data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 16 16%22><path d=%22M4 6l4 4 4-4%22 fill=%22none%22 stroke=%22%23a39788%22 stroke-width=%221.5%22/></svg>')] bg-[length:16px] bg-[right_0_center] bg-no-repeat pr-8 [&>option]:bg-surface`}>
           {enquiryTypes.map((t) => (
             <option key={t}>{t}</option>
           ))}
         </select>
       </label>
-      <label className="t-small">
-        Date <span className="text-muted">(if you know it)</span>
+      <label className="t-small text-muted">
+        Date <span className="text-muted/70">(if you know it)</span>
         <input name="date" className={field} placeholder="e.g. mid-March, a weekend" />
       </label>
-      <label className="t-small">
-        Place <span className="text-muted">(optional)</span>
+      <label className="t-small text-muted">
+        Place <span className="text-muted/70">(optional)</span>
         <input name="place" className={field} placeholder="e.g. The Peak, Lamma Island" />
       </label>
-      <label className="t-small sm:col-span-2">
+      <label className="t-small text-muted sm:col-span-2">
         Tell me about it
         <textarea name="message" rows={5} className={`${field} resize-y`} placeholder="Who’s in the photos, the feeling you’re after, anything else…" />
       </label>
@@ -81,7 +83,7 @@ export default function EnquiryForm({ defaultType }: { defaultType?: string }) {
       )}
       <div className="flex flex-col gap-3 sm:col-span-2 sm:flex-row sm:items-center sm:justify-between">
         <p className="t-small text-muted">This opens WhatsApp with your message ready to send.</p>
-        <button type="submit" className="t-small inline-flex h-12 items-center justify-center gap-2 rounded-pill bg-accent px-7 text-on-deep transition-colors hover:bg-deep">
+        <button type="submit" className="t-small inline-flex h-12 items-center justify-center gap-2 rounded-pill bg-ink px-8 text-paper transition-colors hover:bg-accent">
           <WhatsAppIcon className="h-[18px] w-[18px]" />
           Send on WhatsApp
         </button>

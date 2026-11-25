@@ -1,5 +1,6 @@
-import ButtonLink from "@/components/ButtonLink";
+import PageHead from "@/components/PageHead";
 import WhatsAppButton from "@/components/WhatsAppButton";
+import LineLink from "@/components/LineLink";
 import type { Metadata } from "next";
 
 // Kept at the old Framer address. Useful as a conversion page in Google Ads / Meta.
@@ -7,15 +8,18 @@ export const metadata: Metadata = { title: "Thank you", robots: { index: false, 
 
 export default function ThankYou() {
   return (
-    <section className="container-site flex min-h-[80svh] flex-col items-center justify-center pb-24 pt-40 text-center">
-      <h1 className="t-title max-w-[16ch]">Thank you — I’ll get back to you soon.</h1>
-      <p className="t-body mt-6 max-w-[40ch] text-muted">
-        Your message has opened in WhatsApp. Just press send. If it didn’t open, tap below.
-      </p>
-      <div className="mt-10 flex flex-wrap justify-center gap-3">
-        <WhatsAppButton location="thankyou" label="Open WhatsApp" />
-        <ButtonLink href="/">Back to home</ButtonLink>
-      </div>
-    </section>
+    <div className="min-h-[80svh]">
+      <PageHead
+        title="Thank you — I’ll get back to you soon."
+        action={
+          <div className="flex flex-col items-start gap-4">
+            <WhatsAppButton tone="line" location="thankyou" label="Open WhatsApp again" />
+            <LineLink href="/">Back to home</LineLink>
+          </div>
+        }
+      >
+        Your message has opened in WhatsApp. Just press send. If it didn’t open, use the link below.
+      </PageHead>
+    </div>
   );
 }

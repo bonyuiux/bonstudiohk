@@ -9,38 +9,37 @@ type Props = {
   message?: string;
   service?: string;
   location: string; // where on the page, for analytics
-  tone?: "solid" | "light" | "outline";
+  tone?: "solid" | "outline" | "line";
   size?: "sm" | "md";
   full?: boolean;
 };
 
-export default function WhatsAppButton({
-  label = "WhatsApp us",
-  message,
-  service,
-  location,
-  tone = "solid",
-  size = "md",
-  full,
-}: Props) {
+/** Opens WhatsApp with a pre-filled message (plus page + campaign source) and records a lead. */
+export default function WhatsAppButton({ label = "WhatsApp us", message, service, location, tone = "solid", size = "md", full }: Props) {
+  const onClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.currentTarget.href = whatsappUrl(message);
+    track("whatsapp_click", { link_location: location, service });
+  };
+  const common = { href: whatsappUrl(message, { withSource: false }), target: "_blank", rel: "noopener", "data-tracked": "manual", onClick };
+
+  if (tone === "line") {
+    return (
+      <a {...common} className="t-body group inline-flex items-center gap-4 transition-colors hover:text-accent">
+        <span aria-hidden className="h-px w-12 bg-current opacity-60 transition-all duration-500 ease-soft group-hover:w-18 group-hover:opacity-100" />
+        <span>{label}</span>
+        <WhatsAppIcon className="h-4 w-4 opacity-70" />
+      </a>
+    );
+  }
   const tones = {
-    solid: "bg-accent text-on-deep hover:bg-deep",
-    light: "bg-on-deep text-ink hover:bg-surface",
-    outline: "border border-current hover:bg-ink hover:text-on-deep hover:border-ink",
+    solid: "bg-ink text-paper hover:bg-accent",
+    outline: "border border-ink/40 hover:border-ink",
   };
   return (
     <a
-      href={whatsappUrl(message, { withSource: false })}
-      target="_blank"
-      rel="noopener"
-      data-tracked="manual"
-      onClick={(e) => {
-        // add page + campaign source at click time (it is only known in the browser)
-        e.currentTarget.href = whatsappUrl(message);
-        track("whatsapp_click", { link_location: location, service });
-      }}
+      {...common}
       className={`t-small inline-flex items-center justify-center gap-2 rounded-pill transition-colors duration-300 ${
-        size === "sm" ? "h-9 px-4" : "h-12 px-6"
+        size === "sm" ? "h-10 px-4" : "h-12 px-6"
       } ${tones[tone]} ${full ? "w-full" : ""}`}
     >
       <WhatsAppIcon className={size === "sm" ? "h-4 w-4" : "h-[18px] w-[18px]"} />

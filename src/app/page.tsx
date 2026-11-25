@@ -1,11 +1,13 @@
 import Link from "next/link";
 import HeroVideo from "@/components/HeroVideo";
-import Gallery from "@/components/Gallery";
-import ServiceList from "@/components/ServiceList";
-import EnquiryForm from "@/components/EnquiryForm";
-import Reveal from "@/components/Reveal";
+import Band from "@/components/Band";
+import Figure from "@/components/Figure";
+import Drift from "@/components/Drift";
 import Photo from "@/components/Photo";
-import ButtonLink from "@/components/ButtonLink";
+import Gallery from "@/components/Gallery";
+import LineLink from "@/components/LineLink";
+import ServiceSections from "@/components/ServiceSections";
+import EnquiryForm from "@/components/EnquiryForm";
 import { homeGallery, pages } from "@/content/pages";
 import { site } from "@/content/site";
 
@@ -15,82 +17,94 @@ export default function Home() {
     <>
       <HeroVideo />
 
-      {/* Intro */}
-      <section id="intro" className="container-site scroll-mt-20 py-section">
-        <Reveal className="mx-auto max-w-4xl text-center">
-          <h2 className="t-title">I capture quiet moments as they naturally unfold — gentle light, honest emotion.</h2>
-          <p className="t-body mx-auto mt-6 max-w-[44ch] text-muted">
-            A Hong Kong photographer for natural portraits, couples, weddings and travel photoshoots.{" "}
-            <Link href="/about" data-cta="home_intro_about" className="text-ink underline hover:text-accent">
-              More about me
-            </Link>
+      {/* About — Izanami-style offset pair: a small photo on the margin, a tall one on the right, words on the content line */}
+      <Band id="intro" rail="About" className="scroll-mt-20 py-section" gridClassName="gap-y-12 lg:gap-y-0">
+        <Drift distance={24} className="col-span-6 md:col-span-4 lg:col-span-3 lg:row-start-1 lg:mt-24 lg:pl-12">
+          <Figure id="beanie-warm-drink" aspect="aspect-[4/5]" sizes="(min-width: 1024px) 20vw, 50vw" />
+        </Drift>
+        <Drift distance={56} className="axis-media lg:row-span-2 lg:row-start-1">
+          <Figure id="ferry-deck-portrait" aspect="aspect-[3/4]" delay={160} sizes="(min-width: 1024px) 30vw, (min-width: 768px) 50vw, 100vw" />
+        </Drift>
+        <div className="axis-text lg:row-start-2 lg:mt-32">
+          <h2 data-reveal="text" className="t-title">
+            I capture quiet moments as they naturally unfold — gentle light, honest emotion.
+          </h2>
+          <p data-reveal="text" className="t-body mt-6 max-w-[44ch] text-muted">
+            A Hong Kong photographer for natural portraits, couples, weddings and travel photoshoots. Calm, airy and never staged.
           </p>
-        </Reveal>
-      </section>
+          <div data-reveal="text" className="mt-10">
+            <LineLink href="/about" cta="home_intro_about">
+              About Bon Studio
+            </LineLink>
+          </div>
+        </div>
+      </Band>
+
+      <ServiceSections />
 
       {/* Selected work */}
-      <section aria-labelledby="work-title" className="container-site">
-        <Reveal className="mb-10 flex flex-col gap-4 md:mb-14 md:flex-row md:items-end md:justify-between">
-          <h2 id="work-title" className="t-title">
+      <Band rail="Work" className="py-section" gridClassName="gap-y-12 md:gap-y-16">
+        <div className="axis-text">
+          <h2 data-reveal="text" className="t-title">
             Moments with the people who matter.
           </h2>
-          <ul className="t-body flex flex-wrap gap-x-5 gap-y-2 text-muted">
-            <li><Link className="underline-offset-4 hover:text-ink hover:underline" href="/work/portrait">Portrait</Link></li>
-            <li><Link className="underline-offset-4 hover:text-ink hover:underline" href="/work/wedding">Wedding</Link></li>
-            <li><Link className="underline-offset-4 hover:text-ink hover:underline" href="/work/commercial">Commercial</Link></li>
-          </ul>
-        </Reveal>
-        <Gallery ids={homeGallery} columns={3} />
-      </section>
+          <p data-reveal="text" className="t-body mt-6 text-muted">
+            More in{" "}
+            <Link href="/work/portrait" className="text-ink underline hover:text-accent">portrait</Link>,{" "}
+            <Link href="/work/wedding" className="text-ink underline hover:text-accent">wedding</Link> and{" "}
+            <Link href="/work/commercial" className="text-ink underline hover:text-accent">commercial</Link> work.
+          </p>
+        </div>
+        <div className="axis-wide">
+          <Gallery ids={homeGallery} columns={3} />
+        </div>
+      </Band>
 
-      {/* Services */}
-      <section aria-labelledby="services-title" className="container-site py-section">
-        <Reveal className="mb-12 max-w-2xl">
-          <h2 id="services-title" className="t-title">What I photograph</h2>
-        </Reveal>
-        <ServiceList />
-      </section>
-
-      {/* Hong Kong photoshoot */}
-      <section aria-labelledby="hk-title" className="bg-paper-200/60">
-        <div className="container-site grid items-center gap-12 py-section lg:grid-cols-12">
-          <Reveal className="lg:col-span-6">
-            <div className="relative aspect-[4/5] overflow-hidden rounded-photo">
-              <Photo id="hk-harbourfront-run" fill sizes="(min-width: 1024px) 50vw, 100vw" />
-            </div>
-          </Reveal>
-          <Reveal className="lg:col-span-5 lg:col-start-8" delay={0.1}>
-            <h2 id="hk-title" className="t-title">{hk.title}</h2>
-            <p className="t-body mt-5 text-muted">{hk.intro}</p>
-            <ul className="mt-8 divide-y divide-line border-y border-line">
+      {/* Hong Kong — full-bleed misty photograph, words on the content line */}
+      <section aria-labelledby="hk-title" className="relative overflow-hidden">
+        <div className="absolute inset-0">
+          <Photo id="hk-promenade-walk" fill sizes="100vw" className="opacity-50" />
+          <div className="absolute inset-0 bg-gradient-to-b from-paper via-paper/40 to-paper" />
+        </div>
+        <Band rail="Hong Kong" className="py-section">
+          <div className="axis-text py-16">
+            <h2 id="hk-title" data-reveal="text" className="t-title">
+              {hk.title}
+            </h2>
+            <p data-reveal="text" className="t-body mt-6 max-w-[44ch] text-ink/80">
+              {hk.intro}
+            </p>
+            <ul className="mt-12 border-b border-line">
               {hk.packages!.map((p) => (
-                <li key={p.name} className="py-4">
-                  <p className="t-heading">{p.name}</p>
+                <li key={p.name} data-reveal="text" className="border-t border-line py-6">
+                  <h3 className="t-heading">{p.name}</h3>
                   <p className="t-body mt-1 text-muted">{p.detail}</p>
                 </li>
               ))}
             </ul>
-            <div className="mt-8">
-              <ButtonLink href="/hong-kong" tone="solid" cta="home_hk">
-                See Hong Kong sessions
-              </ButtonLink>
+            <div data-reveal="text" className="mt-10">
+              <LineLink href="/hong-kong" cta="home_hk">
+                Hong Kong sessions
+              </LineLink>
             </div>
-          </Reveal>
-        </div>
+          </div>
+        </Band>
       </section>
 
-      {/* Enquiry */}
-      <section id="enquire" aria-labelledby="enquire-title" className="container-site py-section">
-        <div className="grid gap-12 lg:grid-cols-12">
-          <Reveal className="lg:col-span-4">
-            <h2 id="enquire-title" className="t-title">Tell me about your moment.</h2>
-            <p className="t-body mt-5 max-w-[34ch] text-muted">{site.replyPromise}</p>
-          </Reveal>
-          <Reveal className="lg:col-span-7 lg:col-start-6" delay={0.1}>
-            <EnquiryForm />
-          </Reveal>
+      {/* Enquire */}
+      <Band id="enquire" rail="Enquire" className="py-section">
+        <div className="axis-text">
+          <h2 data-reveal="text" className="t-title">
+            Tell me about your moment.
+          </h2>
+          <p data-reveal="text" className="t-body mt-6 text-muted">
+            {site.replyPromise}
+          </p>
         </div>
-      </section>
+        <div data-reveal="text" className="axis-wide lg:col-end-11">
+          <EnquiryForm />
+        </div>
+      </Band>
     </>
   );
 }

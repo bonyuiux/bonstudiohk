@@ -2,64 +2,66 @@ import Link from "next/link";
 import Image from "next/image";
 import { nav, site } from "@/content/site";
 import WhatsAppButton from "./WhatsAppButton";
-import { ArrowIcon } from "./icons";
+import HKClock from "./HKClock";
 
 export default function Footer() {
   return (
-    <footer className="bg-deep text-on-deep">
-      <div className="container-site py-section">
-        <div className="grid gap-14 lg:grid-cols-12">
-          <div className="lg:col-span-6">
-            <h2 className="t-title max-w-[14ch]">Let’s capture something timeless.</h2>
-            <p className="t-body mt-5 max-w-[34ch] opacity-75">{site.replyPromise}</p>
-            <div className="mt-8">
-              <WhatsAppButton tone="light" location="footer" label="Start a chat on WhatsApp" />
-            </div>
+    <footer className="border-t border-line bg-deep">
+      <div className="grid-site gap-y-16 py-section">
+        <div className="axis-text">
+          <h2 data-reveal="text" className="t-title">Let’s capture something timeless.</h2>
+          <p data-reveal="text" className="t-body mt-6 text-muted">{site.replyPromise}</p>
+          <div data-reveal="text" className="mt-10">
+            <WhatsAppButton tone="line" location="footer" label="Start a chat on WhatsApp" />
           </div>
-
-          <dl className="grid gap-8 sm:grid-cols-2 lg:col-span-6 lg:grid-cols-1 lg:pl-12">
-            <FooterItem label="WhatsApp & phone" href={`https://wa.me/${site.whatsappNumber}`} value={site.phoneDisplay} location="footer_details" />
-            <FooterItem label="Email" href={`mailto:${site.email}`} value={site.email} location="footer_details" />
-            <FooterItem label="Instagram" href={site.instagram.url} value={site.instagram.handle} location="footer_details" />
-          </dl>
         </div>
 
-        <div className="mt-20 flex flex-col gap-8 border-t border-on-deep/15 pt-8 md:flex-row md:items-center md:justify-between">
-          <Link href="/" aria-label="Bon Studio — home">
-            <Image src="/brand/wordmark-white.png" alt="Bon Studio" width={723} height={126} className="h-5 w-auto" />
-          </Link>
-          <nav aria-label="Footer">
-            <ul className="t-small flex flex-wrap gap-x-6 gap-y-2 opacity-75">
+        <div className="axis-full grid grid-cols-12 gap-x-4 gap-y-10 border-t border-line pt-10 lg:gap-x-6">
+          <nav aria-label="Footer" className="col-span-6 md:col-span-2 lg:col-span-3">
+            <ul className="space-y-2">
               {[...nav.work, ...nav.studio].map((l) => (
                 <li key={l.href}>
-                  <Link href={l.href} className="hover:opacity-100 hover:underline underline-offset-4">
+                  <Link href={l.href} className="t-small text-muted transition-colors hover:text-ink">
                     {l.label}
                   </Link>
                 </li>
               ))}
             </ul>
           </nav>
-          <p className="t-small opacity-60">© {new Date().getFullYear()} Bon Studio, Hong Kong</p>
+          <dl className="col-span-12 space-y-5 md:col-span-6 md:col-start-3 lg:col-span-5 lg:col-start-4">
+            <FooterItem label="WhatsApp & phone" href={`https://wa.me/${site.whatsappNumber}`} value={site.phoneDisplay} />
+            <FooterItem label="Email" href={`mailto:${site.email}`} value={site.email} />
+            <FooterItem label="Instagram" href={site.instagram.url} value={site.instagram.handle} />
+          </dl>
+          <div className="hidden md:col-span-4 md:col-start-9 md:block md:justify-self-end">
+            <HKClock className="text-muted" />
+          </div>
+        </div>
+
+        <div className="axis-full flex items-center justify-between gap-6 border-t border-line pt-8">
+          <div className="flex items-center gap-6">
+            <Link href="/" aria-label="Bon Studio — home">
+              <Image src="/brand/wordmark-white.png" alt="Bon Studio" width={723} height={126} className="h-4 w-auto opacity-80" />
+            </Link>
+            <p className="t-small text-muted">© {new Date().getFullYear()}</p>
+          </div>
+          <a href="#main" className="t-small text-muted transition-colors hover:text-ink">
+            Top
+          </a>
         </div>
       </div>
     </footer>
   );
 }
 
-function FooterItem({ label, value, href, location }: { label: string; value: string; href: string; location: string }) {
+function FooterItem({ label, value, href }: { label: string; value: string; href: string }) {
+  const ext = href.startsWith("http");
   return (
-    <div>
-      <dt className="t-small opacity-65">{label}</dt>
-      <dd className="mt-2">
-        <a
-          href={href}
-          data-location={location}
-          target={href.startsWith("http") ? "_blank" : undefined}
-          rel={href.startsWith("http") ? "noopener" : undefined}
-          className="t-body group inline-flex items-center gap-2 border-b border-on-deep/25 pb-1 transition-colors hover:border-on-deep"
-        >
+    <div className="flex flex-col gap-1 md:flex-row md:gap-6">
+      <dt className="t-small w-40 shrink-0 pt-1 text-muted">{label}</dt>
+      <dd>
+        <a href={href} data-location="footer_details" target={ext ? "_blank" : undefined} rel={ext ? "noopener" : undefined} className="t-body transition-colors hover:text-accent">
           {value}
-          <ArrowIcon className="h-4 w-4 opacity-60 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
         </a>
       </dd>
     </div>

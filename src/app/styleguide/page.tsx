@@ -1,18 +1,18 @@
 import type { Metadata } from "next";
 import WhatsAppButton from "@/components/WhatsAppButton";
-import ButtonLink from "@/components/ButtonLink";
+import LineLink from "@/components/LineLink";
 
 export const metadata: Metadata = { title: "Styleguide", robots: { index: false, follow: false } };
 
 const colors = [
   ["paper", "Page background", "bg-paper"],
-  ["surface", "Cards, inputs", "bg-surface"],
+  ["surface", "Photo placeholders", "bg-surface"],
   ["line", "Hairlines, borders", "bg-line"],
   ["ink", "Primary text", "bg-ink"],
   ["muted", "Secondary text", "bg-muted"],
-  ["accent", "Buttons, highlights", "bg-accent"],
-  ["accent-soft", "Labels on light", "bg-accent-soft"],
-  ["deep", "Footer, dark sections", "bg-deep"],
+  ["accent", "Hover, highlights", "bg-accent"],
+  ["accent-soft", "Numbers, decoration", "bg-accent-soft"],
+  ["deep", "Menu, footer", "bg-deep"],
 ] as const;
 
 const type = [
@@ -25,12 +25,12 @@ const type = [
 
 export default function Styleguide() {
   return (
-    <div className="container-site pb-section pt-32 md:pt-40">
+    <div className="container-site pb-section pt-36 md:pt-48">
       <h1 className="t-title">Bon Studio styleguide</h1>
       <p className="t-body mt-5 max-w-[56ch] text-muted">
         Two typefaces, five type roles, three weights. A text block uses at most two roles: a serif title and sans body. No eyebrow
         labels, no all-caps. Every size, line height and spacing value is an even number of pixels. Source:
-        <code className="t-small mx-1 rounded bg-paper-200 px-1.5 py-0.5">src/app/globals.css</code>
+        <code className="t-small mx-1 rounded bg-surface px-1.5 py-0.5">src/app/globals.css</code>
       </p>
 
       <h2 className="t-title mt-20 border-t border-line pt-8">Type</h2>
@@ -58,17 +58,21 @@ export default function Styleguide() {
         ))}
       </ul>
 
-      <h2 className="t-title mt-20 border-t border-line pt-8">Buttons</h2>
-      <div className="mt-8 flex flex-wrap items-center gap-4">
+      <h2 className="t-title mt-20 border-t border-line pt-8">Links & buttons</h2>
+      <p className="t-body mt-4 max-w-[56ch] text-muted">Links are a line and a word. The only pill is WhatsApp, in the header, menu and contact page.</p>
+      <div className="mt-8 flex flex-col items-start gap-4">
+        <LineLink href="/contact">Line link</LineLink>
+        <WhatsAppButton location="styleguide" tone="line" label="WhatsApp line link" />
         <WhatsAppButton location="styleguide" />
-        <WhatsAppButton location="styleguide" tone="outline" />
-        <ButtonLink href="/contact" tone="solid">Solid link</ButtonLink>
-        <ButtonLink href="/contact">Outline link</ButtonLink>
-        <ButtonLink href="/contact" tone="text">Text link</ButtonLink>
+        <WhatsAppButton location="styleguide" tone="outline" size="sm" />
       </div>
-      <div className="mt-6 inline-flex rounded-field bg-deep p-6">
-        <WhatsAppButton location="styleguide" tone="light" />
-      </div>
+
+      <h2 className="t-title mt-20 border-t border-line pt-8">Layout</h2>
+      <p className="t-body mt-4 max-w-[56ch] text-muted">
+        Two alignment lines on every page: the margin, and the content line (column 4 of 12 on desktop, 3 on tablet, the margin on phones).
+        Nothing is centred. Utilities: <code className="t-small">grid-site</code>, <code className="t-small">axis-text</code>,{" "}
+        <code className="t-small">axis-wide</code>, <code className="t-small">axis-media</code>, <code className="t-small">axis-full</code>.
+      </p>
     </div>
   );
 }

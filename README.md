@@ -45,6 +45,10 @@ npm run dev      # http://localhost:3000
 - **Five type roles:** `t-display` (hero only), `t-title`, `t-heading`, `t-body` (18/30px), `t-small` (14/20px). A text block uses at most two of them. No eyebrow labels or all-caps.
 - **Even numbers only:** every size, line height and spacing value is an even number of pixels. Sizes step at 768px and 1024px.
 - **Colour roles:** warm paper background, ink text, umber accent, deep brown footer.
+- **Dark, warm night palette** (owner's choice, inspired by izanami-official.com): near-black background, mist-coloured text.
+- **Two alignment lines:** the margin, and the content line (column 4 of 12 on desktop). Every title, paragraph, link, form and gallery starts on the content line. Nothing is centred. A thin sticky rail on the left names each section.
+- **Links are a line and a word;** the only pill is WhatsApp.
+- **Motion:** the hero video rises out of black and the headline lifts line by line; photos unveil upward and settle; paired photos drift at different speeds; pages crossfade; the menu wipes open full-screen.
 - Visit `/styleguide` to see all of it live.
 
 ## Deploy

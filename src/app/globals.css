@@ -17,27 +17,26 @@
    ========================================================================== */
 
 @theme {
-  /* ---- Colour primitives ---- */
-  --color-paper-50: #faf9f6;
-  --color-paper-100: #f4f2ee;
-  --color-paper-200: #e9e5de;
-  --color-paper-300: #d9d2c7;
+  /* ---- Colour primitives (warm night palette) ---- */
+  --color-night-950: #0a0806;
+  --color-night-900: #110d09;
+  --color-night-850: #1a1510;
+  --color-night-700: #2e2721;
+  --color-mist-100: #ede6dc;
+  --color-mist-400: #a39788;
+  --color-umber-300: #c8a27a;
   --color-umber-500: #8a7663;
-  --color-umber-700: #5e4632;
-  --color-umber-900: #3a2410;
-  --color-ink-900: #1f1a15;
-  --color-ink-600: #5f564d;
 
   /* ---- Semantic roles (what components use) ---- */
-  --color-paper: var(--color-paper-100); /* page background */
-  --color-surface: var(--color-paper-50); /* cards, inputs */
-  --color-line: var(--color-paper-300); /* hairlines, borders */
-  --color-ink: var(--color-ink-900); /* primary text */
-  --color-muted: var(--color-ink-600); /* secondary text */
-  --color-accent: var(--color-umber-700); /* buttons, links, highlights */
-  --color-accent-soft: var(--color-umber-500);
-  --color-deep: var(--color-umber-900); /* footer, dark sections */
-  --color-on-deep: var(--color-paper-100); /* text on deep */
+  --color-paper: var(--color-night-900); /* page background */
+  --color-surface: var(--color-night-850); /* photo placeholders, fields */
+  --color-line: var(--color-night-700); /* hairlines, borders */
+  --color-ink: var(--color-mist-100); /* primary text */
+  --color-muted: var(--color-mist-400); /* secondary text (6.9:1 on paper) */
+  --color-accent: var(--color-umber-300); /* hover, highlights */
+  --color-accent-soft: var(--color-umber-500); /* rail numbers, decoration */
+  --color-deep: var(--color-night-950); /* menu overlay, footer */
+  --color-on-deep: var(--color-mist-100);
   --color-whatsapp: #25d366;
 
   /* ---- Font families (2 only) ---- */
@@ -128,6 +127,62 @@
   line-height: 20px;
 }
 
+/* ==========================================================================
+   Layout — TWO alignment lines, used on every page:
+   1. the margin (logo, menu, rail, footer columns)
+   2. the content line: column 4 of 12 on desktop, 3 on tablet, the margin
+      on phones. Every title, paragraph, link, form and gallery starts on
+      it, left-aligned. Nothing is centred.
+   Use: <div class="grid-site"> with children axis-text / axis-wide /
+   axis-media / axis-full.
+   ========================================================================== */
+
+@utility grid-site {
+  width: 100%;
+  max-width: var(--container-site);
+  margin-inline: auto;
+  padding-inline: var(--spacing-gutter);
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: 16px;
+  @media (width >= 1024px) {
+    column-gap: 24px;
+  }
+}
+@utility axis-text {
+  /* Titles and reading text */
+  grid-column: 1 / -1;
+  @media (width >= 768px) {
+    grid-column: 3 / span 8;
+  }
+  @media (width >= 1024px) {
+    grid-column: 4 / span 5;
+  }
+}
+@utility axis-wide {
+  /* Galleries, forms: from the content line to the right edge */
+  grid-column: 1 / -1;
+  @media (width >= 768px) {
+    grid-column: 3 / -1;
+  }
+  @media (width >= 1024px) {
+    grid-column: 4 / -1;
+  }
+}
+@utility axis-media {
+  /* A photo beside axis-text, ending on the right edge */
+  grid-column: 1 / -1;
+  @media (width >= 768px) {
+    grid-column: 7 / -1;
+  }
+  @media (width >= 1024px) {
+    grid-column: 9 / -1;
+  }
+}
+@utility axis-full {
+  grid-column: 1 / -1;
+}
+
 @utility container-site {
   width: 100%;
   max-width: var(--container-site);
@@ -165,11 +220,20 @@
     text-decoration-thickness: 1px;
   }
   ::selection {
-    background: var(--color-accent);
-    color: var(--color-on-deep);
+    background: var(--color-ink);
+    color: var(--color-paper);
+  }
+  html {
+    color-scheme: dark;
+    scrollbar-color: var(--color-line) var(--color-paper);
+  }
+  input,
+  textarea,
+  select {
+    caret-color: var(--color-accent);
   }
   :focus-visible {
-    outline: 2px solid var(--color-accent);
+    outline: 2px solid var(--color-ink);
     outline-offset: 4px;
   }
   img {
@@ -186,5 +250,73 @@
   *::after {
     animation-duration: 0.01ms !important;
     transition-duration: 0.01ms !important;
+  }
+}
+
+/* ==========================================================================
+   Motion. Content is visible by default; html.js (set before paint) opts
+   into the reveal, so a failed script never hides the page.
+   data-reveal="text"  soft rise out of a blur
+   data-reveal="image" unveils upward behind a mask, photo settles from 1.08
+   data-reveal="line"  a single line rising from behind a mask (hero title)
+   Delay per element: style="--d: 120ms"
+   ========================================================================== */
+
+@keyframes page-in {
+  from {
+    opacity: 0;
+    filter: blur(6px);
+  }
+}
+@keyframes mist-in {
+  from {
+    opacity: 0;
+  }
+}
+
+.page-in {
+  animation: page-in 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.js [data-reveal] {
+  transition:
+    opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1) var(--d, 0ms),
+    transform 1.2s cubic-bezier(0.16, 1, 0.3, 1) var(--d, 0ms),
+    filter 1.2s cubic-bezier(0.16, 1, 0.3, 1) var(--d, 0ms),
+    clip-path 1.4s cubic-bezier(0.76, 0, 0.24, 1) var(--d, 0ms);
+}
+.js [data-reveal="text"]:not([data-inview]) {
+  opacity: 0;
+  transform: translateY(16px);
+  filter: blur(8px);
+}
+.js [data-reveal="image"] {
+  clip-path: inset(0 0 0 0);
+}
+.js [data-reveal="image"] img {
+  transition: transform 2s cubic-bezier(0.16, 1, 0.3, 1) var(--d, 0ms);
+}
+.js [data-reveal="image"]:not([data-inview]) {
+  clip-path: inset(100% 0 0 0);
+}
+.js [data-reveal="image"]:not([data-inview]) img {
+  transform: scale(1.08);
+}
+/* the mask is observed; its child line rises (a translated child would never "intersect") */
+.js [data-reveal="line"] > span {
+  transition: transform 1.4s cubic-bezier(0.16, 1, 0.3, 1) var(--d, 0ms);
+}
+.js [data-reveal="line"]:not([data-inview]) > span {
+  transform: translateY(110%);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .js [data-reveal]:not([data-inview]) {
+    transform: none !important;
+    filter: none !important;
+  }
+  .js [data-reveal="line"]:not([data-inview]) > span {
+    transform: none !important;
+    clip-path: none !important;
   }
 }

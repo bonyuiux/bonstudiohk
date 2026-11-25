@@ -5,6 +5,7 @@ import Footer from "@/components/Footer";
 import Analytics from "@/components/Analytics";
 import FloatingWhatsApp from "@/components/FloatingWhatsApp";
 import JsonLd from "@/components/JsonLd";
+import RevealObserver from "@/components/RevealObserver";
 import { site } from "@/content/site";
 import { localBusinessLd } from "@/lib/seo";
 import "./globals.css";
@@ -32,20 +33,25 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#f4f2ee",
+  themeColor: "#110d09",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en" className={`${cormorant.variable} ${jost.variable}`}>
+    <html lang="en" className={`${cormorant.variable} ${jost.variable}`} suppressHydrationWarning>
+      <head>
+        {/* Opt into scroll reveals before first paint; without JS everything stays visible */}
+        <script dangerouslySetInnerHTML={{ __html: "document.documentElement.classList.add('js')" }} />
+      </head>
       <body>
-        <a href="#main" className="t-small sr-only z-[60] rounded-pill bg-ink px-4 py-2 text-on-deep focus:not-sr-only focus:fixed focus:left-4 focus:top-4">
+        <a href="#main" className="t-small sr-only z-[60] rounded-pill bg-ink px-4 py-2 text-paper focus:not-sr-only focus:fixed focus:left-4 focus:top-4">
           Skip to content
         </a>
         <Header />
         <main id="main">{children}</main>
         <Footer />
         <FloatingWhatsApp />
+        <RevealObserver />
         <Analytics />
         <JsonLd data={localBusinessLd} />
       </body>

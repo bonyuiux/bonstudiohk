@@ -30,6 +30,14 @@
 
 ## Log (newest first)
 
+### 2026-11-25: Izanami-style layout, dark palette, motion (owner feedback)
+- Feedback: "multiple alignments within the same site look messy"; reference https://izanami-official.com/ for layout, transitions and vibe. Owner chose a **dark** palette.
+- Palette: warm night (`#110d09` background, `#ede6dc` text, `#a39788` muted at 6.9:1). Semantic role names unchanged, so components did not need new class names.
+- Layout: two alignment lines (`grid-site`, `axis-*` utilities in globals.css). Checked on 8 pages at 1440px: headings and paragraphs start only at x=112 (margin) or x=422 (content line); the footer clock aligns to the right margin.
+- Services are now full-width sections (words left, photo right) instead of four equal cards. Navigation moved into a full-screen menu; the WhatsApp pill stays in the header.
+- Motion: CSS reveals driven by one IntersectionObserver (`RevealObserver`), `Drift` parallax (desktop only), page crossfade (`app/template.tsx`), menu clip-path wipe. Reduced motion removes movement.
+- Removed `ServiceList`, `ButtonLink`, `PageIntro`, `Reveal`; added `Band`, `PageHead`, `LineLink`, `Figure`, `Drift`, `HKClock`, `ServiceSections`.
+
 ### 2026-11-25: Type system simplified (owner feedback)
 - Feedback: "the font system is too complex; there are multiple styles within the same area" (home intro, About "approach" block).
 - 8 roles → 5 (`t-display`, `t-title`, `t-heading`, `t-body`, `t-small`); 5 weights → 3 (Cormorant 300/400, Jost 400). Lead and body merged into one 18px reading size. All 23 eyebrow labels removed. Inline links are now body text with an underline.
