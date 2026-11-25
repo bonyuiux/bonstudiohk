@@ -1,88 +1,77 @@
 import Link from "next/link";
-import HeroVideo from "@/components/HeroVideo";
-import Shell from "@/components/Shell";
-import Section from "@/components/Section";
-import TextBlock from "@/components/TextBlock";
-import Gallery from "@/components/Gallery";
-import Figure from "@/components/Figure";
-import LineLink from "@/components/LineLink";
-import ServiceList from "@/components/ServiceList";
+import MobileBar from "@/components/MobileBar";
+import Hero from "@/components/Hero";
+import Sidebar from "@/components/Sidebar";
+import PhotoColumns from "@/components/PhotoColumns";
+import ServiceItems from "@/components/ServiceItems";
 import EnquiryForm from "@/components/EnquiryForm";
-import { homeGallery, pages } from "@/content/pages";
-import { site } from "@/content/site";
+import Btn from "@/components/Btn";
+import { home, serviceItems } from "@/content/pages";
 
 export default function Home() {
-  const hk = pages["hong-kong"];
   return (
     <>
-      <HeroVideo />
-      <Shell afterHero>
-        <Section id="intro">
-          <TextBlock
-            title="I capture quiet moments as they naturally unfold — gentle light, honest emotion."
-            summary="A Hong Kong photographer for natural portraits, couples, weddings and travel photoshoots."
-            action={
-              <LineLink href="/about" cta="home_intro_about">
-                About Bon Studio
-              </LineLink>
-            }
-          />
-        </Section>
+      <MobileBar />
+      <Hero lines={home.tagline} />
 
-        <Section label="Selected work">
-          <TextBlock title="Moments with the people who matter.">
-            See more{" "}
-            <Link href="/work/portrait" className="text-ink underline hover:text-accent">portrait</Link>,{" "}
-            <Link href="/work/wedding" className="text-ink underline hover:text-accent">wedding</Link> and{" "}
-            <Link href="/work/commercial" className="text-ink underline hover:text-accent">commercial</Link> work.
-          </TextBlock>
-          <div className="mt-block">
-            <Gallery ids={homeGallery} />
-          </div>
-        </Section>
+      {/* About */}
+      <section className="h-about">
+        <div className="h-about__inner">
+          <p className="h-about__label t-16">{home.aboutLabel}</p>
+          <h2 className="h-about__text">
+            <span className="grey">{home.aboutGrey}</span>
+            <br />
+            <br />
+            {home.aboutBlack.map((part, i) =>
+              typeof part === "string" ? (
+                <span key={i}>{part}</span>
+              ) : (
+                <Link key={i} href={part.href}>
+                  {part.text}
+                </Link>
+              ),
+            )}
+          </h2>
+          <Btn href="/contact" className="h-about__btn">
+            Get in touch
+          </Btn>
+        </div>
+      </section>
 
-        <Section label="Services">
-          <TextBlock title="What I photograph" />
-          <div className="mt-block">
-            <ServiceList />
-          </div>
-        </Section>
+      {/* Works: sidebar + gallery (phone: title + tabs + gallery) */}
+      <section className="h-works">
+        <div className="h-works__head">
+          <h2 className="t-jost-title">Works</h2>
+          <nav className="h-works__tabs" aria-label="Works">
+            <Link href="/portrait">Portrait</Link>
+            <span aria-hidden />
+            <Link href="/wedding">Wedding</Link>
+            <span aria-hidden />
+            <Link href="/hong-kong">Travel</Link>
+          </nav>
+        </div>
+        <Sidebar />
+        <PhotoColumns columns={home.gallery} home />
+      </section>
 
-        <Section label="Hong Kong photoshoot">
-          <div className="split items-center">
-            <div>
-              <TextBlock
-                title={hk.title}
-                summary="A local photographer for couples, families and solo travellers."
-                action={
-                  <LineLink href="/hong-kong" cta="home_hk">
-                    Hong Kong sessions
-                  </LineLink>
-                }
-              >
-                From the harbour to the backstreets — relaxed walking shoots at the best light of the day.
-              </TextBlock>
-            </div>
-            <Figure id="hk-harbourfront-run" aspect="aspect-[4/5]" sizes="(min-width: 1024px) 36vw, (min-width: 768px) 50vw, 100vw" className="row-start-1 md:row-start-auto" />
-          </div>
-          <ul className="mt-block max-w-text border-b border-line">
-            {hk.packages!.map((p, i) => (
-              <li key={p.name} className="border-t border-line py-stack">
-                <TextBlock as="h3" size="heading" index={`0${i + 1}`} title={p.name}>
-                  {p.detail}
-                </TextBlock>
-              </li>
-            ))}
-          </ul>
-        </Section>
+      {/* Service */}
+      <section className="h-sec">
+        <h2 className="t-jost-title">Service</h2>
+        <div className="h-sec__list">
+          <ServiceItems items={serviceItems} />
+          <Btn href="/contact" className="svc__btn">
+            Get in touch
+          </Btn>
+        </div>
+      </section>
 
-        <Section id="enquire" label="Enquire">
-          <TextBlock title="Tell me about your moment.">{site.replyPromise}</TextBlock>
-          <div data-reveal="text" className="mt-block">
-            <EnquiryForm />
-          </div>
-        </Section>
-      </Shell>
+      {/* Contact Us */}
+      <section className="h-sec h-sec--contact">
+        <h2 className="t-jost-title">Contact Us</h2>
+        <div className="h-sec__list">
+          <EnquiryForm />
+        </div>
+      </section>
     </>
   );
 }

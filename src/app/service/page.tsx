@@ -1,26 +1,36 @@
-import Shell from "@/components/Shell";
-import PageHead from "@/components/PageHead";
-import Section from "@/components/Section";
-import ServiceList from "@/components/ServiceList";
-import Process from "@/components/Process";
-import CtaBand from "@/components/CtaBand";
+import Inner from "@/components/Inner";
+import Photo from "@/components/Photo";
+import ServiceItems from "@/components/ServiceItems";
+import Btn from "@/components/Btn";
+import { servicePage, serviceItems } from "@/content/pages";
 import { pageMeta } from "@/lib/seo";
 
 export const metadata = pageMeta({
-  title: "Photography Services in Hong Kong — Portrait, Wedding, Event & Commercial",
-  description: "Portrait, couple, family, pet, pre-wedding, wedding, event and commercial photography in Hong Kong by Bon Studio.",
+  title: "Photography Services in Hong Kong | Portrait, Wedding & Commercial | Bon Studio",
+  description: "Photography services by Bon Studio in Hong Kong including couple portraits, pre-wedding photography, family sessions, travel portraits and commercial photography.",
   path: "/service",
 });
 
 export default function Service() {
   return (
-    <Shell>
-      <PageHead title="Moments with the people who matter." summary="From a one-hour city walk to a full wedding day — every session is calm, natural and planned around the best light." />
-      <Section label="Services">
-        <ServiceList />
-      </Section>
-      <Process />
-      <CtaBand />
-    </Shell>
+    <Inner active="/service">
+      <div className="ph-text">
+        <p className="t-18">{servicePage.label}</p>
+        <h1 className="ph-text__title ph-svc__title t-italiana">{servicePage.title}</h1>
+        <div className="ph-svc__list">
+          <ServiceItems items={serviceItems} page />
+        </div>
+        <Btn href="/contact" className="ph-svc__btn" >
+          Get in touch
+        </Btn>
+        <div className="ph-text__photos">
+          {servicePage.photos.map((id, i) => (
+            <div key={id} className="ph-photo">
+              <Photo id={id} fill sizes={i === 0 ? "(min-width: 810px) 36vw, 100vw" : "(min-width: 810px) 24vw, 100vw"} />
+            </div>
+          ))}
+        </div>
+      </div>
+    </Inner>
   );
 }

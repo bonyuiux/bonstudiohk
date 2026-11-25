@@ -1,121 +1,147 @@
-// Copy and photo order for each portfolio / service page. Reorder photo IDs to reorder the gallery.
+// Copy and photos for every page, exactly as on the original Framer site.
+// Galleries are two columns; each photo is cropped to a landscape ("l") or portrait ("p") frame.
 import type { PhotoId } from "./photos";
-import type { ServiceKey } from "./site";
 
-export type GalleryPageContent = {
-  path: string;
-  service: ServiceKey;
-  label: string;
-  title: string;
-  intro: string;
-  seoTitle: string;
-  seoDescription: string;
-  enquiryType: string; // pre-selects the enquiry form + WhatsApp message
-  photos: PhotoId[];
-  layout?: "masonry" | "grid";
-  packages?: { name: string; detail: string }[];
-  ctaTitle?: string;
+export type Shot = { id: PhotoId; shape: "l" | "p" };
+export type Columns = [Shot[], Shot[]];
+
+const l = (id: PhotoId): Shot => ({ id, shape: "l" });
+const p = (id: PhotoId): Shot => ({ id, shape: "p" });
+
+export const home = {
+  tagline: ["A soft pause in time,", "carefully preserved."],
+  aboutLabel: "About",
+  aboutGrey: "I captures quiet moments as they naturally unfold—gentle light, honest emotion.",
+  // the four highlighted words link to their pages (blue on phones, as on the original)
+  aboutBlack: [
+    "Hong Kong photographer specializing in natural ",
+    { text: "portraits", href: "/portrait" },
+    ", ",
+    { text: "couples", href: "/portrait" },
+    ", ",
+    { text: "wedding", href: "/wedding" },
+    " and ",
+    { text: "travel", href: "/hong-kong" },
+    " photoshoots.",
+  ] as (string | { text: string; href: string })[],
+  gallery: [
+    [l("iceland-highlands"), p("sheep-below-cliff"), l("dolomites-meadow-leap"), p("couple-laughing-grass")],
+    [p("ferry-deck-portrait"), p("dolomites-lake-couple"), l("couple-sunset-silhouette"), l("family-cabin-build")],
+  ] as Columns,
 };
 
-export const homeGallery: PhotoId[] = [
-  "dolomites-meadow-leap",
-  "ferry-deck-portrait",
-  "lamma-pier-dance",
-  "couple-laughing-grass",
-  "hk-harbourfront-run",
-  "girl-and-dog",
-  "dolomites-lake-couple",
-  "bride-veil-coast",
-  "couple-sunset-silhouette",
-  "hk-skyline-portrait",
-  "family-cabin-build",
-  "clifftop-traveller",
+export const serviceItems = [
+  { name: "Portrait", desc: "Couples / Family / Pet / Travel Portraits" },
+  { name: "Wedding", desc: "Registry Office / Pre-Wedding / Full Wedding" },
+  { name: "Commercial", desc: "Brand Campaigns / Products / Corporate Headshots / Social Media" },
 ];
 
-export const pages: Record<string, GalleryPageContent> = {
+export type CategoryPage = {
+  path: string;
+  title: string;
+  intro: string;
+  gallery: Columns;
+  gallery2?: Columns; // a second gallery under the first (Event page)
+  enquiry: string; // shoot type for the WhatsApp message
+  seoTitle: string;
+  seoDescription: string;
+};
+
+export const categories: Record<"portrait" | "wedding" | "event", CategoryPage> = {
   portrait: {
     path: "/portrait",
-    service: "portrait",
-    label: "Portrait",
-    title: "Portraits that feel like you, on a good day.",
-    intro: "For couples, families, friends and travellers in Hong Kong and beyond — a relaxed session, gentle direction and a moment kept in time.",
-    seoTitle: "Portrait Photographer in Hong Kong — Couples, Family & Pet Photoshoots",
-    seoDescription: "Natural portrait photography in Hong Kong for couples, families, pets and travellers. Relaxed, unposed sessions in calm, airy light by Bon Studio.",
-    enquiryType: "Couple / portrait",
-    photos: ["lakeside-arch-portrait", "dunes-portrait", "beanie-warm-drink", "harbour-promenade-portrait", "family-harbourfront", "ferry-deck-portrait", "valley-church-couple", "family-cabin-build", "girl-and-dog", "couple-caravan"],
+    title: "Portrait",
+    intro: "For couples, families, and travelers in Hong Kong and beyond — a moment kept in time.",
+    gallery: [
+      [l("lakeside-arch-portrait"), p("beanie-warm-drink"), l("family-harbourfront"), p("ferry-deck-portrait")],
+      [p("dunes-portrait"), p("harbour-promenade-portrait"), l("valley-church-couple"), l("family-cabin-build")],
+    ],
+    enquiry: "portrait",
+    seoTitle: "Portrait Photographer Hong Kong | Couples, Families & Travelers | Bon Studio",
+    seoDescription: "Natural portrait photography in Hong Kong for couples, families and travelers. Relaxed photoshoots capturing real moments in beautiful light across the city.",
   },
   wedding: {
     path: "/wedding",
-    service: "wedding",
-    label: "Wedding",
-    title: "For the quiet moments between two people in love.",
-    intro: "Registry office, pre-wedding and full-day coverage — photographed in Hong Kong and wherever the story leads.",
-    seoTitle: "Wedding & Pre-Wedding Photographer in Hong Kong",
-    seoDescription: "Hong Kong wedding, registry office and pre-wedding photography with a calm, documentary feel. Lamma Island, the harbour, the countryside and overseas.",
-    enquiryType: "Wedding / registry office",
-    photos: ["bride-veil-coast", "bride-window-light", "couple-orange-house", "lamma-pier-dance", "wedding-toast-bw", "garden-path-couple", "football-jersey-couple", "wedding-guests-cheer", "registry-couple-embrace", "bride-beach-dusk"],
+    title: "Wedding",
+    intro: "For the quiet moments between two people in love. Photographed in Hong Kong and wherever the story leads.",
+    gallery: [
+      [l("bride-veil-coast"), p("couple-orange-house"), l("wedding-toast-bw"), p("garden-path-couple")],
+      [p("bride-window-light"), p("lamma-pier-dance"), l("football-jersey-couple"), l("wedding-guests-cheer")],
+    ],
+    enquiry: "wedding",
+    seoTitle: "Wedding & Pre-Wedding Photographer Hong Kong | Bon Studio",
+    seoDescription: "Wedding and pre-wedding photography in Hong Kong capturing real moments between couples. Natural, light-filled storytelling for your love story.",
   },
   event: {
     path: "/event",
-    service: "event",
-    label: "Event",
-    title: "Your event, covered end to end.",
-    intro: "Corporate talks and dinners, school ceremonies, sports days, birthdays and family gatherings — the people, the atmosphere and every key moment.",
-    seoTitle: "Event Photographer in Hong Kong — Corporate, School & Sports",
-    seoDescription: "Event photography in Hong Kong for corporate functions, seminars, school ceremonies, sports and private celebrations. Natural, unobtrusive coverage.",
-    enquiryType: "Event",
-    photos: ["event-harbour-talk", "event-podium-speech", "event-ceremony-students", "event-seminar-speaker", "event-group-photo", "event-photo-booth", "event-gala-dinner", "event-team-lineup", "event-workshop", "volleyball-celebration", "volleyball-team-huddle", "volleyball-team-photo"],
-    ctaTitle: "Planning an event?",
-  },
-  "hong-kong": {
-    path: "/hong-kong",
-    service: "hong-kong",
-    label: "Hong Kong Photoshoot",
-    title: "A photoshoot that feels like a walk through the city.",
-    intro: "Visiting Hong Kong? Explore it with a local photographer — natural photos for couples, families and solo travellers, from the harbour to the backstreets.",
-    seoTitle: "Hong Kong Photoshoot for Travellers & Couples — Local Photographer",
-    seoDescription: "Book a Hong Kong vacation photoshoot with a local photographer. Relaxed walking sessions at Victoria Harbour, Central, The Peak and hidden streets.",
-    enquiryType: "Hong Kong travel photoshoot",
-    photos: ["hk-harbourfront-run", "hk-footbridge-portrait", "hk-skyline-portrait", "hk-street-couple", "hk-shoreline-portrait", "hk-red-railing-friends", "hk-promenade-walk", "tram-stop-night", "harbour-promenade-portrait"],
-    packages: [
-      { name: "Short City Session", detail: "About 1 hour · 1 location · ideal for couples or solo travellers" },
-      { name: "Story Walk", detail: "About 1.5–2 hours · 2 locations · a relaxed walking shoot" },
-      { name: "Extended Session", detail: "About 3 hours · a deeper exploration of the city" },
+    title: "Event",
+    intro: "Corporate, school and sports events, birthdays and family gatherings — covered end to end.",
+    gallery: [
+      [l("event-harbour-talk"), p("event-ceremony-students"), l("event-group-photo"), p("event-photo-booth")],
+      [p("event-podium-speech"), p("event-seminar-speaker"), l("event-gala-dinner"), l("event-team-lineup")],
     ],
-    ctaTitle: "Visiting Hong Kong soon?",
+    gallery2: [
+      [l("event-workshop"), p("volleyball-team-huddle")],
+      [p("volleyball-celebration"), l("volleyball-team-photo")],
+    ],
+    enquiry: "event",
+    // the Framer site reused the wedding title here; this one describes the page
+    seoTitle: "Event Photographer Hong Kong | Corporate, School & Sports | Bon Studio",
+    seoDescription: "Event photography in Hong Kong for corporate functions, school ceremonies, sports and family gatherings — covered end to end by Bon Studio.",
   },
-  "work/portrait": {
-    path: "/work/portrait",
-    service: "portrait",
-    label: "Work · Portrait",
-    title: "Portrait",
-    intro: "Couples, travellers and people in their own light.",
-    seoTitle: "Portrait Portfolio",
-    seoDescription: "Selected portrait and couple photography by Bon Studio, Hong Kong.",
-    enquiryType: "Couple / portrait",
-    photos: ["couple-laughing-grass", "harbour-promenade-portrait", "beanie-warm-drink", "christmas-night-portrait", "tram-stop-night", "dunes-portrait", "valley-church-couple", "couple-sunset-silhouette", "footbridge-portrait-bw", "dolomites-lake-couple-2"],
+};
+
+export const hongKong = {
+  label: "Hong Kong Photoshoot",
+  title: "A photoshoot that feels like a walk through the city",
+  intro: "Capture your journey through Hong Kong with a local photographer — natural photos for couples, families, and travelers visiting the city.",
+  sessions: [
+    { name: "Short City Session", desc: "~1 hour • 1 location • ideal for couples or solo travelers" },
+    { name: "Story Walk", desc: "~1.5–2 hours • 2 locations • relaxed walking shoot" },
+    { name: "Extended Session", desc: "~3 hours • deeper exploration of the city" },
+  ],
+  gallery: [
+    [p("hk-harbourfront-run"), p("hk-street-couple"), p("hk-promenade-walk")],
+    [l("hk-footbridge-portrait"), p("hk-skyline-portrait"), l("hk-shoreline-portrait"), p("hk-red-railing-friends")],
+  ] as Columns,
+};
+
+export const about = {
+  label: "About",
+  title: "A soft pause in time, carefully preserved.",
+  lead: "Bon Studio is a Hong Kong–based photography studio focused on calm, natural portraits.",
+  body: "I’m drawn to the in-between moments — when light settles, expressions soften, and things feel quietly alive.With a minimalist and airy approach, I photograph couples, people, and travelers in a way that feels relaxed and unforced. The goal isn’t to stage a moment, but to notice it and keep it.",
+  photos: ["couple-caravan", "clifftop-traveller"] as [PhotoId, PhotoId],
+};
+
+export const servicePage = {
+  label: "Service",
+  title: "Moments with the people who matter.",
+  photos: ["family-cabin-build", "girl-and-dog"] as [PhotoId, PhotoId],
+};
+
+export const contactPage = {
+  label: "Contact",
+  title: "Let's connect!",
+  intro: "Share your idea, your story, or a moment you’d like to remember. Whether it’s a portrait session, a couple shoot, or a visit to Hong Kong — I’d love to hear about it.",
+  intro2: "We’d love to hear from you!",
+};
+
+/** /work/* pages: hero + large rounded photos in their natural shape. `rows` = left/right pairs, top to bottom. */
+export const work: Record<"portrait" | "wedding" | "commercial", { word: string; left: PhotoId[]; right: PhotoId[] }> = {
+  portrait: {
+    word: "Portrait",
+    left: ["couple-laughing-grass", "beanie-warm-drink", "tram-stop-night", "valley-church-couple", "footbridge-portrait-bw"],
+    right: ["harbour-promenade-portrait", "christmas-night-portrait", "dunes-portrait", "couple-sunset-silhouette", "dolomites-lake-couple-2"],
   },
-  "work/wedding": {
-    path: "/work/wedding",
-    service: "wedding",
-    label: "Work · Wedding",
-    title: "Wedding",
-    intro: "Registry days, small ceremonies and the details in between.",
-    seoTitle: "Wedding Portfolio",
-    seoDescription: "Selected wedding, registry office and engagement photography by Bon Studio, Hong Kong.",
-    enquiryType: "Wedding / registry office",
-    photos: ["registry-bride-bouquet", "registry-couple-embrace", "bride-beach-dusk", "football-jersey-couple", "wedding-rings-detail", "engagement-ring-hand", "hands-on-sand"],
+  wedding: {
+    word: "Wedding",
+    left: ["registry-bride-bouquet", "football-jersey-couple", "wedding-rings-detail", "hands-on-sand"],
+    right: ["registry-couple-embrace", "bride-beach-dusk", "engagement-ring-hand"],
   },
-  "work/commercial": {
-    path: "/work/commercial",
-    service: "commercial",
-    label: "Work · Commercial",
-    title: "Commercial",
-    intro: "Brand campaigns, products, people and launches — natural light, real feeling.",
-    seoTitle: "Commercial & Brand Photography Portfolio",
-    seoDescription: "Brand campaign, product and corporate photography in Hong Kong by Bon Studio — KAVU, KEEN and more.",
-    enquiryType: "Commercial / brand",
-    photos: ["kavu-campaign-1", "kavu-campaign-2", "kavu-campaign-3", "kavu-campaign-4", "keen-uneek-blue", "keen-uneek-yellow", "brand-founders", "brand-workshop", "brand-team-launch", "event-harbour-talk"],
-    layout: "grid",
+  commercial: {
+    word: "commercial",
+    left: ["kavu-campaign-1", "kavu-campaign-3", "keen-uneek-blue", "brand-founders", "brand-team-launch"],
+    right: ["kavu-campaign-2", "kavu-campaign-4", "keen-uneek-yellow", "event-harbour-talk", "brand-workshop"],
   },
 };

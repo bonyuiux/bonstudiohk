@@ -6,7 +6,7 @@ export const site = {
   url: "https://bonstudiohk.com",
   tagline: "A soft pause in time, carefully preserved.",
   description:
-    "Bon Studio is a Hong Kong photographer for calm, natural portraits — couples, families, weddings, events and travel photoshoots across Victoria Harbour, Lamma Island, The Peak and beyond.",
+    "Bon Studio is a Hong Kong photographer specializing in natural portrait photography for couples, travelers, and families. Photoshoots across Victoria Harbour, Lamma Island, The Peak, and other beautiful locations in Hong Kong.",
   city: "Hong Kong",
   email: "bonphotograph@gmail.com",
   phoneDisplay: "+852 6576 3288",

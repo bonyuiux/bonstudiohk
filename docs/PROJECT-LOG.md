@@ -6,16 +6,15 @@
 
 - **Code:** GitHub `bonyuiux/bonstudiohk`, branch `main`.
 - **Live site:** still on **Framer** until the domain is switched (see "Go-live checklist").
-- **What it is:** a redesign of the Framer site with the same pages and URLs, a new consistent design system, a WhatsApp-first enquiry flow and a marketing layer (GA4, GTM, Google Ads, Meta and TikTok tags, lead events, UTM attribution, SEO).
+- **What it is:** a 1:1 code replica of the Framer site (same pages, URLs, look and copy), with the enquiry form sending to WhatsApp and a marketing layer underneath (GA4, GTM, Google Ads, Meta and TikTok tags, lead events, UTM attribution, SEO).
 - **Photos:** taken from the Framer CDN at their original upload resolution (up to 7008px), then resized to a 2400px long edge in `public/images/`. The owner has the originals and can re-export any photo with `npm run photos`.
 - **Language:** English only for now. Traditional Chinese may come later (Next.js i18n routing, `/zh-hk/...`).
 - **Content editing:** decision pending (keep editing files with an AI tool, or add a visual CMS later).
 
 ## Decisions
 
-- **Redesign, not a pixel copy.** The owner's main complaint was an inconsistent type system. The Framer site used Italiana, Jost, DM Sans and a system font across 11 sizes. Now: Cormorant Garamond and Jost, 5 named type roles, even-pixel values only (see `/styleguide`).
+- **1:1 replica of the Framer site** (final decision after trying three redesigns; see Log). Do not redesign without the owner asking.
 - **Enquiries go to WhatsApp** (owner's choice). The form writes a message from the answers and opens WhatsApp, then shows `/thankyou`. There is no server, database or email service to maintain.
-- **Navigation** moved from a left sidebar to a top bar with an always-visible WhatsApp button, plus a floating WhatsApp button on phones.
 - **Facebook link:** the Framer contact page said "Facebook" but had no URL, so it is left out. Add it to `site.ts` if there is a page.
 - Location captions from the Framer gallery ("Croatia, 2025"…) were not attached to specific photos in Framer, so they are not shown, to avoid labelling photos wrongly.
 
@@ -29,6 +28,12 @@
 6. Cancel the Framer plan once Vercel shows the domains as Valid.
 
 ## Log (newest first)
+
+### 2026-11-25: 1:1 replica of the original Framer site (owner decision: "back to OG, 100%")
+- All redesign work (paper/dark versions, new type system) is replaced by an exact rebuild of the live Framer site. Measured every text element, photo and section on all 12 pages at 1440, 810 and 390px, rebuilt to those numbers, then diffed: text and photos land within 3px of the original everywhere checked.
+- Kept from the migration: WhatsApp enquiry flow (the original form's fields), GA4/GTM/Ads/Meta/TikTok tags and lead events, UTM attribution, SEO (original titles/descriptions, sitemap, JSON-LD, alt text).
+- Original quirks kept on purpose: copy as written ("I captures…", "alive.With", "2025 Own by Bon Studio."), phone has no menu (only the logo bar and the Works tabs on home), unlabelled "Facebook" text, blue phone number.
+- Original quirks NOT copied: the 200px blank strip under the footer; the Event page's duplicate Wedding title; the tablet Event sidebar highlighting Wedding; a tablet-only crop of one /work photo.
 
 ### 2026-11-25: Back to the original layout, with a clean type and spacing system (owner decision)
 - Owner rejected the dark Izanami direction overall. Kept from it: the type hierarchy of the service blocks (number → title → ink summary → grey detail → line link).

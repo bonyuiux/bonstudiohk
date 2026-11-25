@@ -30,7 +30,7 @@ Every event is pushed to the GTM `dataLayer` and to each tag that is switched on
 | `cta_click` | "See Hong Kong sessions", "Send an enquiry", service cards… | — | event | — | — | — |
 | Page views | Every page, including in-app navigation | — | auto | auto | `PageView` | `page` |
 
-Each event carries `page_path`, `link_location` (header, footer, floating button…), `service` where known, and `lead_source`, the campaign that brought the visitor (see below).
+Each event carries `page_path`, `link_location` (sidebar, footer, contact page…), `service` where known, and `lead_source`, the campaign that brought the visitor (see below).
 
 **In GA4:** mark `generate_lead` as a **key event** (Admin → Events), so it shows as a conversion.
 

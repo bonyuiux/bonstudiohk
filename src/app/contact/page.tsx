@@ -1,59 +1,47 @@
-import Shell from "@/components/Shell";
-import PageHead from "@/components/PageHead";
-import Section from "@/components/Section";
-import TextBlock from "@/components/TextBlock";
-import EnquiryForm from "@/components/EnquiryForm";
-import WhatsAppButton from "@/components/WhatsAppButton";
+import Inner from "@/components/Inner";
+import { contactPage } from "@/content/pages";
 import { site } from "@/content/site";
 import { pageMeta } from "@/lib/seo";
 
 export const metadata = pageMeta({
-  title: "Contact — Book a Photoshoot in Hong Kong",
-  description: "Ask about a portrait, couple, wedding, event or Hong Kong travel photoshoot. Message Bon Studio on WhatsApp at +852 6576 3288.",
+  title: "Contact Bon Studio | Hong Kong Photographer",
+  description: "Get in touch with Bon Studio for portrait, wedding or travel photography in Hong Kong. Inquiries and bookings available via Instagram or WhatsApp.",
   path: "/contact",
 });
 
 export default function Contact() {
-  const rows = [
-    { label: "WhatsApp & phone", value: site.phoneDisplay, href: `https://wa.me/${site.whatsappNumber}` },
-    { label: "Email", value: site.email, href: `mailto:${site.email}` },
-    { label: "Instagram", value: site.instagram.handle, href: site.instagram.url },
-  ];
   return (
-    <Shell>
-      <PageHead
-        title="Let’s connect."
-        summary="Share your idea, your story, or a moment you’d like to remember."
-        action={<WhatsAppButton location="contact_head" label="WhatsApp us — fastest reply" />}
-      >
-        Whether it’s a portrait session, a couple shoot or a visit to Hong Kong — I’d love to hear about it. {site.replyPromise}
-      </PageHead>
-      <Section label="Enquiry form">
-        <TextBlock size="heading" title="Send an enquiry" />
-        <div data-reveal="text" className="mt-block">
-          <EnquiryForm />
-        </div>
-      </Section>
-      <Section label="Details">
-        <dl className="max-w-text border-b border-line">
-          {rows.map((r) => (
-            <div key={r.label} className="flex flex-col gap-tight border-t border-line py-stack sm:flex-row sm:gap-stack">
-              <dt className="t-small w-40 shrink-0 pt-1 text-muted">{r.label}</dt>
-              <dd>
-                <a
-                  href={r.href}
-                  data-location="contact_page"
-                  target={r.href.startsWith("http") ? "_blank" : undefined}
-                  rel={r.href.startsWith("http") ? "noopener" : undefined}
-                  className="t-body transition-colors hover:text-accent"
-                >
-                  {r.value}
-                </a>
-              </dd>
+    <Inner active="/contact">
+      <div className="ph-text ph-text--flush">
+        <p className="t-18">{contactPage.label}</p>
+        <h1 className="ct__title t-italiana">{contactPage.title}</h1>
+        <p className="ct__intro t-16">
+          {contactPage.intro}
+          <br />
+          {contactPage.intro2}
+        </p>
+        <div className="ct__rows">
+          <div>
+            <p className="ct__label t-14">Email</p>
+            <div className="ct__value">
+              <a className="t-18" href={`mailto:${site.email}`} data-location="contact_page">{site.email}</a>
             </div>
-          ))}
-        </dl>
-      </Section>
-    </Shell>
+          </div>
+          <div>
+            <p className="ct__label t-14">Tel &amp; Wtsapp</p>
+            <div className="ct__value">
+              <a className="t-18 blue" href={`https://wa.me/${site.whatsappNumber}`} target="_blank" rel="noopener" data-location="contact_page">{site.phoneDisplay}</a>
+            </div>
+          </div>
+          <div>
+            <p className="ct__label t-14">Social</p>
+            <div className="ct__value">
+              <a className="t-18" href={site.instagram.url} target="_blank" rel="noopener" data-location="contact_page">Instagram</a>
+              <span className="t-18">Facebook</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </Inner>
   );
 }

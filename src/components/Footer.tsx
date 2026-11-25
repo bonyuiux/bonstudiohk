@@ -1,53 +1,44 @@
-import Link from "next/link";
-import Image from "next/image";
-import { nav, site } from "@/content/site";
-import WhatsAppButton from "./WhatsAppButton";
+import { site } from "@/content/site";
+import Btn from "./Btn";
+import { ArrowIcon, WhatsAppIcon } from "./icons";
 
-/** Footer on the same shell: wordmark + nav on the left, words on the content edge. */
+/** The original brown footer. */
 export default function Footer() {
-  const rows = [
-    { label: "WhatsApp & phone", value: site.phoneDisplay, href: `https://wa.me/${site.whatsappNumber}` },
-    { label: "Email", value: site.email, href: `mailto:${site.email}` },
-    { label: "Instagram", value: site.instagram.handle, href: site.instagram.url },
-  ];
   return (
-    <footer className="bg-deep text-on-deep">
-      <div className="shell gap-y-block py-section">
-        <div className="hidden lg:block">
-          <Image src="/brand/wordmark-white.png" alt="Bon Studio" width={723} height={126} className="h-6 w-auto" />
-          <ul className="mt-block space-y-tight">
-            {[...nav.work, ...nav.studio].map((l) => (
-              <li key={l.href}>
-                <Link href={l.href} className="t-body opacity-70 transition-opacity hover:opacity-100">
-                  {l.label}
-                </Link>
-              </li>
-            ))}
-          </ul>
+    <footer className="foot">
+      <div className="foot__top">
+        <div>
+          <p className="t-16">Contact</p>
+          <h2 className="foot__title t-jost-title">Let’s capture something timeless.</h2>
+          <Btn href="/contact" variant="white" className="foot__btn">
+            Let&apos;s connect
+          </Btn>
         </div>
-        <div className="shell-content">
-          <div className="max-w-text">
-            <h2 className="t-title">Let’s capture something timeless.</h2>
-            <p className="t-body mt-stack opacity-75">{site.replyPromise}</p>
-            <div className="mt-block">
-              <WhatsAppButton tone="line" location="footer" label="Start a chat on WhatsApp" />
-            </div>
+        <div className="foot__rows">
+          <div>
+            <p className="foot__label t-14">Instagram</p>
+            <a className="foot__row" href={site.instagram.url} target="_blank" rel="noopener" data-location="footer">
+              <span className="t-18">{site.instagram.handle}</span>
+              <span className="foot__icon"><ArrowIcon /></span>
+            </a>
           </div>
-          <dl className="mt-section max-w-text border-b border-on-deep/15">
-            {rows.map((r) => (
-              <div key={r.label} className="flex flex-col gap-tight border-t border-on-deep/15 py-stack sm:flex-row sm:gap-stack">
-                <dt className="t-small w-40 shrink-0 pt-1 opacity-60">{r.label}</dt>
-                <dd>
-                  <a href={r.href} data-location="footer_details" target={r.href.startsWith("http") ? "_blank" : undefined} rel={r.href.startsWith("http") ? "noopener" : undefined} className="t-body transition-opacity hover:opacity-70">
-                    {r.value}
-                  </a>
-                </dd>
-              </div>
-            ))}
-          </dl>
-          <p className="t-small mt-block opacity-60">© {new Date().getFullYear()} Bon Studio, Hong Kong</p>
+          <div>
+            <p className="foot__label t-14">Email</p>
+            <a className="foot__row" href={`mailto:${site.email}`} data-location="footer">
+              <span className="t-18">{site.email}</span>
+              <span className="foot__icon"><ArrowIcon /></span>
+            </a>
+          </div>
+          <div>
+            <p className="foot__label t-14">Tel &amp; Wtsapp</p>
+            <a className="foot__row" href={`https://wa.me/${site.whatsappNumber}`} target="_blank" rel="noopener" data-location="footer">
+              <span className="t-18 blue">{site.phoneDisplay}</span>
+              <span className="foot__icon"><WhatsAppIcon /></span>
+            </a>
+          </div>
         </div>
       </div>
+      <p className="foot__copy t-16">2025 Own by Bon Studio.</p>
     </footer>
   );
 }

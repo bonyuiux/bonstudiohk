@@ -1,11 +1,12 @@
-import GalleryPage from "@/components/templates/GalleryPage";
-import { pages } from "@/content/pages";
+import Work from "../../WorkPage";
 import { pageMeta } from "@/lib/seo";
 
-const page = pages["work/wedding"];
-
-export const metadata = pageMeta({ title: page.seoTitle, description: page.seoDescription, path: page.path, image: `/images/${page.photos[0]}.jpg` });
+export const metadata = pageMeta({
+  title: "Bon Studio.",
+  description: "Bon Studio — minimalist commercial and portrait photography in Hong Kong. Soft, bright images that capture quiet, beautiful moments with intentional light and simplicity.",
+  path: "/work/wedding",
+});
 
 export default function Page() {
-  return <GalleryPage page={page} variant="portfolio" />;
+  return <Work k="wedding" />;
 }

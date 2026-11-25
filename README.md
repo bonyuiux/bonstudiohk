@@ -24,7 +24,7 @@ npm run dev      # http://localhost:3000
 | Home page photos (Selected work) | `homeGallery` in `src/content/pages.ts` |
 | Photo list and alt text | `src/content/photos.ts` |
 | Home, About, Service, Contact pages | `src/app/<page>/page.tsx` |
-| Colours, fonts, type scale | `src/app/globals.css` (live reference at `/styleguide`) |
+| Colours, fonts, sizes, spacing | `src/app/globals.css` |
 | Header, footer, buttons, form | `src/components/` |
 | Marketing tag IDs | environment variables, see `.env.example` |
 
@@ -37,17 +37,17 @@ npm run dev      # http://localhost:3000
 
 ## Pages (same addresses as the Framer site)
 
-`/` · `/portrait` · `/wedding` · `/event` · `/hong-kong` · `/about` · `/service` · `/contact` · `/work/portrait` · `/work/wedding` · `/work/commercial` · `/thankyou` · `/styleguide` (internal, not indexed).
+`/` · `/portrait` · `/wedding` · `/event` · `/hong-kong` · `/about` · `/service` · `/contact` · `/work/portrait` · `/work/wedding` · `/work/commercial` · `/thankyou`.
 
-## Design system
+## Design
 
-The original Framer look (warm paper, sidebar on the left, photos on the right), rebuilt with one clean type and spacing system. Live reference: `/styleguide`.
+A 1:1 rebuild of the original Framer site: same layout, fonts (Italiana, Jost, Inter), colours, spacing and copy at its three breakpoints (phone < 810px, tablet 810–1199px, desktop ≥ 1200px). All look values are in `src/app/globals.css`.
 
-- **Layout:** every page is a sticky sidebar on the left and content on the right. The home page has the full-width hero video above it. Everything in the content column is left-aligned.
-- **Two typefaces, five roles:** `t-display` (hero), `t-title`, `t-heading`, `t-body` (18/30px), `t-small` (14/20px).
-- **One text pattern** (`TextBlock`): small number → serif title → one-line summary in dark ink → detail in grey → line link.
-- **One spacing scale:** tight 8 · stack 24 · block 40 · row 64 · section 64/96/128 · gallery 16/24. Every value is an even number of pixels.
-- **Links** are a line and a word; the only pill is WhatsApp.
+Differences from the Framer site, on purpose:
+- The Contact Us form sends to **WhatsApp** (opens a pre-filled message, then shows `/thankyou`).
+- The blank white strip that Framer left under the footer is gone.
+- The Event page has its own Google title (Framer reused the Wedding one), and its sidebar highlights Event on tablet.
+- Marketing tags, events and SEO run underneath (see `docs/MARKETING.md`).
 
 ## Deploy
 

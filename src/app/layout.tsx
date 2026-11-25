@@ -1,29 +1,20 @@
 import type { Metadata, Viewport } from "next";
-import { Cormorant_Garamond, Jost } from "next/font/google";
-import Header from "@/components/Header";
+import { Italiana, Jost, Inter } from "next/font/google";
 import Footer from "@/components/Footer";
 import Analytics from "@/components/Analytics";
-import FloatingWhatsApp from "@/components/FloatingWhatsApp";
 import JsonLd from "@/components/JsonLd";
-import RevealObserver from "@/components/RevealObserver";
 import { site } from "@/content/site";
 import { localBusinessLd } from "@/lib/seo";
 import "./globals.css";
 
-const cormorant = Cormorant_Garamond({
-  variable: "--font-cormorant",
-  subsets: ["latin"],
-  weight: ["300", "400"],
-  display: "swap",
-});
-const jost = Jost({ variable: "--font-jost", subsets: ["latin"], weight: ["400"], display: "swap" });
+// The original site's fonts
+const italiana = Italiana({ variable: "--font-italiana-loaded", subsets: ["latin"], weight: "400", display: "swap" });
+const jost = Jost({ variable: "--font-jost-loaded", subsets: ["latin"], weight: ["400", "500", "700"], style: ["normal", "italic"], display: "swap" });
+const inter = Inter({ variable: "--font-inter-loaded", subsets: ["latin"], weight: ["400"], display: "swap" });
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
-  title: {
-    default: "Hong Kong Photographer | Couple, Pre-Wedding & Travel Portraits | Bon Studio",
-    template: "%s | Bon Studio Hong Kong",
-  },
+  title: { default: "Hong Kong Photographer | Couple, Pre-Wedding & Travel Portraits | Bon Studio", template: "%s" },
   description: site.description,
   applicationName: site.name,
   alternates: { canonical: "/" },
@@ -32,26 +23,14 @@ export const metadata: Metadata = {
   robots: { index: true, follow: true },
 };
 
-export const viewport: Viewport = {
-  themeColor: "#f4f2ee",
-};
+export const viewport: Viewport = { themeColor: "#ffffff" };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en" data-scroll-behavior="smooth" className={`${cormorant.variable} ${jost.variable}`} suppressHydrationWarning>
-      <head>
-        {/* Opt into scroll reveals before first paint; without JS everything stays visible */}
-        <script dangerouslySetInnerHTML={{ __html: "document.documentElement.classList.add('js')" }} />
-      </head>
+    <html lang="en" className={`${italiana.variable} ${jost.variable} ${inter.variable}`}>
       <body>
-        <a href="#main" className="t-small sr-only z-[60] rounded-pill bg-ink px-4 py-2 text-paper focus:not-sr-only focus:fixed focus:left-4 focus:top-4">
-          Skip to content
-        </a>
-        <Header />
         <main id="main">{children}</main>
         <Footer />
-        <FloatingWhatsApp />
-        <RevealObserver />
         <Analytics />
         <JsonLd data={localBusinessLd} />
       </body>

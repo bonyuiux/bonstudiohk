@@ -2,92 +2,65 @@
 
 import { useRouter } from "next/navigation";
 import { useState, type FormEvent } from "react";
-import { enquiryTypes } from "@/content/site";
 import { whatsappUrl } from "@/lib/whatsapp";
 import { track } from "@/lib/analytics";
-import { WhatsAppIcon } from "./icons";
 
 /**
- * Enquiry form that sends to WhatsApp: it writes a tidy message from the answers and
- * opens WhatsApp with it, so every lead lands in one inbox. No server or database needed.
+ * The original "Contact Us" form (Name, Phone number, Email, Message → Submit).
+ * Instead of emailing, it writes a WhatsApp message from the answers, opens WhatsApp and shows /thankyou.
  */
-export default function EnquiryForm({ defaultType }: { defaultType?: string }) {
+export default function EnquiryForm() {
   const router = useRouter();
   const [error, setError] = useState("");
 
   function onSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const f = new FormData(e.currentTarget);
-    const name = String(f.get("name") ?? "").trim();
-    const type = String(f.get("type") ?? "");
-    const date = String(f.get("date") ?? "").trim();
-    const place = String(f.get("place") ?? "").trim();
-    const message = String(f.get("message") ?? "").trim();
-    if (!name) {
-      setError("Please add your name so I know who I’m talking to.");
+    const v = (k: string) => String(f.get(k) ?? "").trim();
+    if (!v("name")) {
+      setError("Please add your name.");
       return;
     }
     setError("");
-    const lines = [
-      `Hi Bon Studio! I'm ${name}.`,
-      `I'm interested in: ${type}`,
-      date && `Date: ${date}`,
-      place && `Place: ${place}`,
-      message && `\n${message}`,
-    ].filter(Boolean);
-    const url = whatsappUrl(lines.join("\n"));
-    track("enquiry_submit", { service: type, link_location: "enquiry_form" });
+    const text = [`Hi Bon Studio! I'm ${v("name")}.`, v("phone") && `Phone: ${v("phone")}`, v("email") && `Email: ${v("email")}`, v("message") && `\n${v("message")}`]
+      .filter(Boolean)
+      .join("\n");
+    const url = whatsappUrl(text);
+    track("enquiry_submit", { link_location: "contact_form" });
     // (a "noopener" feature string would make window.open return null, so detach the opener by hand)
     const win = window.open(url, "_blank");
     if (win) {
       win.opener = null;
       router.push("/thankyou");
-    }
-    else window.location.href = url; // pop-up blocked: go straight to WhatsApp
+    } else window.location.href = url;
   }
 
-  // Quiet underlined fields: no boxes, the line is the field.
-  const field =
-    "mt-tight block w-full border-0 border-b border-line bg-transparent px-0 py-2 t-body text-ink placeholder:text-muted/60 transition-colors focus:border-accent focus:outline-none";
-
   return (
-    <form onSubmit={onSubmit} noValidate className="grid max-w-[800px] gap-stack sm:grid-cols-2">
-      <label className="t-small text-muted sm:col-span-1">
-        Your name
-        <input name="name" autoComplete="name" required className={field} placeholder="Chris Wong" />
+    <form className="form" onSubmit={onSubmit} noValidate>
+      <label>
+        <span className="t-14">Name</span>
+        <input name="name" autoComplete="name" placeholder="Your Name" />
       </label>
-      <label className="t-small text-muted sm:col-span-1">
-        Type of shoot
-        <select name="type" defaultValue={defaultType ?? enquiryTypes[0]} className={`${field} appearance-none bg-[url('data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 16 16%22><path d=%22M4 6l4 4 4-4%22 fill=%22none%22 stroke=%22%235f564d%22 stroke-width=%221.5%22/></svg>')] bg-[length:16px] bg-[right_0_center] bg-no-repeat pr-8`}>
-          {enquiryTypes.map((t) => (
-            <option key={t}>{t}</option>
-          ))}
-        </select>
+      <label>
+        <span className="t-14">Phone number</span>
+        <input name="phone" type="tel" autoComplete="tel" placeholder="+852 1234 5678" />
       </label>
-      <label className="t-small text-muted">
-        Date <span className="text-muted/70">(if you know it)</span>
-        <input name="date" className={field} placeholder="e.g. mid-March, a weekend" />
+      <label>
+        <span className="t-14">Email</span>
+        <input name="email" type="email" autoComplete="email" placeholder="example@email.com" />
       </label>
-      <label className="t-small text-muted">
-        Place <span className="text-muted/70">(optional)</span>
-        <input name="place" className={field} placeholder="e.g. The Peak, Lamma Island" />
-      </label>
-      <label className="t-small text-muted sm:col-span-2">
-        Tell me about it
-        <textarea name="message" rows={5} className={`${field} resize-y`} placeholder="Who’s in the photos, the feeling you’re after, anything else…" />
+      <label>
+        <span className="t-14">Message</span>
+        <textarea name="message" placeholder="Your message" />
       </label>
       {error && (
-        <p role="alert" className="t-small text-accent sm:col-span-2">
+        <p role="alert" className="form__error t-14">
           {error}
         </p>
       )}
-      <div className="mt-tight flex flex-col items-start gap-stack sm:col-span-2">
-        <button type="submit" className="t-small inline-flex h-12 items-center justify-center gap-2 rounded-pill bg-accent px-8 text-on-deep transition-colors hover:bg-deep">
-          <WhatsAppIcon className="h-[18px] w-[18px]" />
-          Send on WhatsApp
-        </button>
-        <p className="t-small text-muted">This opens WhatsApp with your message ready to send.</p>
-      </div>
+      <button type="submit" className="btn btn--block">
+        Submit
+      </button>
     </form>
   );
 }
