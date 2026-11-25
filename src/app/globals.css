@@ -1,0 +1,166 @@
+@import "tailwindcss";
+
+/* ==========================================================================
+   Bon Studio design system
+   --------------------------------------------------------------------------
+   RULES (keep the site consistent):
+   1. Colours: use only the semantic roles in @theme (bg-paper, text-ink…).
+   2. Type: use only the 8 type roles below (t-display … t-eyebrow).
+      Never set font-size / font-family / weight by hand in a component.
+   3. Spacing: Tailwind's 4px scale; sections use py-section.
+   The live reference is /styleguide.
+   ========================================================================== */
+
+@theme {
+  /* ---- Colour primitives ---- */
+  --color-paper-50: #faf9f6;
+  --color-paper-100: #f4f2ee;
+  --color-paper-200: #e9e5de;
+  --color-paper-300: #d9d2c7;
+  --color-umber-500: #8a7663;
+  --color-umber-700: #5e4632;
+  --color-umber-900: #3a2410;
+  --color-ink-900: #1f1a15;
+  --color-ink-600: #5f564d;
+
+  /* ---- Semantic roles (what components use) ---- */
+  --color-paper: var(--color-paper-100); /* page background */
+  --color-surface: var(--color-paper-50); /* cards, inputs */
+  --color-line: var(--color-paper-300); /* hairlines, borders */
+  --color-ink: var(--color-ink-900); /* primary text */
+  --color-muted: var(--color-ink-600); /* secondary text */
+  --color-accent: var(--color-umber-700); /* buttons, links, highlights */
+  --color-accent-soft: var(--color-umber-500);
+  --color-deep: var(--color-umber-900); /* footer, dark sections */
+  --color-on-deep: var(--color-paper-100); /* text on deep */
+  --color-whatsapp: #25d366;
+
+  /* ---- Font families (2 only) ---- */
+  --font-display: var(--font-cormorant), "Cormorant Garamond", Georgia, serif;
+  --font-sans: var(--font-jost), "Jost", system-ui, sans-serif;
+
+  /* ---- Layout ---- */
+  --spacing-section: clamp(4.5rem, 10vw, 9rem);
+  --spacing-gutter: clamp(1.25rem, 4vw, 3rem);
+  --container-site: 82rem;
+  --container-prose: 40rem;
+
+  --radius-photo: 2px;
+  --radius-pill: 999px;
+
+  --ease-soft: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* ==========================================================================
+   Type scale — 8 roles. Fluid sizes (min at 375px, max at 1440px).
+   Display serif (Cormorant Garamond) for headings,
+   geometric sans (Jost) for everything you read or click.
+   ========================================================================== */
+
+@utility t-display {
+  /* Hero headline. One per page at most. 48 → 104px */
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: clamp(3rem, 2.1rem + 3.9vw, 6.5rem);
+  line-height: 1;
+  letter-spacing: -0.015em;
+}
+@utility t-h1 {
+  /* Page title. 40 → 72px */
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(2.5rem, 1.95rem + 2.35vw, 4.5rem);
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+}
+@utility t-h2 {
+  /* Section title. 32 → 48px */
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(2rem, 1.65rem + 1.5vw, 3rem);
+  line-height: 1.1;
+  letter-spacing: -0.005em;
+}
+@utility t-h3 {
+  /* Item title (service, package). 24 → 30px */
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(1.5rem, 1.37rem + 0.56vw, 1.875rem);
+  line-height: 1.2;
+}
+@utility t-lead {
+  /* Intro paragraph. 18 → 21px */
+  font-family: var(--font-sans);
+  font-weight: 400;
+  font-size: clamp(1.125rem, 1.06rem + 0.28vw, 1.3125rem);
+  line-height: 1.55;
+}
+@utility t-body {
+  /* Default reading text. 16px */
+  font-family: var(--font-sans);
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 1.65;
+}
+@utility t-small {
+  /* Captions, meta, form labels, buttons. 14px */
+  font-family: var(--font-sans);
+  font-weight: 500;
+  font-size: 0.875rem;
+  line-height: 1.45;
+  letter-spacing: 0.01em;
+}
+@utility t-eyebrow {
+  /* Label above a title. 12px caps */
+  font-family: var(--font-sans);
+  font-weight: 500;
+  font-size: 0.75rem;
+  line-height: 1.3;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+@utility container-site {
+  width: 100%;
+  max-width: var(--container-site);
+  margin-inline: auto;
+  padding-inline: var(--spacing-gutter);
+}
+
+/* ---- Base ---- */
+@layer base {
+  html {
+    background: var(--color-paper);
+    color: var(--color-ink);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply t-body;
+    min-height: 100dvh;
+  }
+  ::selection {
+    background: var(--color-accent);
+    color: var(--color-on-deep);
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 3px;
+  }
+  img {
+    user-select: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
