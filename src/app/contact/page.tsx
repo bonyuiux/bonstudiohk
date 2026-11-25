@@ -1,5 +1,7 @@
+import Shell from "@/components/Shell";
 import PageHead from "@/components/PageHead";
-import Band from "@/components/Band";
+import Section from "@/components/Section";
+import TextBlock from "@/components/TextBlock";
 import EnquiryForm from "@/components/EnquiryForm";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import { site } from "@/content/site";
@@ -18,23 +20,24 @@ export default function Contact() {
     { label: "Instagram", value: site.instagram.handle, href: site.instagram.url },
   ];
   return (
-    <>
+    <Shell>
       <PageHead
-        rail="Contact"
         title="Let’s connect."
+        summary="Share your idea, your story, or a moment you’d like to remember."
         action={<WhatsAppButton location="contact_head" label="WhatsApp us — fastest reply" />}
       >
-        Share your idea, your story, or a moment you’d like to remember. Whether it’s a portrait session, a couple shoot or a visit to Hong
-        Kong — I’d love to hear about it. {site.replyPromise}
+        Whether it’s a portrait session, a couple shoot or a visit to Hong Kong — I’d love to hear about it. {site.replyPromise}
       </PageHead>
-
-      <Band rail="Enquire" className="pb-section" gridClassName="gap-y-16">
-        <div data-reveal="text" className="axis-wide lg:col-end-11">
+      <Section label="Enquiry form">
+        <TextBlock size="heading" title="Send an enquiry" />
+        <div data-reveal="text" className="mt-block">
           <EnquiryForm />
         </div>
-        <dl className="axis-text border-b border-line">
+      </Section>
+      <Section label="Details">
+        <dl className="max-w-text border-b border-line">
           {rows.map((r) => (
-            <div key={r.label} className="flex flex-col gap-1 border-t border-line py-5 md:flex-row md:gap-6">
+            <div key={r.label} className="flex flex-col gap-tight border-t border-line py-stack sm:flex-row sm:gap-stack">
               <dt className="t-small w-40 shrink-0 pt-1 text-muted">{r.label}</dt>
               <dd>
                 <a
@@ -50,7 +53,7 @@ export default function Contact() {
             </div>
           ))}
         </dl>
-      </Band>
-    </>
+      </Section>
+    </Shell>
   );
 }

@@ -12,12 +12,13 @@ Read `docs/PROJECT-LOG.md` first (status, hosting, domain, next steps) and `docs
 
 ## Rules
 
-- **Type:** only the 5 roles in `src/app/globals.css` (`t-display`, `t-title`, `t-heading`, `t-body`, `t-small`). Never set font size, family or weight by hand. A text block uses at most two roles (serif title + sans body). No eyebrow labels, no all-caps. This consistency was the main reason for the redesign.
+- **Type:** only the 5 roles in `src/app/globals.css` (`t-display`, `t-title`, `t-heading`, `t-body`, `t-small`). Never set font size, family or weight by hand. Text is always built with `TextBlock`: small number/label → title → summary (ink) → detail (muted) → action. No caps eyebrows, no italics.
+- **Spacing:** only the named scale: `tight` 8, `stack` 24, `block` 40, `row` 64, `section` 64/96/128, `gallery` 16/24 (e.g. `mt-stack`, `pb-section`, `gap-gallery`). No other margins or gaps between content.
 - **Even numbers only:** every font size, line height, spacing, radius and offset is an even number of pixels at every breakpoint (owner's rule). Sizes step at `md`/`lg`; no fluid `clamp()`. Only 1px hairlines are exempt.
-- **Layout: two alignment lines only.** The margin (logo, menu, rail, footer columns) and the content line (column 4 of 12 on desktop, 3 on tablet, the margin on phones). Every title, paragraph, link, form and gallery starts on the content line, left-aligned. Nothing is centred. Use `grid-site` + `axis-text` / `axis-wide` / `axis-media` / `axis-full`, and the `Band` component for sections.
-- **Links** are `LineLink` (a line and a word). The only pill is the WhatsApp button (header, menu, contact page, form submit).
-- **Motion:** use `data-reveal="text" | "image" | "line"` (see globals.css), `Figure` for photos and `Drift` for paired photos. Content must stay visible without JS.
-- **Colour:** only the semantic roles (`paper`, `surface`, `line`, `ink`, `muted`, `accent`, `accent-soft`, `deep`, `on-deep`). No raw hex in components.
+- **Layout:** every page is `Shell` — the sticky `Sidebar` on the left (logo, Portrait/Wedding/Event/Hong Kong, divider, About/Service/Contact, WhatsApp + Instagram icons), content on the right. Inside the content everything is left-aligned on its edge; nothing is centred. Use `Section` for sections and `split` for text + photo. Below 1024px the sidebar becomes the top bar + menu (`Header`). Only the home page has the full-width hero above the shell.
+- **Links** are `LineLink` (a line and a word). The only pill is the WhatsApp button.
+- **Motion** is quiet: `data-reveal="text" | "image" | "line"` (see globals.css), `Figure` for photos, page fade in `app/template.tsx`. Content must stay visible without JS.
+- **Colour:** light warm paper. Only the semantic roles (`paper`, `surface`, `line`, `ink`, `muted`, `accent`, `accent-soft`, `deep`, `on-deep`). No raw hex in components.
 - **Content** lives in `src/content/` (site details, page copy, photo list). Components should not hard-code copy that the owner will want to change.
 - **Leads go to WhatsApp.** Any new contact point must call `track()` from `src/lib/analytics.ts`, or be a plain `<a>` to wa.me / mailto / tel / instagram (auto-tracked by `Analytics.tsx`).
 - Keep existing URLs: they carry the Google ranking from the Framer site.

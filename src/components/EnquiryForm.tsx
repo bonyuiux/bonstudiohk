@@ -48,17 +48,17 @@ export default function EnquiryForm({ defaultType }: { defaultType?: string }) {
 
   // Quiet underlined fields: no boxes, the line is the field.
   const field =
-    "mt-2 block w-full border-0 border-b border-line bg-transparent px-0 py-3 t-body text-ink placeholder:text-muted/60 transition-colors focus:border-ink focus:outline-none";
+    "mt-tight block w-full border-0 border-b border-line bg-transparent px-0 py-2 t-body text-ink placeholder:text-muted/60 transition-colors focus:border-accent focus:outline-none";
 
   return (
-    <form onSubmit={onSubmit} noValidate className="grid gap-x-6 gap-y-8 sm:grid-cols-2">
+    <form onSubmit={onSubmit} noValidate className="grid max-w-[800px] gap-stack sm:grid-cols-2">
       <label className="t-small text-muted sm:col-span-1">
         Your name
         <input name="name" autoComplete="name" required className={field} placeholder="Chris Wong" />
       </label>
       <label className="t-small text-muted sm:col-span-1">
         Type of shoot
-        <select name="type" defaultValue={defaultType ?? enquiryTypes[0]} className={`${field} appearance-none bg-[url('data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 16 16%22><path d=%22M4 6l4 4 4-4%22 fill=%22none%22 stroke=%22%23a39788%22 stroke-width=%221.5%22/></svg>')] bg-[length:16px] bg-[right_0_center] bg-no-repeat pr-8 [&>option]:bg-surface`}>
+        <select name="type" defaultValue={defaultType ?? enquiryTypes[0]} className={`${field} appearance-none bg-[url('data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 16 16%22><path d=%22M4 6l4 4 4-4%22 fill=%22none%22 stroke=%22%235f564d%22 stroke-width=%221.5%22/></svg>')] bg-[length:16px] bg-[right_0_center] bg-no-repeat pr-8`}>
           {enquiryTypes.map((t) => (
             <option key={t}>{t}</option>
           ))}
@@ -81,12 +81,12 @@ export default function EnquiryForm({ defaultType }: { defaultType?: string }) {
           {error}
         </p>
       )}
-      <div className="flex flex-col gap-3 sm:col-span-2 sm:flex-row sm:items-center sm:justify-between">
-        <p className="t-small text-muted">This opens WhatsApp with your message ready to send.</p>
-        <button type="submit" className="t-small inline-flex h-12 items-center justify-center gap-2 rounded-pill bg-ink px-8 text-paper transition-colors hover:bg-accent">
+      <div className="mt-tight flex flex-col items-start gap-stack sm:col-span-2">
+        <button type="submit" className="t-small inline-flex h-12 items-center justify-center gap-2 rounded-pill bg-accent px-8 text-on-deep transition-colors hover:bg-deep">
           <WhatsAppIcon className="h-[18px] w-[18px]" />
           Send on WhatsApp
         </button>
+        <p className="t-small text-muted">This opens WhatsApp with your message ready to send.</p>
       </div>
     </form>
   );

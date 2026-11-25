@@ -6,10 +6,11 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { nav, site } from "@/content/site";
 import WhatsAppButton from "./WhatsAppButton";
-import HKClock from "./HKClock";
 
+/** Phone and tablet top bar (below 1024px). On desktop the Sidebar takes over. */
 export default function Header() {
   const pathname = usePathname();
+  const overHero = pathname === "/";
   const [scrolled, setScrolled] = useState(false);
   // The menu remembers the page it was opened on, so it closes itself after navigating.
   const [openOn, setOpenOn] = useState<string | null>(null);
@@ -28,81 +29,64 @@ export default function Header() {
     return () => window.removeEventListener("keydown", onKey);
   }, [open]);
 
+  const light = overHero && !scrolled && !open; // white over the hero video
+
   return (
     <>
       <header
-        className={`fixed inset-x-0 top-0 z-50 transition-[background-color,border-color] duration-500 ease-soft ${
-          scrolled && !open ? "border-b border-line/60 bg-paper/80 backdrop-blur-md" : "border-b border-transparent"
+        className={`fixed inset-x-0 top-0 z-50 border-b transition-colors duration-500 ease-soft lg:hidden ${
+          light ? "border-transparent bg-transparent text-on-deep" : "border-line/70 bg-paper/90 text-ink backdrop-blur-md"
         }`}
       >
-        <div className="grid-site h-16 items-center md:h-20">
-          <Link href="/" aria-label="Bon Studio — home" className="col-span-6 justify-self-start">
-            <Image src="/brand/wordmark-white.png" alt="Bon Studio" width={723} height={126} className="h-5 w-auto md:h-6" preload />
+        <div className="flex h-16 items-center justify-between px-gutter">
+          <Link href="/" aria-label="Bon Studio — home">
+            <Image src={light ? "/brand/wordmark-white.png" : "/brand/wordmark-black.png"} alt="Bon Studio" width={723} height={126} className="h-5 w-auto" preload />
           </Link>
-          <div className="col-span-6 flex items-center justify-end gap-6">
-            <div className="hidden md:block">
-              <WhatsAppButton size="sm" tone="outline" location="header" />
-            </div>
-            <button
-              type="button"
-              aria-expanded={open}
-              aria-controls="site-menu"
-              onClick={() => setOpenOn(open ? null : pathname)}
-              className="t-small group -mr-2 flex h-11 items-center gap-3 px-2"
-            >
-              <span className="relative block h-2 w-6" aria-hidden>
-                <span className={`absolute left-0 h-px w-6 bg-current transition-transform duration-500 ease-soft ${open ? "top-1 rotate-45" : "top-0"}`} />
-                <span className={`absolute left-0 h-px bg-current transition-all duration-500 ease-soft ${open ? "top-1 w-6 -rotate-45" : "top-2 w-4 group-hover:w-6"}`} />
-              </span>
-              {open ? "Close" : "Menu"}
-            </button>
-          </div>
+          <button
+            type="button"
+            aria-expanded={open}
+            aria-controls="site-menu"
+            onClick={() => setOpenOn(open ? null : pathname)}
+            className="t-small -mr-2 flex h-12 items-center gap-3 px-2"
+          >
+            <span className="relative block h-2 w-6" aria-hidden>
+              <span className={`absolute left-0 h-px w-6 bg-current transition-transform duration-300 ${open ? "top-1 rotate-45" : "top-0"}`} />
+              <span className={`absolute left-0 h-px w-6 bg-current transition-transform duration-300 ${open ? "top-1 -rotate-45" : "top-2"}`} />
+            </span>
+            {open ? "Close" : "Menu"}
+          </button>
         </div>
       </header>
 
-      {/* Full-screen menu. Outside <header>: its backdrop-blur would trap a fixed child. */}
-      <div
-        id="site-menu"
-        inert={!open}
-        className={`fixed inset-0 z-40 overflow-y-auto bg-deep transition-[clip-path] duration-700 ease-soft ${
-          open ? "[clip-path:inset(0_0_0_0)]" : "[clip-path:inset(0_0_100%_0)]"
-        }`}
-      >
-        <nav aria-label="Main" className="grid-site min-h-full content-between gap-y-16 pb-10 pt-28 md:pt-36">
-          <ul className="axis-text space-y-2">
-            {[...nav.work, ...nav.studio].map((l, i) => (
-              <li key={l.href} className="overflow-hidden">
-                <Link
-                  href={l.href}
-                  aria-current={pathname === l.href ? "page" : undefined}
-                  style={{ transitionDelay: open ? `${160 + i * 48}ms` : "0ms" }}
-                  className={`t-title block transition-[transform,color] duration-700 ease-soft hover:text-accent ${
-                    open ? "translate-y-0" : "translate-y-full"
-                  } ${pathname === l.href ? "text-accent" : ""}`}
-                >
-                  {l.label}
-                </Link>
-              </li>
-            ))}
-          </ul>
-          <div className="axis-full grid grid-cols-12 gap-x-4 gap-y-6 border-t border-line pt-8 lg:gap-x-6">
-            <div className="col-span-12 md:col-span-2 lg:col-span-3">
-              <HKClock className="text-muted" />
-            </div>
-            <div className="col-span-12 space-y-1 md:col-span-6 lg:col-span-5">
-              <a className="t-body block hover:text-accent" href={`https://wa.me/${site.whatsappNumber}`} data-location="menu">
-                {site.phoneDisplay}
-              </a>
-              <a className="t-body block hover:text-accent" href={`mailto:${site.email}`} data-location="menu">
-                {site.email}
-              </a>
-              <a className="t-body block hover:text-accent" href={site.instagram.url} target="_blank" rel="noopener" data-location="menu">
-                {site.instagram.handle}
-              </a>
-            </div>
-            <div className="col-span-12 md:col-span-4 md:justify-self-end">
-              <WhatsAppButton location="menu" />
-            </div>
+      {/* Outside <header>: its backdrop-blur would trap a fixed child. */}
+      <div id="site-menu" inert={!open} className={`fixed inset-0 z-40 overflow-y-auto bg-paper transition-opacity duration-300 lg:hidden ${open ? "opacity-100" : "pointer-events-none opacity-0"}`}>
+        <nav aria-label="Mobile" className="flex min-h-full flex-col justify-between px-gutter pb-block pt-page-top">
+          <div>
+            <ul className="space-y-tight">
+              {nav.work.map((l) => (
+                <li key={l.href}>
+                  <Link href={l.href} className={`t-title block ${pathname === l.href ? "text-accent" : ""}`}>
+                    {l.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+            <span aria-hidden className="my-stack block h-px w-6 bg-line" />
+            <ul className="space-y-tight">
+              {nav.studio.map((l) => (
+                <li key={l.href}>
+                  <Link href={l.href} className={`t-title block ${pathname === l.href ? "text-accent" : ""}`}>
+                    {l.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div className="mt-block space-y-stack">
+            <p className="t-body text-muted">
+              {site.phoneDisplay} · {site.instagram.handle}
+            </p>
+            <WhatsAppButton location="mobile_menu" full />
           </div>
         </nav>
       </div>

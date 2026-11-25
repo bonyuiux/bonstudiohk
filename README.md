@@ -41,15 +41,13 @@ npm run dev      # http://localhost:3000
 
 ## Design system
 
-- **Two typefaces, three weights:** Cormorant Garamond 300/400 for titles and names, Jost 400 for everything you read or tap. The Framer site mixed Italiana, Jost, DM Sans and a system font across 11 sizes.
-- **Five type roles:** `t-display` (hero only), `t-title`, `t-heading`, `t-body` (18/30px), `t-small` (14/20px). A text block uses at most two of them. No eyebrow labels or all-caps.
-- **Even numbers only:** every size, line height and spacing value is an even number of pixels. Sizes step at 768px and 1024px.
-- **Colour roles:** warm paper background, ink text, umber accent, deep brown footer.
-- **Dark, warm night palette** (owner's choice, inspired by izanami-official.com): near-black background, mist-coloured text.
-- **Two alignment lines:** the margin, and the content line (column 4 of 12 on desktop). Every title, paragraph, link, form and gallery starts on the content line. Nothing is centred. A thin sticky rail on the left names each section.
-- **Links are a line and a word;** the only pill is WhatsApp.
-- **Motion:** the hero video rises out of black and the headline lifts line by line; photos unveil upward and settle; paired photos drift at different speeds; pages crossfade; the menu wipes open full-screen.
-- Visit `/styleguide` to see all of it live.
+The original Framer look (warm paper, sidebar on the left, photos on the right), rebuilt with one clean type and spacing system. Live reference: `/styleguide`.
+
+- **Layout:** every page is a sticky sidebar on the left and content on the right. The home page has the full-width hero video above it. Everything in the content column is left-aligned.
+- **Two typefaces, five roles:** `t-display` (hero), `t-title`, `t-heading`, `t-body` (18/30px), `t-small` (14/20px).
+- **One text pattern** (`TextBlock`): small number → serif title → one-line summary in dark ink → detail in grey → line link.
+- **One spacing scale:** tight 8 · stack 24 · block 40 · row 64 · section 64/96/128 · gallery 16/24. Every value is an even number of pixels.
+- **Links** are a line and a word; the only pill is WhatsApp.
 
 ## Deploy
 

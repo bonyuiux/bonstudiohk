@@ -30,6 +30,13 @@
 
 ## Log (newest first)
 
+### 2026-11-25: Back to the original layout, with a clean type and spacing system (owner decision)
+- Owner rejected the dark Izanami direction overall. Kept from it: the type hierarchy of the service blocks (number → title → ink summary → grey detail → line link).
+- Restored the original Framer structure: sticky sidebar nav on the left of every page, content on the right; home keeps the full-width hero above. Light warm-paper palette restored.
+- New `TextBlock` component is the only way text is laid out; new named spacing scale (tight/stack/block/row/section/gallery) used by every component.
+- Checked on 8 pages: at 1440px all headings and paragraphs start at x=48 (sidebar) or x=320 (content); at 390px all at x=20. No odd pixel values.
+- Removed: dark palette, section rail, parallax drift, clock, full-screen desktop menu.
+
 ### 2026-11-25: Izanami-style layout, dark palette, motion (owner feedback)
 - Feedback: "multiple alignments within the same site look messy"; reference https://izanami-official.com/ for layout, transitions and vibe. Owner chose a **dark** palette.
 - Palette: warm night (`#110d09` background, `#ede6dc` text, `#a39788` muted at 6.9:1). Semantic role names unchanged, so components did not need new class names.

@@ -1,5 +1,7 @@
+import Shell from "@/components/Shell";
 import PageHead from "@/components/PageHead";
-import ServiceSections from "@/components/ServiceSections";
+import Section from "@/components/Section";
+import ServiceList from "@/components/ServiceList";
 import Process from "@/components/Process";
 import CtaBand from "@/components/CtaBand";
 import { pageMeta } from "@/lib/seo";
@@ -12,13 +14,13 @@ export const metadata = pageMeta({
 
 export default function Service() {
   return (
-    <>
-      <PageHead rail="Service" title="Moments with the people who matter.">
-        From a one-hour city walk to a full wedding day — every session is calm, natural and planned around the best light.
-      </PageHead>
-      <ServiceSections />
+    <Shell>
+      <PageHead title="Moments with the people who matter." summary="From a one-hour city walk to a full wedding day — every session is calm, natural and planned around the best light." />
+      <Section label="Services">
+        <ServiceList />
+      </Section>
       <Process />
       <CtaBand />
-    </>
+    </Shell>
   );
 }

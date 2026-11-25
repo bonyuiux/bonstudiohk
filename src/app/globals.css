@@ -4,72 +4,99 @@
    Bon Studio design system
    --------------------------------------------------------------------------
    RULES (keep the site consistent):
-   1. Colours: use only the semantic roles in @theme (bg-paper, text-ink…).
-   2. Type: use only the 5 type roles below (t-display, t-title, t-heading, t-body, t-small).
-      Never set font-size / font-family / weight by hand in a component.
-   3. EVEN NUMBERS ONLY: every font size, line height, spacing, radius and
-      offset is an even number of pixels at every breakpoint. Sizes step at
-      md (768px) and lg (1024px) instead of scaling fluidly, so they never land
-      on fractions. Tailwind's spacing scale (4px steps) is already even; in
-      arbitrary values use even px only. The one exception is 1px hairlines.
-   4. Spacing: sections use py-section, page edges use the gutter.
+   1. Colours: only the semantic roles in @theme (bg-paper, text-ink…).
+   2. Type: only the 5 roles below. Never set font size / family / weight
+      by hand in a component.
+   3. Spacing: only the named scale below (tight, stack, block, row,
+      section, gallery). No other margins or gaps between content.
+   4. Layout: every page is the shell — sidebar on the left, content on the
+      right. Everything in the content column is left-aligned on its edge.
+   5. Even numbers only: every size, line height and spacing value is an
+      even number of pixels at every breakpoint (1px hairlines excepted).
    The live reference is /styleguide.
    ========================================================================== */
 
 @theme {
-  /* ---- Colour primitives (warm night palette) ---- */
-  --color-night-950: #0a0806;
-  --color-night-900: #110d09;
-  --color-night-850: #1a1510;
-  --color-night-700: #2e2721;
-  --color-mist-100: #ede6dc;
-  --color-mist-400: #a39788;
-  --color-umber-300: #c8a27a;
+  /* ---- Colour primitives (warm paper) ---- */
+  --color-paper-50: #faf9f6;
+  --color-paper-100: #f4f2ee;
+  --color-paper-200: #e9e5de;
+  --color-paper-300: #d9d2c7;
   --color-umber-500: #8a7663;
+  --color-umber-700: #5e4632;
+  --color-umber-900: #3a2410;
+  --color-ink-900: #1f1a15;
+  --color-ink-600: #5f564d;
 
   /* ---- Semantic roles (what components use) ---- */
-  --color-paper: var(--color-night-900); /* page background */
-  --color-surface: var(--color-night-850); /* photo placeholders, fields */
-  --color-line: var(--color-night-700); /* hairlines, borders */
-  --color-ink: var(--color-mist-100); /* primary text */
-  --color-muted: var(--color-mist-400); /* secondary text (6.9:1 on paper) */
-  --color-accent: var(--color-umber-300); /* hover, highlights */
-  --color-accent-soft: var(--color-umber-500); /* rail numbers, decoration */
-  --color-deep: var(--color-night-950); /* menu overlay, footer */
-  --color-on-deep: var(--color-mist-100);
+  --color-paper: var(--color-paper-100); /* page background */
+  --color-surface: var(--color-paper-200); /* photo placeholders */
+  --color-line: var(--color-paper-300); /* hairlines, field underlines */
+  --color-ink: var(--color-ink-900); /* primary text */
+  --color-muted: var(--color-ink-600); /* secondary text */
+  --color-accent: var(--color-umber-700); /* buttons, active nav */
+  --color-accent-soft: var(--color-umber-500); /* numbers, small marks */
+  --color-deep: var(--color-umber-900); /* footer */
+  --color-on-deep: var(--color-paper-100); /* text on deep */
   --color-whatsapp: #25d366;
 
   /* ---- Font families (2 only) ---- */
   --font-display: var(--font-cormorant), "Cormorant Garamond", Georgia, serif;
   --font-sans: var(--font-jost), "Jost", system-ui, sans-serif;
 
-  /* ---- Layout ---- */
-  --spacing-section: 72px; /* 112px at md, 144px at lg (see :root below) */
-  --spacing-gutter: 20px; /* 32px at md, 48px at lg */
-  --container-site: 1312px;
+  /* ---- Spacing scale (the ONLY gaps used between content) ----
+     tight    8   lines inside one group (subtitle → paragraph, list items)
+     stack   24   under a title, between fields
+     block   40   before an action (link, button), between groups
+     row     64   between repeated rows (services, packages, steps)
+     section 64 → 96 → 128   between sections
+     gallery 16 → 24          between photos                          */
+  --spacing-tight: 8px;
+  --spacing-stack: 24px;
+  --spacing-block: 40px;
+  --spacing-row: 64px;
+  --spacing-section: 64px;
+  --spacing-gallery: 16px;
+  --spacing-gutter: 20px; /* page edge */
+  --spacing-page-top: 112px; /* first content below the phone top bar */
 
-  --radius-photo: 2px;
-  --radius-field: 4px;
+  --container-shell: 1440px;
+  --container-text: 640px; /* max measure for reading text */
+
+  --radius-photo: 4px;
   --radius-pill: 999px;
 
   --ease-soft: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+:root {
+  @media (width >= 768px) {
+    --spacing-section: 96px;
+    --spacing-gutter: 32px;
+    --spacing-page-top: 128px;
+  }
+  @media (width >= 1024px) {
+    --spacing-section: 128px;
+    --spacing-gallery: 24px;
+    --spacing-gutter: 48px;
+    --spacing-page-top: 48px; /* aligns with the sidebar logo */
+  }
 }
 
 /* ==========================================================================
    Type — 5 roles, 3 weights. Size / line height in px:
 
                  phone      md ≥768    lg ≥1024
-   t-display     48 / 52    72 / 76    96 / 100   Cormorant 300
-   t-title       36 / 40    48 / 52    60 / 64    Cormorant 300
-   t-heading     24 / 30    24 / 30    28 / 34    Cormorant 400
-   t-body        18 / 30    18 / 30    18 / 30    Jost 400
-   t-small       14 / 20    14 / 20    14 / 20    Jost 400
+   t-display     48 / 52    72 / 76    88 / 92    Cormorant 300   hero only
+   t-title       36 / 40    44 / 48    56 / 60    Cormorant 300   page + section titles, service names
+   t-heading     24 / 30    24 / 30    28 / 34    Cormorant 400   names in a list (package, step)
+   t-body        18 / 30    18 / 30    18 / 30    Jost 400        all reading text, nav, links
+   t-small       14 / 20    14 / 20    14 / 20    Jost 400        numbers, labels, buttons
 
-   Serif = what you would say out loud: titles, names.
-   Sans = everything you read or tap, at ONE reading size.
-   Rule: a text block uses at most two roles (a title + body). No eyebrow
-   labels, no all-caps, no extra weights. Grey (text-muted) marks secondary
-   information; never change size and colour at the same time to do it.
+   The hierarchy of one block (top to bottom):
+     t-small number/label (accent-soft) → t-title → t-body in ink (the
+     one-line summary) → t-body in muted (the detail) → line link.
+   Grey marks secondary text. No eyebrows in caps, no italics, no extra weights.
    ========================================================================== */
 
 @utility t-display {
@@ -83,8 +110,8 @@
     line-height: 76px;
   }
   @media (width >= 1024px) {
-    font-size: 96px;
-    line-height: 100px;
+    font-size: 88px;
+    line-height: 92px;
   }
 }
 @utility t-title {
@@ -94,12 +121,12 @@
   line-height: 40px;
   text-wrap: balance;
   @media (width >= 768px) {
-    font-size: 48px;
-    line-height: 52px;
+    font-size: 44px;
+    line-height: 48px;
   }
   @media (width >= 1024px) {
-    font-size: 60px;
-    line-height: 64px;
+    font-size: 56px;
+    line-height: 60px;
   }
 }
 @utility t-heading {
@@ -128,77 +155,38 @@
 }
 
 /* ==========================================================================
-   Layout — TWO alignment lines, used on every page:
-   1. the margin (logo, menu, rail, footer columns)
-   2. the content line: column 4 of 12 on desktop, 3 on tablet, the margin
-      on phones. Every title, paragraph, link, form and gallery starts on
-      it, left-aligned. Nothing is centred.
-   Use: <div class="grid-site"> with children axis-text / axis-wide /
-   axis-media / axis-full.
+   Layout — the shell. Sidebar (224px) on the left, content on the right,
+   48px apart on desktop. Below 1024px the sidebar becomes a top bar and the
+   content uses the full width. Content blocks start on the content edge.
    ========================================================================== */
 
-@utility grid-site {
+@utility shell {
   width: 100%;
-  max-width: var(--container-site);
+  max-width: var(--container-shell);
   margin-inline: auto;
   padding-inline: var(--spacing-gutter);
   display: grid;
-  grid-template-columns: repeat(12, minmax(0, 1fr));
-  column-gap: 16px;
+  grid-template-columns: minmax(0, 1fr);
   @media (width >= 1024px) {
-    column-gap: 24px;
+    grid-template-columns: 224px minmax(0, 1fr);
+    column-gap: 48px;
   }
 }
-@utility axis-text {
-  /* Titles and reading text */
+@utility shell-content {
+  /* the right-hand column */
   grid-column: 1 / -1;
-  @media (width >= 768px) {
-    grid-column: 3 / span 8;
-  }
+  min-width: 0;
   @media (width >= 1024px) {
-    grid-column: 4 / span 5;
+    grid-column: 2;
   }
 }
-@utility axis-wide {
-  /* Galleries, forms: from the content line to the right edge */
-  grid-column: 1 / -1;
+@utility split {
+  /* two equal columns inside the content (text + photo, photo + photo) */
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--spacing-stack) var(--spacing-gallery);
   @media (width >= 768px) {
-    grid-column: 3 / -1;
-  }
-  @media (width >= 1024px) {
-    grid-column: 4 / -1;
-  }
-}
-@utility axis-media {
-  /* A photo beside axis-text, ending on the right edge */
-  grid-column: 1 / -1;
-  @media (width >= 768px) {
-    grid-column: 7 / -1;
-  }
-  @media (width >= 1024px) {
-    grid-column: 9 / -1;
-  }
-}
-@utility axis-full {
-  grid-column: 1 / -1;
-}
-
-@utility container-site {
-  width: 100%;
-  max-width: var(--container-site);
-  margin-inline: auto;
-  padding-inline: var(--spacing-gutter);
-}
-
-/* ---- Even-number spacing steps ---- */
-:root {
-  @media (width >= 768px) {
-    --spacing-section: 112px;
-    --spacing-gutter: 32px;
-  }
-  @media (width >= 1024px) {
-    --spacing-section: 144px;
-    --spacing-gutter: 48px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
@@ -210,6 +198,7 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     scroll-behavior: smooth;
+    scrollbar-color: var(--color-line) var(--color-paper);
   }
   body {
     @apply t-body;
@@ -220,12 +209,8 @@
     text-decoration-thickness: 1px;
   }
   ::selection {
-    background: var(--color-ink);
-    color: var(--color-paper);
-  }
-  html {
-    color-scheme: dark;
-    scrollbar-color: var(--color-line) var(--color-paper);
+    background: var(--color-accent);
+    color: var(--color-on-deep);
   }
   input,
   textarea,
@@ -233,7 +218,7 @@
     caret-color: var(--color-accent);
   }
   :focus-visible {
-    outline: 2px solid var(--color-ink);
+    outline: 2px solid var(--color-accent);
     outline-offset: 4px;
   }
   img {
@@ -254,69 +239,58 @@
 }
 
 /* ==========================================================================
-   Motion. Content is visible by default; html.js (set before paint) opts
-   into the reveal, so a failed script never hides the page.
-   data-reveal="text"  soft rise out of a blur
-   data-reveal="image" unveils upward behind a mask, photo settles from 1.08
-   data-reveal="line"  a single line rising from behind a mask (hero title)
+   Motion — quiet. Content is visible by default; html.js (set before paint)
+   opts into the reveal, so a failed script never hides the page.
+   data-reveal="text"   fades up 16px
+   data-reveal="image"  fades in while the photo settles from 1.04
+   data-reveal="line"   the hero title lines rise from behind a mask
    Delay per element: style="--d: 120ms"
    ========================================================================== */
 
 @keyframes page-in {
   from {
     opacity: 0;
-    filter: blur(6px);
   }
 }
-@keyframes mist-in {
+@keyframes video-in {
   from {
     opacity: 0;
   }
 }
-
 .page-in {
-  animation: page-in 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation: page-in 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 .js [data-reveal] {
   transition:
-    opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1) var(--d, 0ms),
-    transform 1.2s cubic-bezier(0.16, 1, 0.3, 1) var(--d, 0ms),
-    filter 1.2s cubic-bezier(0.16, 1, 0.3, 1) var(--d, 0ms),
-    clip-path 1.4s cubic-bezier(0.76, 0, 0.24, 1) var(--d, 0ms);
+    opacity 1s cubic-bezier(0.16, 1, 0.3, 1) var(--d, 0ms),
+    transform 1s cubic-bezier(0.16, 1, 0.3, 1) var(--d, 0ms);
 }
 .js [data-reveal="text"]:not([data-inview]) {
   opacity: 0;
   transform: translateY(16px);
-  filter: blur(8px);
-}
-.js [data-reveal="image"] {
-  clip-path: inset(0 0 0 0);
 }
 .js [data-reveal="image"] img {
-  transition: transform 2s cubic-bezier(0.16, 1, 0.3, 1) var(--d, 0ms);
+  transition: transform 1.6s cubic-bezier(0.16, 1, 0.3, 1) var(--d, 0ms);
 }
 .js [data-reveal="image"]:not([data-inview]) {
-  clip-path: inset(100% 0 0 0);
+  opacity: 0;
 }
 .js [data-reveal="image"]:not([data-inview]) img {
-  transform: scale(1.08);
+  transform: scale(1.04);
 }
 /* the mask is observed; its child line rises (a translated child would never "intersect") */
 .js [data-reveal="line"] > span {
-  transition: transform 1.4s cubic-bezier(0.16, 1, 0.3, 1) var(--d, 0ms);
+  transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1) var(--d, 0ms);
 }
 .js [data-reveal="line"]:not([data-inview]) > span {
   transform: translateY(110%);
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .js [data-reveal]:not([data-inview]) {
-    transform: none !important;
-    filter: none !important;
-  }
+  .js [data-reveal]:not([data-inview]),
+  .js [data-reveal]:not([data-inview]) img,
   .js [data-reveal="line"]:not([data-inview]) > span {
     transform: none !important;
-    clip-path: none !important;
   }
 }

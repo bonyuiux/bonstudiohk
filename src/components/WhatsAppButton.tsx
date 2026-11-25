@@ -24,16 +24,16 @@ export default function WhatsAppButton({ label = "WhatsApp us", message, service
 
   if (tone === "line") {
     return (
-      <a {...common} className="t-body group inline-flex items-center gap-4 transition-colors hover:text-accent">
-        <span aria-hidden className="h-px w-12 bg-current opacity-60 transition-all duration-500 ease-soft group-hover:w-18 group-hover:opacity-100" />
+      <a {...common} className="t-body group inline-flex items-center gap-4 transition-opacity hover:opacity-70">
+        <span aria-hidden className="h-px w-12 bg-current opacity-50 transition-all duration-500 ease-soft group-hover:w-16 group-hover:opacity-100" />
         <span>{label}</span>
         <WhatsAppIcon className="h-4 w-4 opacity-70" />
       </a>
     );
   }
   const tones = {
-    solid: "bg-ink text-paper hover:bg-accent",
-    outline: "border border-ink/40 hover:border-ink",
+    solid: "bg-accent text-on-deep hover:bg-deep",
+    outline: "border border-current/40 hover:border-current",
   };
   return (
     <a

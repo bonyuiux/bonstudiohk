@@ -1,25 +1,13 @@
 import type { ReactNode } from "react";
-import Band from "./Band";
+import TextBlock from "./TextBlock";
 
-/** Top of every inner page: title and intro on the content line, then an optional action. */
-export default function PageHead({ title, children, action, rail }: { title: ReactNode; children?: ReactNode; action?: ReactNode; rail?: string }) {
+/** Top of every inner page. Starts level with the sidebar logo on desktop. */
+export default function PageHead({ index, title, summary, children, action }: { index?: ReactNode; title: ReactNode; summary?: ReactNode; children?: ReactNode; action?: ReactNode }) {
   return (
-    <Band rail={rail} className="pb-16 pt-36 md:pb-24 md:pt-48" gridClassName="">
-      <div className="axis-text">
-        <h1 data-reveal="text" className="t-title">
-          {title}
-        </h1>
-        {children && (
-          <div data-reveal="text" style={{ "--d": "120ms" } as React.CSSProperties} className="t-body mt-6 max-w-[44ch] text-muted">
-            {children}
-          </div>
-        )}
-        {action && (
-          <div data-reveal="text" style={{ "--d": "240ms" } as React.CSSProperties} className="mt-10">
-            {action}
-          </div>
-        )}
-      </div>
-    </Band>
+    <header className="pb-section pt-page-top">
+      <TextBlock as="h1" index={index} title={title} summary={summary} action={action}>
+        {children}
+      </TextBlock>
+    </header>
   );
 }

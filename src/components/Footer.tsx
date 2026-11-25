@@ -2,68 +2,52 @@ import Link from "next/link";
 import Image from "next/image";
 import { nav, site } from "@/content/site";
 import WhatsAppButton from "./WhatsAppButton";
-import HKClock from "./HKClock";
 
+/** Footer on the same shell: wordmark + nav on the left, words on the content edge. */
 export default function Footer() {
+  const rows = [
+    { label: "WhatsApp & phone", value: site.phoneDisplay, href: `https://wa.me/${site.whatsappNumber}` },
+    { label: "Email", value: site.email, href: `mailto:${site.email}` },
+    { label: "Instagram", value: site.instagram.handle, href: site.instagram.url },
+  ];
   return (
-    <footer className="border-t border-line bg-deep">
-      <div className="grid-site gap-y-16 py-section">
-        <div className="axis-text">
-          <h2 data-reveal="text" className="t-title">Let’s capture something timeless.</h2>
-          <p data-reveal="text" className="t-body mt-6 text-muted">{site.replyPromise}</p>
-          <div data-reveal="text" className="mt-10">
-            <WhatsAppButton tone="line" location="footer" label="Start a chat on WhatsApp" />
-          </div>
+    <footer className="bg-deep text-on-deep">
+      <div className="shell gap-y-block py-section">
+        <div className="hidden lg:block">
+          <Image src="/brand/wordmark-white.png" alt="Bon Studio" width={723} height={126} className="h-6 w-auto" />
+          <ul className="mt-block space-y-tight">
+            {[...nav.work, ...nav.studio].map((l) => (
+              <li key={l.href}>
+                <Link href={l.href} className="t-body opacity-70 transition-opacity hover:opacity-100">
+                  {l.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
         </div>
-
-        <div className="axis-full grid grid-cols-12 gap-x-4 gap-y-10 border-t border-line pt-10 lg:gap-x-6">
-          <nav aria-label="Footer" className="col-span-6 md:col-span-2 lg:col-span-3">
-            <ul className="space-y-2">
-              {[...nav.work, ...nav.studio].map((l) => (
-                <li key={l.href}>
-                  <Link href={l.href} className="t-small text-muted transition-colors hover:text-ink">
-                    {l.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </nav>
-          <dl className="col-span-12 space-y-5 md:col-span-6 md:col-start-3 lg:col-span-5 lg:col-start-4">
-            <FooterItem label="WhatsApp & phone" href={`https://wa.me/${site.whatsappNumber}`} value={site.phoneDisplay} />
-            <FooterItem label="Email" href={`mailto:${site.email}`} value={site.email} />
-            <FooterItem label="Instagram" href={site.instagram.url} value={site.instagram.handle} />
+        <div className="shell-content">
+          <div className="max-w-text">
+            <h2 className="t-title">Let’s capture something timeless.</h2>
+            <p className="t-body mt-stack opacity-75">{site.replyPromise}</p>
+            <div className="mt-block">
+              <WhatsAppButton tone="line" location="footer" label="Start a chat on WhatsApp" />
+            </div>
+          </div>
+          <dl className="mt-section max-w-text border-b border-on-deep/15">
+            {rows.map((r) => (
+              <div key={r.label} className="flex flex-col gap-tight border-t border-on-deep/15 py-stack sm:flex-row sm:gap-stack">
+                <dt className="t-small w-40 shrink-0 pt-1 opacity-60">{r.label}</dt>
+                <dd>
+                  <a href={r.href} data-location="footer_details" target={r.href.startsWith("http") ? "_blank" : undefined} rel={r.href.startsWith("http") ? "noopener" : undefined} className="t-body transition-opacity hover:opacity-70">
+                    {r.value}
+                  </a>
+                </dd>
+              </div>
+            ))}
           </dl>
-          <div className="hidden md:col-span-4 md:col-start-9 md:block md:justify-self-end">
-            <HKClock className="text-muted" />
-          </div>
-        </div>
-
-        <div className="axis-full flex items-center justify-between gap-6 border-t border-line pt-8">
-          <div className="flex items-center gap-6">
-            <Link href="/" aria-label="Bon Studio — home">
-              <Image src="/brand/wordmark-white.png" alt="Bon Studio" width={723} height={126} className="h-4 w-auto opacity-80" />
-            </Link>
-            <p className="t-small text-muted">© {new Date().getFullYear()}</p>
-          </div>
-          <a href="#main" className="t-small text-muted transition-colors hover:text-ink">
-            Top
-          </a>
+          <p className="t-small mt-block opacity-60">© {new Date().getFullYear()} Bon Studio, Hong Kong</p>
         </div>
       </div>
     </footer>
-  );
-}
-
-function FooterItem({ label, value, href }: { label: string; value: string; href: string }) {
-  const ext = href.startsWith("http");
-  return (
-    <div className="flex flex-col gap-1 md:flex-row md:gap-6">
-      <dt className="t-small w-40 shrink-0 pt-1 text-muted">{label}</dt>
-      <dd>
-        <a href={href} data-location="footer_details" target={ext ? "_blank" : undefined} rel={ext ? "noopener" : undefined} className="t-body transition-colors hover:text-accent">
-          {value}
-        </a>
-      </dd>
-    </div>
   );
 }
