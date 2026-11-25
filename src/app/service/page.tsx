@@ -13,7 +13,7 @@ export const metadata = pageMeta({
 export default function Service() {
   return (
     <>
-      <PageIntro eyebrow="Service" title="Moments with the people who matter.">
+      <PageIntro title="Moments with the people who matter.">
         From a one-hour city walk to a full wedding day — every session is calm, natural and planned around the best light.
       </PageIntro>
       <section className="container-site">

@@ -12,11 +12,10 @@ import "./globals.css";
 const cormorant = Cormorant_Garamond({
   variable: "--font-cormorant",
   subsets: ["latin"],
-  weight: ["300", "400", "500"],
-  style: ["normal", "italic"],
+  weight: ["300", "400"],
   display: "swap",
 });
-const jost = Jost({ variable: "--font-jost", subsets: ["latin"], weight: ["400", "500"], display: "swap" });
+const jost = Jost({ variable: "--font-jost", subsets: ["latin"], weight: ["400"], display: "swap" });
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),

@@ -14,7 +14,7 @@ export const metadata = pageMeta({
 export default function Contact() {
   return (
     <>
-      <PageIntro eyebrow="Contact" title="Let’s connect.">
+      <PageIntro title="Let’s connect.">
         Share your idea, your story, or a moment you’d like to remember. Whether it’s a portrait session, a couple shoot or a visit to Hong
         Kong — I’d love to hear about it.
       </PageIntro>
@@ -25,9 +25,8 @@ export default function Contact() {
             <EnquiryForm />
           </Reveal>
           <Reveal className="lg:col-span-4 lg:col-start-9" delay={0.1}>
-            <div className="rounded-[3px] border border-line bg-surface p-7">
-              <p className="t-eyebrow text-muted">Fastest reply</p>
-              <p className="t-h3 mt-3">WhatsApp</p>
+            <div className="rounded-field border border-line bg-surface p-7">
+              <h2 className="t-heading">Fastest reply: WhatsApp</h2>
               <p className="t-body mt-2 text-muted">{site.replyPromise}</p>
               <div className="mt-6">
                 <WhatsAppButton location="contact_card" full label={site.phoneDisplay} />
@@ -35,12 +34,12 @@ export default function Contact() {
             </div>
             <dl className="mt-8 space-y-5">
               <div>
-                <dt className="t-eyebrow text-muted">Email</dt>
-                <dd className="t-lead mt-1"><a className="underline-offset-4 hover:underline" data-location="contact_page" href={`mailto:${site.email}`}>{site.email}</a></dd>
+                <dt className="t-small text-muted">Email</dt>
+                <dd className="t-body mt-1"><a className="underline-offset-4 hover:underline" data-location="contact_page" href={`mailto:${site.email}`}>{site.email}</a></dd>
               </div>
               <div>
-                <dt className="t-eyebrow text-muted">Instagram</dt>
-                <dd className="t-lead mt-1"><a className="underline-offset-4 hover:underline" data-location="contact_page" href={site.instagram.url} target="_blank" rel="noopener">{site.instagram.handle}</a></dd>
+                <dt className="t-small text-muted">Instagram</dt>
+                <dd className="t-body mt-1"><a className="underline-offset-4 hover:underline" data-location="contact_page" href={site.instagram.url} target="_blank" rel="noopener">{site.instagram.handle}</a></dd>
               </div>
             </dl>
           </Reveal>

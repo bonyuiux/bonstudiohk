@@ -13,7 +13,7 @@
 
 ## Decisions
 
-- **Redesign, not a pixel copy.** The owner's main complaint was an inconsistent type system. The Framer site used Italiana, Jost, DM Sans and a system font across 11 sizes. Now: Cormorant Garamond and Jost, with 8 named type roles (see `/styleguide`).
+- **Redesign, not a pixel copy.** The owner's main complaint was an inconsistent type system. The Framer site used Italiana, Jost, DM Sans and a system font across 11 sizes. Now: Cormorant Garamond and Jost, 5 named type roles, even-pixel values only (see `/styleguide`).
 - **Enquiries go to WhatsApp** (owner's choice). The form writes a message from the answers and opens WhatsApp, then shows `/thankyou`. There is no server, database or email service to maintain.
 - **Navigation** moved from a left sidebar to a top bar with an always-visible WhatsApp button, plus a floating WhatsApp button on phones.
 - **Facebook link:** the Framer contact page said "Facebook" but had no URL, so it is left out. Add it to `site.ts` if there is a page.
@@ -29,6 +29,11 @@
 6. Cancel the Framer plan once Vercel shows the domains as Valid.
 
 ## Log (newest first)
+
+### 2026-11-25: Type system simplified (owner feedback)
+- Feedback: "the font system is too complex; there are multiple styles within the same area" (home intro, About "approach" block).
+- 8 roles → 5 (`t-display`, `t-title`, `t-heading`, `t-body`, `t-small`); 5 weights → 3 (Cormorant 300/400, Jost 400). Lead and body merged into one 18px reading size. All 23 eyebrow labels removed. Inline links are now body text with an underline.
+- Owner rule: every size, line height and spacing value is an even number of pixels. Fluid `clamp()` sizes replaced with steps at 768px and 1024px. Checked by scanning computed styles on 9 pages at 390, 820 and 1440px: no odd values except the browser's own `<option>` padding.
 
 ### 2026-11-25: Migration from Framer
 - Scraped all 12 Framer pages (text, 66 photos, hero video, logos, favicon, social image).

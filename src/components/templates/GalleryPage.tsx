@@ -18,7 +18,6 @@ export default function GalleryPage({ page, variant = "service" }: { page: Galle
     <>
       {variant === "service" && <JsonLd data={serviceLd(page.seoTitle, page.seoDescription, page.path)} />}
       <PageIntro
-        eyebrow={page.eyebrow}
         title={page.title}
         aside={
           <div className="mt-7">
@@ -35,8 +34,7 @@ export default function GalleryPage({ page, variant = "service" }: { page: Galle
             {page.packages.map((p, i) => (
               <li key={p.name} className="border-b border-line py-7 md:border-b-0 md:py-9 md:pr-8 md:[&:not(:first-child)]:border-l md:[&:not(:first-child)]:pl-8">
                 <Reveal delay={i * 0.08}>
-                  <p className="t-eyebrow text-accent-soft">0{i + 1}</p>
-                  <h2 className="t-h3 mt-3">{p.name}</h2>
+                  <h2 className="t-heading">{p.name}</h2>
                   <p className="t-body mt-2 text-muted">{p.detail}</p>
                 </Reveal>
               </li>
@@ -45,7 +43,7 @@ export default function GalleryPage({ page, variant = "service" }: { page: Galle
         </section>
       )}
 
-      <section aria-label={`${page.eyebrow} gallery`} className="container-site">
+      <section aria-label={`${page.label} gallery`} className="container-site">
         <Gallery ids={page.photos} layout={page.layout} columns={variant === "service" ? 2 : 3} />
       </section>
 
@@ -55,7 +53,7 @@ export default function GalleryPage({ page, variant = "service" }: { page: Galle
 
       <section className="container-site pb-section">
         <div className="flex flex-col gap-6 border-t border-line pt-10 md:flex-row md:items-center md:justify-between">
-          <p className="t-eyebrow text-muted">More work</p>
+          <p className="t-body text-muted">More work</p>
           <ul className="flex flex-wrap gap-3">
             {others.map((s) => (
               <li key={s.key}>

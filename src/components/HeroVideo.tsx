@@ -17,12 +17,12 @@ export default function HeroVideo() {
       />
       <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/5 to-black/45" />
       <div className="container-site relative flex h-full flex-col items-center justify-center text-center">
-        <h1 className="t-display max-w-[17ch] [text-wrap:balance] drop-shadow-[0_1px_18px_rgba(0,0,0,0.25)]">
+        <h1 className="t-display max-w-[17ch] drop-shadow-[0_2px_18px_rgba(0,0,0,0.25)]">
           {site.tagline}
         </h1>
-        <p className="t-eyebrow mt-7 opacity-90">Hong Kong photographer · Portrait · Wedding · Event</p>
+        <p className="t-body mt-6 opacity-90">Hong Kong photographer for portraits, weddings and events</p>
       </div>
-      <a href="#intro" className="t-eyebrow absolute bottom-8 left-1/2 -translate-x-1/2 opacity-80 transition-opacity hover:opacity-100">
+      <a href="#intro" className="t-small absolute bottom-8 left-1/2 -translate-x-1/2 opacity-80 transition-opacity hover:opacity-100">
         Scroll
         <span aria-hidden className="mx-auto mt-3 block h-8 w-px animate-pulse bg-current" />
       </a>

@@ -18,31 +18,23 @@ export default function Home() {
       {/* Intro */}
       <section id="intro" className="container-site scroll-mt-20 py-section">
         <Reveal className="mx-auto max-w-4xl text-center">
-          <p className="t-eyebrow text-muted">About Bon Studio</p>
-          <p className="t-h2 mt-6 [text-wrap:balance]">
-            I capture quiet moments as they naturally unfold — gentle light, honest emotion.
-          </p>
-          <p className="t-lead mx-auto mt-6 max-w-[44ch] text-muted">
-            A Hong Kong photographer for natural portraits, couples, weddings and travel photoshoots.
-          </p>
-          <div className="mt-9">
-            <ButtonLink href="/about" tone="text" cta="home_intro_about">
+          <h2 className="t-title">I capture quiet moments as they naturally unfold — gentle light, honest emotion.</h2>
+          <p className="t-body mx-auto mt-6 max-w-[44ch] text-muted">
+            A Hong Kong photographer for natural portraits, couples, weddings and travel photoshoots.{" "}
+            <Link href="/about" data-cta="home_intro_about" className="text-ink underline hover:text-accent">
               More about me
-            </ButtonLink>
-          </div>
+            </Link>
+          </p>
         </Reveal>
       </section>
 
       {/* Selected work */}
       <section aria-labelledby="work-title" className="container-site">
         <Reveal className="mb-10 flex flex-col gap-4 md:mb-14 md:flex-row md:items-end md:justify-between">
-          <div>
-            <p className="t-eyebrow text-muted">Selected work</p>
-            <h2 id="work-title" className="t-h2 mt-4">
-              Moments with the people who matter.
-            </h2>
-          </div>
-          <ul className="t-small flex flex-wrap gap-x-5 gap-y-2 text-muted">
+          <h2 id="work-title" className="t-title">
+            Moments with the people who matter.
+          </h2>
+          <ul className="t-body flex flex-wrap gap-x-5 gap-y-2 text-muted">
             <li><Link className="underline-offset-4 hover:text-ink hover:underline" href="/work/portrait">Portrait</Link></li>
             <li><Link className="underline-offset-4 hover:text-ink hover:underline" href="/work/wedding">Wedding</Link></li>
             <li><Link className="underline-offset-4 hover:text-ink hover:underline" href="/work/commercial">Commercial</Link></li>
@@ -54,8 +46,7 @@ export default function Home() {
       {/* Services */}
       <section aria-labelledby="services-title" className="container-site py-section">
         <Reveal className="mb-12 max-w-2xl">
-          <p className="t-eyebrow text-muted">Services</p>
-          <h2 id="services-title" className="t-h2 mt-4">What I photograph</h2>
+          <h2 id="services-title" className="t-title">What I photograph</h2>
         </Reveal>
         <ServiceList />
       </section>
@@ -69,14 +60,13 @@ export default function Home() {
             </div>
           </Reveal>
           <Reveal className="lg:col-span-5 lg:col-start-8" delay={0.1}>
-            <p className="t-eyebrow text-muted">{hk.eyebrow}</p>
-            <h2 id="hk-title" className="t-h2 mt-4">{hk.title}</h2>
-            <p className="t-lead mt-5 text-muted">{hk.intro}</p>
+            <h2 id="hk-title" className="t-title">{hk.title}</h2>
+            <p className="t-body mt-5 text-muted">{hk.intro}</p>
             <ul className="mt-8 divide-y divide-line border-y border-line">
               {hk.packages!.map((p) => (
                 <li key={p.name} className="py-4">
-                  <p className="t-h3">{p.name}</p>
-                  <p className="t-small mt-1 text-muted">{p.detail}</p>
+                  <p className="t-heading">{p.name}</p>
+                  <p className="t-body mt-1 text-muted">{p.detail}</p>
                 </li>
               ))}
             </ul>
@@ -93,8 +83,7 @@ export default function Home() {
       <section id="enquire" aria-labelledby="enquire-title" className="container-site py-section">
         <div className="grid gap-12 lg:grid-cols-12">
           <Reveal className="lg:col-span-4">
-            <p className="t-eyebrow text-muted">Enquire</p>
-            <h2 id="enquire-title" className="t-h2 mt-4">Tell me about your moment.</h2>
+            <h2 id="enquire-title" className="t-title">Tell me about your moment.</h2>
             <p className="t-body mt-5 max-w-[34ch] text-muted">{site.replyPromise}</p>
           </Reveal>
           <Reveal className="lg:col-span-7 lg:col-start-6" delay={0.1}>

@@ -12,7 +12,8 @@ Read `docs/PROJECT-LOG.md` first (status, hosting, domain, next steps) and `docs
 
 ## Rules
 
-- **Type:** only the 8 roles in `src/app/globals.css` (`t-display`, `t-h1`, `t-h2`, `t-h3`, `t-lead`, `t-body`, `t-small`, `t-eyebrow`). Never set font size, family or weight by hand. This consistency was the main reason for the redesign.
+- **Type:** only the 5 roles in `src/app/globals.css` (`t-display`, `t-title`, `t-heading`, `t-body`, `t-small`). Never set font size, family or weight by hand. A text block uses at most two roles (serif title + sans body). No eyebrow labels, no all-caps. This consistency was the main reason for the redesign.
+- **Even numbers only:** every font size, line height, spacing, radius and offset is an even number of pixels at every breakpoint (owner's rule). Sizes step at `md`/`lg`; no fluid `clamp()`. Only 1px hairlines are exempt.
 - **Colour:** only the semantic roles (`paper`, `surface`, `line`, `ink`, `muted`, `accent`, `accent-soft`, `deep`, `on-deep`). No raw hex in components.
 - **Content** lives in `src/content/` (site details, page copy, photo list). Components should not hard-code copy that the owner will want to change.
 - **Leads go to WhatsApp.** Any new contact point must call `track()` from `src/lib/analytics.ts`, or be a plain `<a>` to wa.me / mailto / tel / instagram (auto-tracked by `Analytics.tsx`).

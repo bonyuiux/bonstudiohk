@@ -5,7 +5,7 @@ import type { ServiceKey } from "./site";
 export type GalleryPageContent = {
   path: string;
   service: ServiceKey;
-  eyebrow: string;
+  label: string;
   title: string;
   intro: string;
   seoTitle: string;
@@ -36,7 +36,7 @@ export const pages: Record<string, GalleryPageContent> = {
   portrait: {
     path: "/portrait",
     service: "portrait",
-    eyebrow: "Portrait",
+    label: "Portrait",
     title: "Portraits that feel like you, on a good day.",
     intro: "For couples, families, friends and travellers in Hong Kong and beyond — a relaxed session, gentle direction and a moment kept in time.",
     seoTitle: "Portrait Photographer in Hong Kong — Couples, Family & Pet Photoshoots",
@@ -47,7 +47,7 @@ export const pages: Record<string, GalleryPageContent> = {
   wedding: {
     path: "/wedding",
     service: "wedding",
-    eyebrow: "Wedding",
+    label: "Wedding",
     title: "For the quiet moments between two people in love.",
     intro: "Registry office, pre-wedding and full-day coverage — photographed in Hong Kong and wherever the story leads.",
     seoTitle: "Wedding & Pre-Wedding Photographer in Hong Kong",
@@ -58,7 +58,7 @@ export const pages: Record<string, GalleryPageContent> = {
   event: {
     path: "/event",
     service: "event",
-    eyebrow: "Event",
+    label: "Event",
     title: "Your event, covered end to end.",
     intro: "Corporate talks and dinners, school ceremonies, sports days, birthdays and family gatherings — the people, the atmosphere and every key moment.",
     seoTitle: "Event Photographer in Hong Kong — Corporate, School & Sports",
@@ -70,7 +70,7 @@ export const pages: Record<string, GalleryPageContent> = {
   "hong-kong": {
     path: "/hong-kong",
     service: "hong-kong",
-    eyebrow: "Hong Kong Photoshoot",
+    label: "Hong Kong Photoshoot",
     title: "A photoshoot that feels like a walk through the city.",
     intro: "Visiting Hong Kong? Explore it with a local photographer — natural photos for couples, families and solo travellers, from the harbour to the backstreets.",
     seoTitle: "Hong Kong Photoshoot for Travellers & Couples — Local Photographer",
@@ -87,7 +87,7 @@ export const pages: Record<string, GalleryPageContent> = {
   "work/portrait": {
     path: "/work/portrait",
     service: "portrait",
-    eyebrow: "Work · Portrait",
+    label: "Work · Portrait",
     title: "Portrait",
     intro: "Couples, travellers and people in their own light.",
     seoTitle: "Portrait Portfolio",
@@ -98,7 +98,7 @@ export const pages: Record<string, GalleryPageContent> = {
   "work/wedding": {
     path: "/work/wedding",
     service: "wedding",
-    eyebrow: "Work · Wedding",
+    label: "Work · Wedding",
     title: "Wedding",
     intro: "Registry days, small ceremonies and the details in between.",
     seoTitle: "Wedding Portfolio",
@@ -109,7 +109,7 @@ export const pages: Record<string, GalleryPageContent> = {
   "work/commercial": {
     path: "/work/commercial",
     service: "commercial",
-    eyebrow: "Work · Commercial",
+    label: "Work · Commercial",
     title: "Commercial",
     intro: "Brand campaigns, products, people and launches — natural light, real feeling.",
     seoTitle: "Commercial & Brand Photography Portfolio",

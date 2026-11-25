@@ -90,7 +90,7 @@ export default function Header() {
           <ul className="space-y-1">
             {links.map((l) => (
               <li key={l.href}>
-                <Link href={l.href} className={`t-h2 block py-1.5 ${pathname === l.href ? "text-accent" : ""}`}>
+                <Link href={l.href} className={`t-title block py-1.5 ${pathname === l.href ? "text-accent" : ""}`}>
                   {l.label}
                 </Link>
               </li>

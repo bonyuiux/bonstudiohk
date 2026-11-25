@@ -8,9 +8,8 @@ export const metadata: Metadata = { title: "Thank you", robots: { index: false, 
 export default function ThankYou() {
   return (
     <section className="container-site flex min-h-[80svh] flex-col items-center justify-center pb-24 pt-40 text-center">
-      <p className="t-eyebrow text-muted">Message ready</p>
-      <h1 className="t-h1 mt-5 max-w-[16ch]">Thank you — I’ll get back to you soon.</h1>
-      <p className="t-lead mt-6 max-w-[40ch] text-muted">
+      <h1 className="t-title max-w-[16ch]">Thank you — I’ll get back to you soon.</h1>
+      <p className="t-body mt-6 max-w-[40ch] text-muted">
         Your message has opened in WhatsApp. Just press send. If it didn’t open, tap below.
       </p>
       <div className="mt-10 flex flex-wrap justify-center gap-3">

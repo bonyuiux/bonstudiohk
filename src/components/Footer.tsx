@@ -10,8 +10,7 @@ export default function Footer() {
       <div className="container-site py-section">
         <div className="grid gap-14 lg:grid-cols-12">
           <div className="lg:col-span-6">
-            <p className="t-eyebrow opacity-70">Contact</p>
-            <h2 className="t-h1 mt-5 max-w-[14ch]">Let’s capture something timeless.</h2>
+            <h2 className="t-title max-w-[14ch]">Let’s capture something timeless.</h2>
             <p className="t-body mt-5 max-w-[34ch] opacity-75">{site.replyPromise}</p>
             <div className="mt-8">
               <WhatsAppButton tone="light" location="footer" label="Start a chat on WhatsApp" />
@@ -50,14 +49,14 @@ export default function Footer() {
 function FooterItem({ label, value, href, location }: { label: string; value: string; href: string; location: string }) {
   return (
     <div>
-      <dt className="t-eyebrow opacity-60">{label}</dt>
+      <dt className="t-small opacity-65">{label}</dt>
       <dd className="mt-2">
         <a
           href={href}
           data-location={location}
           target={href.startsWith("http") ? "_blank" : undefined}
           rel={href.startsWith("http") ? "noopener" : undefined}
-          className="t-lead group inline-flex items-center gap-2 border-b border-on-deep/25 pb-1 transition-colors hover:border-on-deep"
+          className="t-body group inline-flex items-center gap-2 border-b border-on-deep/25 pb-1 transition-colors hover:border-on-deep"
         >
           {value}
           <ArrowIcon className="h-4 w-4 opacity-60 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />

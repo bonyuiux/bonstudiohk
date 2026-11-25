@@ -41,8 +41,9 @@ npm run dev      # http://localhost:3000
 
 ## Design system
 
-- **Two typefaces:** Cormorant Garamond for headings and Jost for everything you read or click. The Framer site mixed Italiana, Jost, DM Sans and a system font across 11 different sizes.
-- **Eight type roles,** each with a fluid size that scales from phone to desktop: `t-display`, `t-h1`, `t-h2`, `t-h3`, `t-lead`, `t-body`, `t-small`, `t-eyebrow`. Components use only these.
+- **Two typefaces, three weights:** Cormorant Garamond 300/400 for titles and names, Jost 400 for everything you read or tap. The Framer site mixed Italiana, Jost, DM Sans and a system font across 11 sizes.
+- **Five type roles:** `t-display` (hero only), `t-title`, `t-heading`, `t-body` (18/30px), `t-small` (14/20px). A text block uses at most two of them. No eyebrow labels or all-caps.
+- **Even numbers only:** every size, line height and spacing value is an even number of pixels. Sizes step at 768px and 1024px.
 - **Colour roles:** warm paper background, ink text, umber accent, deep brown footer.
 - Visit `/styleguide` to see all of it live.
 

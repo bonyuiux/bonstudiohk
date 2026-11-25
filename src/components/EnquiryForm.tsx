@@ -46,7 +46,7 @@ export default function EnquiryForm({ defaultType }: { defaultType?: string }) {
     else window.location.href = url; // pop-up blocked: go straight to WhatsApp
   }
 
-  const field = "mt-2 block w-full rounded-[3px] border border-line bg-surface px-4 py-3 t-body text-ink placeholder:text-muted/60 transition-colors focus:border-accent focus:outline-none";
+  const field = "mt-2 block w-full rounded-field border border-line bg-surface px-4 py-3 t-body text-ink placeholder:text-muted/60 transition-colors focus:border-accent focus:outline-none";
 
   return (
     <form onSubmit={onSubmit} noValidate className="grid gap-6 sm:grid-cols-2">

@@ -14,7 +14,7 @@ export const metadata = pageMeta({
 export default function About() {
   return (
     <>
-      <PageIntro eyebrow="About" title="A soft pause in time, carefully preserved.">
+      <PageIntro title="A soft pause in time, carefully preserved.">
         Bon Studio is a Hong Kong–based photography studio focused on calm, natural portraits.
       </PageIntro>
 
@@ -31,14 +31,11 @@ export default function About() {
 
       <section className="container-site py-section">
         <div className="grid gap-10 lg:grid-cols-12">
-          <Reveal className="lg:col-span-4">
-            <p className="t-eyebrow text-muted">The approach</p>
-          </Reveal>
-          <Reveal className="space-y-6 lg:col-span-7" delay={0.1}>
-            <p className="t-h3 font-normal">
+          <Reveal className="space-y-6 lg:col-span-8 lg:col-start-3">
+            <h2 className="t-title">
               I’m drawn to the in-between moments — when light settles, expressions soften, and things feel quietly alive.
-            </p>
-            <p className="t-lead text-muted">
+            </h2>
+            <p className="t-body max-w-[60ch] text-muted">
               With a minimalist, airy approach, I photograph couples, people and travellers in a way that feels relaxed and unforced.
               The goal isn’t to stage a moment, but to notice it — and keep it.
             </p>
