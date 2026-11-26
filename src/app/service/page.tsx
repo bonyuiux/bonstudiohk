@@ -1,4 +1,5 @@
-import Inner from "@/components/Inner";
+import Shell from "@/components/Shell";
+import PageHead from "@/components/PageHead";
 import Photo from "@/components/Photo";
 import ServiceItems from "@/components/ServiceItems";
 import Btn from "@/components/Btn";
@@ -13,24 +14,23 @@ export const metadata = pageMeta({
 
 export default function Service() {
   return (
-    <Inner active="/service">
-      <div className="ph-text">
-        <p className="t-18">{servicePage.label}</p>
-        <h1 className="ph-text__title ph-svc__title t-italiana">{servicePage.title}</h1>
-        <div className="ph-svc__list">
-          <ServiceItems items={serviceItems} page />
-        </div>
-        <Btn href="/contact" className="ph-svc__btn" >
+    <Shell active="/service">
+      <PageHead title={servicePage.title} />
+      <div className="mt-block">
+        <ServiceItems items={serviceItems} />
+      </div>
+      <div className="mt-block">
+        <Btn href="/contact" cta="service_page">
           Get in touch
         </Btn>
-        <div className="ph-text__photos">
-          {servicePage.photos.map((id, i) => (
-            <div key={id} className="ph-photo">
-              <Photo id={id} fill sizes={i === 0 ? "(min-width: 810px) 36vw, 100vw" : "(min-width: 810px) 24vw, 100vw"} />
-            </div>
-          ))}
-        </div>
       </div>
-    </Inner>
+      <div className="pair mt-block">
+        {servicePage.photos.map((id, i) => (
+          <div key={id}>
+            <Photo id={id} fill sizes={i === 0 ? "(min-width: 810px) 40vw, 100vw" : "(min-width: 810px) 28vw, 100vw"} />
+          </div>
+        ))}
+      </div>
+    </Shell>
   );
 }

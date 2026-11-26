@@ -1,4 +1,5 @@
-import Inner from "@/components/Inner";
+import Shell from "@/components/Shell";
+import PageHead from "@/components/PageHead";
 import PhotoColumns from "@/components/PhotoColumns";
 import ServiceItems from "@/components/ServiceItems";
 import Btn from "@/components/Btn";
@@ -13,20 +14,20 @@ export const metadata = pageMeta({ title: seoTitle, description: seoDescription,
 
 export default function HongKong() {
   return (
-    <Inner active="/hong-kong">
+    <Shell active="/hong-kong">
       <JsonLd data={serviceLd(seoTitle, seoDescription, "/hong-kong")} />
-      <p className="t-18">{hongKong.label}</p>
-      <h1 className="ph-hk__title t-italiana">{hongKong.title}</h1>
-      <p className="ph-hk__intro t-16">{hongKong.intro}</p>
-      <div className="ph-hk__list">
-        <ServiceItems items={hongKong.sessions} page />
+      <PageHead title={hongKong.title}>{hongKong.intro}</PageHead>
+      <div className="mt-block">
+        <ServiceItems items={hongKong.sessions} />
       </div>
-      <div className="ph-cat__gallery">
-        <PhotoColumns columns={hongKong.gallery} className="gal--hk" />
+      <div className="mt-block">
+        <PhotoColumns columns={hongKong.gallery} />
       </div>
-      <Btn href="/contact" className="ph-cat__btn btn--block">
-        Get in touch
-      </Btn>
-    </Inner>
+      <div className="mt-block">
+        <Btn href="/contact" cta="hong_kong">
+          Get in touch
+        </Btn>
+      </div>
+    </Shell>
   );
 }

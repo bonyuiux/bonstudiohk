@@ -9,7 +9,7 @@ export default function PhotoColumns({ columns, home, eager, className = "" }: {
         <div key={c} className="gal__col">
           {col.map((s, i) => (
             <div key={s.id} className={`gal__item gal__item--${s.shape}`}>
-              <Photo id={s.id} fill sizes="(min-width: 1200px) 30vw, (min-width: 810px) 32vw, 50vw" eager={eager && i === 0} />
+              <Photo id={s.id} fill sizes="(min-width: 1200px) 36vw, (min-width: 810px) 40vw, 50vw" eager={eager && i === 0} />
             </div>
           ))}
         </div>

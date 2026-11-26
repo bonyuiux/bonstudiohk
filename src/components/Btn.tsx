@@ -2,13 +2,12 @@ import Link from "next/link";
 import type { ReactNode } from "react";
 import { ArrowIcon } from "./icons";
 
-/** The original's pill button: brown (or white) with an ↗ arrow. */
-export default function Btn({ href, children, variant = "brown", className = "", arrow = true }: { href: string; children: ReactNode; variant?: "brown" | "white" | "brown-tall"; className?: string; arrow?: boolean }) {
-  const v = variant === "white" ? "btn btn--white" : variant === "brown-tall" ? "btn btn--tall" : "btn";
+/** Pill button with an ↗ arrow. */
+export default function Btn({ href, children, light, block, cta }: { href: string; children: ReactNode; light?: boolean; block?: boolean; cta?: string }) {
   return (
-    <Link href={href} data-cta={className.split(" ")[0] || "button"} className={`${v} ${className}`}>
+    <Link href={href} data-cta={cta ?? "button"} className={`btn ${light ? "btn--light" : ""} ${block ? "btn--block" : ""}`}>
       {children}
-      {arrow && <ArrowIcon />}
+      <ArrowIcon />
     </Link>
   );
 }

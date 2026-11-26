@@ -1,11 +1,11 @@
-/** Brown name + black description rows (Service list, Hong Kong sessions). */
-export default function ServiceItems({ items, page }: { items: { name: string; desc: string }[]; page?: boolean }) {
+/** Name (heading) + its description (body, muted), 8px apart; items 24px apart. */
+export default function ServiceItems({ items }: { items: { name: string; desc: string }[] }) {
   return (
-    <div className={`svc ${page ? "svc--page" : ""}`}>
+    <div className="items">
       {items.map((s) => (
-        <div key={s.name} className="svc__item">
-          <h3 className="svc__name">{s.name}</h3>
-          <p className="svc__desc t-16">{s.desc}</p>
+        <div key={s.name}>
+          <h3 className="t-heading">{s.name}</h3>
+          <p className="t-body muted mt-tight">{s.desc}</p>
         </div>
       ))}
     </div>

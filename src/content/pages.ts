@@ -8,22 +8,18 @@ export type Columns = [Shot[], Shot[]];
 const l = (id: PhotoId): Shot => ({ id, shape: "l" });
 const p = (id: PhotoId): Shot => ({ id, shape: "p" });
 
+export type Slide = { kind: "video" | "photo"; id?: PhotoId; caption: string; link: { label: string; href: string } };
+
 export const home = {
-  tagline: ["A soft pause in time,", "carefully preserved."],
-  aboutLabel: "About",
-  aboutGrey: "I captures quiet moments as they naturally unfold—gentle light, honest emotion.",
-  // the four highlighted words link to their pages (blue on phones, as on the original)
-  aboutBlack: [
-    "Hong Kong photographer specializing in natural ",
-    { text: "portraits", href: "/portrait" },
-    ", ",
-    { text: "couples", href: "/portrait" },
-    ", ",
-    { text: "wedding", href: "/wedding" },
-    " and ",
-    { text: "travel", href: "/hong-kong" },
-    " photoshoots.",
-  ] as (string | { text: string; href: string })[],
+  tagline: "A soft pause in time, carefully preserved.",
+  // Hero carousel, in order. The first slide is the existing film clip.
+  slides: [
+    { kind: "video", caption: "Couples · Glencoe, Scotland", link: { label: "View portrait", href: "/portrait" } },
+    { kind: "photo", id: "dolomites-meadow-leap", caption: "Travel · Dolomites, Italy", link: { label: "View portrait", href: "/portrait" } },
+    { kind: "photo", id: "bride-veil-coast", caption: "Wedding · Hong Kong", link: { label: "View wedding", href: "/wedding" } },
+    { kind: "photo", id: "hk-footbridge-portrait", caption: "Hong Kong photoshoot · Central", link: { label: "View Hong Kong", href: "/hong-kong" } },
+    { kind: "photo", id: "family-harbourfront", caption: "Family · Hong Kong harbourfront", link: { label: "View portrait", href: "/portrait" } },
+  ] as Slide[],
   gallery: [
     [l("iceland-highlands"), p("sheep-below-cliff"), l("dolomites-meadow-leap"), p("couple-laughing-grass")],
     [p("ferry-deck-portrait"), p("dolomites-lake-couple"), l("couple-sunset-silhouette"), l("family-cabin-build")],
@@ -110,7 +106,7 @@ export const about = {
   label: "About",
   title: "A soft pause in time, carefully preserved.",
   lead: "Bon Studio is a Hong Kong–based photography studio focused on calm, natural portraits.",
-  body: "I’m drawn to the in-between moments — when light settles, expressions soften, and things feel quietly alive.With a minimalist and airy approach, I photograph couples, people, and travelers in a way that feels relaxed and unforced. The goal isn’t to stage a moment, but to notice it and keep it.",
+  body: "I’m drawn to the in-between moments — when light settles, expressions soften, and things feel quietly alive. With a minimalist and airy approach, I photograph couples, people, and travelers in a way that feels relaxed and unforced. The goal isn’t to stage a moment, but to notice it and keep it.",
   photos: ["couple-caravan", "clifftop-traveller"] as [PhotoId, PhotoId],
 };
 

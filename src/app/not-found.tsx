@@ -1,12 +1,14 @@
+import Shell from "@/components/Shell";
+import PageHead from "@/components/PageHead";
 import Btn from "@/components/Btn";
 
 export default function NotFound() {
   return (
-    <section className="ty">
-      <h1 className="ty__title">This page could not be found.</h1>
-      <Btn href="/" variant="brown-tall" className="ty__btn" arrow={false}>
-        Go to home
-      </Btn>
-    </section>
+    <Shell>
+      <PageHead title="This page could not be found.">It may have moved. The menu has everything else.</PageHead>
+      <div className="mt-block">
+        <Btn href="/">Go to home</Btn>
+      </div>
+    </Shell>
   );
 }

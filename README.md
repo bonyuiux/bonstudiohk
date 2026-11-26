@@ -41,13 +41,9 @@ npm run dev      # http://localhost:3000
 
 ## Design
 
-A 1:1 rebuild of the original Framer site: same layout, fonts (Italiana, Jost, Inter), colours, spacing and copy at its three breakpoints (phone < 810px, tablet 810–1199px, desktop ≥ 1200px). All look values are in `src/app/globals.css`.
+See [`docs/DESIGN.md`](docs/DESIGN.md): two typefaces (Italiana + Jost), four type roles, one spacing scale, a quiet text sidebar, and a carousel hero with three versions to choose from (pill at the top right of the home page). The exact Framer replica is kept at git tag `og-replica`.
 
-Differences from the Framer site, on purpose:
-- The Contact Us form sends to **WhatsApp** (opens a pre-filled message, then shows `/thankyou`).
-- The blank white strip that Framer left under the footer is gone.
-- The Event page has its own Google title (Framer reused the Wedding one), and its sidebar highlights Event on tablet.
-- Marketing tags, events and SEO run underneath (see `docs/MARKETING.md`).
+Design-system skills for Claude Code are installed in `.claude/skills/design-system-ops`. How to use them: [`docs/DESIGN-SYSTEM-OPS.md`](docs/DESIGN-SYSTEM-OPS.md).
 
 ## Deploy
 

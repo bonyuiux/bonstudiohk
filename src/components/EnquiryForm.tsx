@@ -5,10 +5,7 @@ import { useState, type FormEvent } from "react";
 import { whatsappUrl } from "@/lib/whatsapp";
 import { track } from "@/lib/analytics";
 
-/**
- * The original "Contact Us" form (Name, Phone number, Email, Message → Submit).
- * Instead of emailing, it writes a WhatsApp message from the answers, opens WhatsApp and shows /thankyou.
- */
+/** Name, phone, email, message → opens WhatsApp with the message ready, then shows /thankyou. */
 export default function EnquiryForm() {
   const router = useRouter();
   const [error, setError] = useState("");
@@ -38,29 +35,31 @@ export default function EnquiryForm() {
   return (
     <form className="form" onSubmit={onSubmit} noValidate>
       <label>
-        <span className="t-14">Name</span>
-        <input name="name" autoComplete="name" placeholder="Your Name" />
+        <span className="t-small muted">Name</span>
+        <input name="name" autoComplete="name" placeholder="Your name" />
       </label>
       <label>
-        <span className="t-14">Phone number</span>
+        <span className="t-small muted">Phone number</span>
         <input name="phone" type="tel" autoComplete="tel" placeholder="+852 1234 5678" />
       </label>
       <label>
-        <span className="t-14">Email</span>
+        <span className="t-small muted">Email</span>
         <input name="email" type="email" autoComplete="email" placeholder="example@email.com" />
       </label>
       <label>
-        <span className="t-14">Message</span>
+        <span className="t-small muted">Message</span>
         <textarea name="message" placeholder="Your message" />
       </label>
       {error && (
-        <p role="alert" className="form__error t-14">
+        <p role="alert" className="t-small" style={{ color: "var(--brown)" }}>
           {error}
         </p>
       )}
-      <button type="submit" className="btn btn--block">
-        Submit
-      </button>
+      <div>
+        <button type="submit" className="btn">
+          Send on WhatsApp
+        </button>
+      </div>
     </form>
   );
 }

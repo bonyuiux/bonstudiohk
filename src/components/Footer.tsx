@@ -1,44 +1,45 @@
+import Image from "next/image";
 import { site } from "@/content/site";
 import Btn from "./Btn";
-import { ArrowIcon, WhatsAppIcon } from "./icons";
 
-/** The original brown footer. */
+/** Footer on the same grid as every page: logo in the sidebar column, words in the content column. */
 export default function Footer() {
+  const rows = [
+    { label: "Instagram", value: site.instagram.handle, href: site.instagram.url },
+    { label: "Email", value: site.email, href: `mailto:${site.email}` },
+    { label: "Tel & WhatsApp", value: site.phoneDisplay, href: `https://wa.me/${site.whatsappNumber}` },
+  ];
   return (
     <footer className="foot">
-      <div className="foot__top">
-        <div>
-          <p className="t-16">Contact</p>
-          <h2 className="foot__title t-jost-title">Let’s capture something timeless.</h2>
-          <Btn href="/contact" variant="white" className="foot__btn">
-            Let&apos;s connect
-          </Btn>
+      <div className="shell">
+        <div className="foot__logo">
+          <Image src="/brand/wordmark-white.png" alt="Bon Studio" width={723} height={126} />
         </div>
-        <div className="foot__rows">
-          <div>
-            <p className="foot__label t-14">Instagram</p>
-            <a className="foot__row" href={site.instagram.url} target="_blank" rel="noopener" data-location="footer">
-              <span className="t-18">{site.instagram.handle}</span>
-              <span className="foot__icon"><ArrowIcon /></span>
-            </a>
+        <div className="shell__content">
+          <div className="measure">
+            <h2 className="t-display">Let’s capture something timeless.</h2>
+            <p className="t-body muted mt-near">{site.replyPromise}</p>
+            <div className="mt-block">
+              <Btn href="/contact" light cta="footer">
+                Let&apos;s connect
+              </Btn>
+            </div>
           </div>
-          <div>
-            <p className="foot__label t-14">Email</p>
-            <a className="foot__row" href={`mailto:${site.email}`} data-location="footer">
-              <span className="t-18">{site.email}</span>
-              <span className="foot__icon"><ArrowIcon /></span>
-            </a>
+          <div className="rows mt-block">
+            {rows.map((r) => (
+              <div key={r.label}>
+                <p className="t-small muted">{r.label}</p>
+                <a className="t-body mt-tight" style={{ display: "inline-block" }} href={r.href} target={r.href.startsWith("http") ? "_blank" : undefined} rel={r.href.startsWith("http") ? "noopener" : undefined} data-location="footer">
+                  {r.value}
+                </a>
+              </div>
+            ))}
           </div>
-          <div>
-            <p className="foot__label t-14">Tel &amp; Wtsapp</p>
-            <a className="foot__row" href={`https://wa.me/${site.whatsappNumber}`} target="_blank" rel="noopener" data-location="footer">
-              <span className="t-18 blue">{site.phoneDisplay}</span>
-              <span className="foot__icon"><WhatsAppIcon /></span>
-            </a>
-          </div>
+          <p className="t-small muted" style={{ marginTop: "var(--section)" }}>
+            © {new Date().getFullYear()} Bon Studio
+          </p>
         </div>
       </div>
-      <p className="foot__copy t-16">2025 Own by Bon Studio.</p>
     </footer>
   );
 }

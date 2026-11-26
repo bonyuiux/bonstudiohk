@@ -1,4 +1,6 @@
-import Inner from "@/components/Inner";
+import Shell from "@/components/Shell";
+import PageHead from "@/components/PageHead";
+import EnquiryForm from "@/components/EnquiryForm";
 import { contactPage } from "@/content/pages";
 import { site } from "@/content/site";
 import { pageMeta } from "@/lib/seo";
@@ -10,38 +12,27 @@ export const metadata = pageMeta({
 });
 
 export default function Contact() {
+  const rows = [
+    { label: "Tel & WhatsApp", value: site.phoneDisplay, href: `https://wa.me/${site.whatsappNumber}` },
+    { label: "Email", value: site.email, href: `mailto:${site.email}` },
+    { label: "Instagram", value: site.instagram.handle, href: site.instagram.url },
+  ];
   return (
-    <Inner active="/contact">
-      <div className="ph-text ph-text--flush">
-        <p className="t-18">{contactPage.label}</p>
-        <h1 className="ct__title t-italiana">{contactPage.title}</h1>
-        <p className="ct__intro t-16">
-          {contactPage.intro}
-          <br />
-          {contactPage.intro2}
-        </p>
-        <div className="ct__rows">
-          <div>
-            <p className="ct__label t-14">Email</p>
-            <div className="ct__value">
-              <a className="t-18" href={`mailto:${site.email}`} data-location="contact_page">{site.email}</a>
-            </div>
+    <Shell active="/contact">
+      <PageHead title={contactPage.title}>{contactPage.intro}</PageHead>
+      <div className="rows mt-block">
+        {rows.map((r) => (
+          <div key={r.label}>
+            <p className="t-small muted">{r.label}</p>
+            <a className="t-body mt-tight" style={{ display: "inline-block" }} href={r.href} target={r.href.startsWith("http") ? "_blank" : undefined} rel={r.href.startsWith("http") ? "noopener" : undefined} data-location="contact_page">
+              {r.value}
+            </a>
           </div>
-          <div>
-            <p className="ct__label t-14">Tel &amp; Wtsapp</p>
-            <div className="ct__value">
-              <a className="t-18 blue" href={`https://wa.me/${site.whatsappNumber}`} target="_blank" rel="noopener" data-location="contact_page">{site.phoneDisplay}</a>
-            </div>
-          </div>
-          <div>
-            <p className="ct__label t-14">Social</p>
-            <div className="ct__value">
-              <a className="t-18" href={site.instagram.url} target="_blank" rel="noopener" data-location="contact_page">Instagram</a>
-              <span className="t-18">Facebook</span>
-            </div>
-          </div>
-        </div>
+        ))}
       </div>
-    </Inner>
+      <div className="mt-block">
+        <EnquiryForm />
+      </div>
+    </Shell>
   );
 }
