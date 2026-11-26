@@ -6,7 +6,7 @@ All values live in `src/app/globals.css`. Screens: **phone** < 810px · **tablet
 
 | Role | Family | Phone | Tablet | Desktop | Use |
 |---|---|---|---|---|---|
-| `t-display` | Italiana 400 (the logo's face) | 28/36 | 32/40 | 40/48 | Page and section titles. One per block. |
+| `t-display` | Italiana 400 (the logo's face) | 24/32 | 28/36 | 32/40 | Page and section titles. One per block. |
 | `t-heading` | Jost 500 | 18/28 | 20/28 | 20/28 | Names in a list: a service, a session |
 | `t-body` | Jost 400 | 16/24 | 16/24 | 16/24 | Everything you read, buttons, form fields |
 | `t-small` | Jost 400 | 14/20 | 14/20 | 14/20 | Menu, labels, captions |

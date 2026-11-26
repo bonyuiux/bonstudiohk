@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { site } from "@/content/site";
-import { ArrowIcon } from "./icons";
+import { ArrowRightIcon } from "./icons";
 
 /**
  * Compact footer on the page colour, on the same grid as every page:
@@ -22,7 +22,7 @@ export default function Footer() {
             <span>Got a date in mind?</span>
             <Link href="/contact" className="textlink" data-cta="footer">
               Message me
-              <ArrowIcon />
+              <ArrowRightIcon />
             </Link>
           </p>
           <div className="foot__meta t-small">

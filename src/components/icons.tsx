@@ -25,3 +25,12 @@ export function ArrowIcon({ className }: P) {
     </svg>
   );
 }
+
+/** → for text links: the arrow nudges right on hover. */
+export function ArrowRightIcon({ className }: P) {
+  return (
+    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.4" aria-hidden className={className}>
+      <path d="M2 8h11M9 4l4 4-4 4" />
+    </svg>
+  );
+}

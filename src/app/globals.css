@@ -107,8 +107,8 @@
 .t-display {
   font-family: var(--display);
   font-weight: 400;
-  font-size: 28px;
-  line-height: 36px;
+  font-size: 24px;
+  line-height: 32px;
   text-wrap: balance;
 }
 .t-heading {
@@ -132,8 +132,8 @@
 }
 @media (min-width: 810px) {
   .t-display {
-    font-size: 32px;
-    line-height: 40px;
+    font-size: 28px;
+    line-height: 36px;
   }
   .t-heading {
     font-size: 20px;
@@ -142,8 +142,8 @@
 }
 @media (min-width: 1200px) {
   .t-display {
-    font-size: 40px;
-    line-height: 48px;
+    font-size: 32px;
+    line-height: 40px;
   }
 }
 .muted {
@@ -770,22 +770,45 @@ body::after {
 .hero__label {
   min-height: 24px;
 }
-/* the hero's only link: text + arrow, no pill */
+/* text link (hero, footer): no line at rest; on hover the line draws in from the left and the arrow nudges right */
 .textlink {
+  position: relative;
   display: inline-flex;
   align-items: center;
   gap: var(--tight);
   width: fit-content;
   padding-bottom: 4px;
-  border-bottom: 1px solid currentColor;
-  transition: gap 0.24s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease;
+}
+.textlink::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 24px;
+  bottom: 0;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 .textlink svg {
   width: 16px;
   height: 16px;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
-.textlink:hover {
-  gap: var(--near);
+.textlink:hover::after,
+.textlink:focus-visible::after {
+  transform: scaleX(1);
+}
+.textlink:hover svg,
+.textlink:focus-visible svg {
+  transform: translateX(6px);
+}
+@media (prefers-reduced-motion: reduce) {
+  .textlink::after,
+  .textlink svg {
+    transition: none;
+  }
 }
 
 /* ==========================================================================

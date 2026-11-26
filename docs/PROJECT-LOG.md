@@ -36,7 +36,7 @@
 - Page titles are one step smaller (28/32/40) and trimmed to cap height with `text-box`, so the capital lines up with the sidebar logo.
 - Photo browser cursor follows the pointer exactly, with no spring lag (`cursor.tsx` patched).
 - Footer: compact, page colour, thin top line, no light patch, no second logo.
-- Open choices for the owner (title size, footer, hero link, texture): `docs/choices/bon-studio-choices.html`. Shipped defaults are 1B, 2A, 3A, 4A.
+- Owner's picks (`docs/choices/bon-studio-choices.html`): titles **C, quiet** (24/28/32, which applies to the hero line too); hero link **B**: no line at rest, the line draws in on hover and the → nudges (footer link matches); texture **A**, light + grain on pages; footer not picked, so the compact line version stays.
 
 ### 2026-11-26 (later): Copy rewrite, hero B+C, photo browser, works index, Motion Primitives, window light
 - Copy rewritten after Dan Taylor Watt's "How to AI-proof your writing" and the humanizer skill (see `docs/COPY.md`; ⚑ lines need the owner's check). No em dashes left in page copy.

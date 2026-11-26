@@ -8,7 +8,7 @@ import { photo } from "@/content/photos";
 import MobileNav from "./MobileNav";
 import { TextEffect } from "./motion-primitives/text-effect";
 import { SlidingNumber } from "./motion-primitives/sliding-number";
-import { ArrowIcon } from "./icons";
+import { ArrowRightIcon } from "./icons";
 
 const SLIDE_MS = 6000;
 
@@ -94,7 +94,7 @@ export default function HeroCarousel() {
           </div>
           <Link href={slide.link.href} className="textlink t-body" data-cta="hero">
             {slide.link.label}
-            <ArrowIcon />
+            <ArrowRightIcon />
           </Link>
         </div>
         <div className="hero__ctrl">
