@@ -2,8 +2,8 @@ import Work from "../../WorkPage";
 import { pageMeta } from "@/lib/seo";
 
 export const metadata = pageMeta({
-  title: "Bon Studio.",
-  description: "Bon Studio — minimalist commercial and portrait photography in Hong Kong. Soft, bright images that capture quiet, beautiful moments with intentional light and simplicity.",
+  title: "Commercial Photography Portfolio | Bon Studio",
+  description: "Browse commercial photography by Bon Studio, including brand campaigns, product photography and corporate portraits.",
   path: "/work/commercial",
 });
 

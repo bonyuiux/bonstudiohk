@@ -19,9 +19,9 @@ export default function Footer() {
         <div aria-hidden />
         <div className="shell__content foot__body">
           <p className="t-body foot__ask">
-            <span>Got a date in mind?</span>
+            <span>{site.footer.ask}</span>
             <Link href="/contact" className="textlink" data-cta="footer">
-              Message me
+              {site.footer.link}
               <ArrowRightIcon />
             </Link>
           </p>

@@ -10,7 +10,7 @@ export const navGroups = [
   ],
   [
     { label: "About", href: "/about" },
-    { label: "Service", href: "/service" },
+    { label: "Services", href: "/service" },
     { label: "Contact", href: "/contact" },
   ],
   [

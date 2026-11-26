@@ -36,22 +36,31 @@ Example (Hong Kong page): title → 16 → intro → 48 → sessions (name → 8
 - **Phone:** logo + "Menu", which opens the same three groups full-screen.
 - **Content:** left-aligned. Text never runs wider than 640px (`.measure`); photos use the full column.
 
+## Line language (owner, 2026-11-26)
+
+The interface is drawn with thin lines, like a camera's viewfinder. **Every new UI element uses one of these motifs; no pills, boxes or shadows for state.**
+
+| Motif | What it means | Where | Spec |
+|---|---|---|---|
+| **Progress line** | time passing, position in a sequence | hero carousel indicator | 32px long, 2px on photos (0.4 white track, solid white fill), fills left to right over the slide's time |
+| **Frame corners** | this one is selected / focused | current thumbnail, keyboard focus in galleries | four 8px corners, 1px ink, 4px outside the item; "focus in" from 8px out, 0.4s. Class `.frame-mark` (+ `.is-on`) for anything new |
+| **Drawn underline** | this text goes somewhere | hero link, footer link (`.textlink`) | no line at rest; on hover a 1px line draws in from the left, the → arrow nudges 6px, 0.4s |
+| **Hairline rule** | one area ends, another starts | footer top, form fields | 1px `--line` on paper |
+
+Strokes: 1px on paper, 2px over photos (so they hold on a busy image). Motion: lines draw from the left or settle in from outside, 0.4s, `cubic-bezier(0.16, 1, 0.3, 1)`. Reduced motion: lines appear without drawing.
+
 ## Home hero
 
 A full-bleed carousel: the film clip, then four photos (`home.slides` in `src/content/pages.ts`). Each slide shows for 6 seconds with a slow crossfade and settle. The logo sits top-left at sidebar size. Bottom-left (versions B and C combined):
 - the big line in Italiana, which stays
 - the slide's label as the second line, changing with each slide
-- a button to that category
+- a text link to that category (drawn underline, see Line language)
 
-Bottom-right: a sliding counter (01 / 05) and thin lines that fill as each slide plays. It pauses on hover and when the tab is hidden, responds to swipe and the arrow keys, and a progressive blur sits behind the text.
+Bottom-right: a sliding counter (01 / 05) and thin lines that fill as each slide plays. It pauses on hover and when the tab is hidden, and responds to swipe and the arrow keys. No zoom, no blur.
 
 ## Photo browser (category and /work pages)
 
-After kengohino.com: one large photo at a time with a thumbnail rail on the right (a strip under the photo on phones); the current thumbnail has corner marks. Click the left or right half (the cursor says "← Prev" / "Next →"), use the arrow keys or pick a thumbnail. The counter slides. "Full screen" opens the photo on its own ("Close" cursor, Esc). Photos crossfade with a light blur. Component: `PhotoBrowser`.
-
-## Home: Recent work
-
-One row per category: name (heading), one line (muted), "See all N"; then a strip of photos at a shared height that scrolls sideways with snap. Rows fade up on arrival, photos stagger in, and the right edge melts into a progressive blur. Component: `WorksIndex`, data `worksIndex` in `pages.ts`.
+After kengohino.com. The text comes first, then the gallery as **one screen as tall as the window** (minus the page margins and the counter bar), marked by four 16px viewfinder corners. Every photo, landscape or portrait, is **centred** in that screen. On the right is a column of **even 3:2 thumbnails** (96×64, 4px apart) that slides so the current one stays at the vertical centre, inside the frame corners. Click the left or right half of the photo (the cursor says "← Prev" / "Next →"), use the arrow keys, or pick a thumbnail. "Full screen" opens the photo on its own. Phones get a 4:5 stage and a sideways 60×40 strip. Component: `PhotoBrowser`.
 
 ## Motion
 
@@ -59,4 +68,4 @@ Micro-animations come from [Motion Primitives](https://motion-primitives.com) (M
 
 ## Texture
 
-A soft patch of window light with a shadow mullion drifts slowly at the top-right of every page, a darker version sits in the footer (`Light` component), and a faint film grain covers the page. It's decorative only, and turns off with reduced motion.
+A soft patch of window light with a shadow mullion drifts slowly at the top-right of every page (`Light` component), and a faint film grain covers the page. The footer has none (owner). It's decorative only, and turns off with reduced motion.

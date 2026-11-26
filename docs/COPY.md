@@ -1,3 +1,18 @@
+# Website copy
+
+**Current copy is the owner's own (2026-11-26).** It lives in `src/content/` (`pages.ts`, `site.ts`, `nav.ts`), and there's a full page-by-page draft in the Claude doc "Bon Studio site copy". Don't rewrite it. Change a line only when the owner asks, and keep these conventions so the wording stays consistent:
+
+- The menu says **Services**, and the Services page title is **What I photograph**. Don't call it "Service" or "What I shoot".
+- Links that go to a category say **View …** (View portraits, View weddings).
+- Buttons to /contact say **Get in touch** (footer, Services page) or **Ask about a date** (Portrait, Wedding, Event). The Hong Kong button says **Book a session**.
+- The reply promise is written once in `site.replyPromise`: "I usually reply within a day, most often on WhatsApp."
+- British spelling (travellers, neighbourhood, specialising). Curly apostrophes (’). No em dashes in page copy.
+- Paragraphs inside one text field are separated by a blank line (`\n\n`). `PageHead` and `Paras` split them.
+
+---
+
+## History: the earlier rewrite (superseded)
+
 # Website copy: rewrite notes
 
 Rewritten on 2026-11-26 using two sources:

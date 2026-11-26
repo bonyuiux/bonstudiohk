@@ -16,7 +16,8 @@ const fade = {
 const two = (v: number) => (v < 10 ? "0" : "");
 
 /**
- * One large photo at a time with a thumbnail rail (after kengohino.com).
+ * One large photo at a time, centred in a window-tall screen marked by viewfinder corners,
+ * with a rail of even 3:2 thumbnails whose current one stays in the middle (after kengohino.com).
  * Click the left or right half (the cursor says Prev / Next), use ← →, or pick a thumbnail.
  * "Full screen" opens the photo on its own; Esc closes.
  */
@@ -26,6 +27,7 @@ export default function PhotoBrowser({ ids, label }: { ids: PhotoId[]; label: st
   const [side, setSide] = useState<"prev" | "next">("next");
   const [full, setFull] = useState(false);
   const railRef = useRef<HTMLDivElement>(null);
+  const trackRef = useRef<HTMLDivElement>(null);
   const rootRef = useRef<HTMLDivElement>(null);
   const go = useCallback((to: number) => setI(((to % n) + n) % n), [n]);
 
@@ -43,9 +45,25 @@ export default function PhotoBrowser({ ids, label }: { ids: PhotoId[]; label: st
     return () => window.removeEventListener("keydown", onKey);
   }, [i, full, go]);
 
-  // keep the current thumbnail in view
+  // Keep the current thumbnail in the middle of the rail (after kengohino.com).
+  // Desktop/tablet: the column slides so the current one sits at the vertical centre. Phone: the strip scrolls sideways.
   useEffect(() => {
-    railRef.current?.querySelector<HTMLElement>('[aria-current="true"]')?.scrollIntoView({ block: "nearest", inline: "nearest", behavior: "smooth" });
+    const rail = railRef.current;
+    const track = trackRef.current;
+    if (!rail || !track) return;
+    const place = () => {
+      const btn = track.querySelectorAll<HTMLElement>("button")[i];
+      if (!btn) return;
+      if (window.matchMedia("(min-width: 810px)").matches) {
+        track.style.transform = `translateY(${rail.clientHeight / 2 - (btn.offsetTop + btn.offsetHeight / 2)}px)`;
+      } else {
+        track.style.transform = "";
+        rail.scrollTo({ left: btn.offsetLeft - rail.clientWidth / 2 + btn.offsetWidth / 2, behavior: "smooth" });
+      }
+    };
+    place();
+    window.addEventListener("resize", place);
+    return () => window.removeEventListener("resize", place);
   }, [i]);
   useEffect(() => {
     document.documentElement.style.overflow = full ? "hidden" : "";
@@ -70,12 +88,14 @@ export default function PhotoBrowser({ ids, label }: { ids: PhotoId[]; label: st
             <span className="browser__cursor t-small">{side === "prev" ? "← Prev" : "Next →"}</span>
           </Cursor>
         </div>
-        <div className="rail" ref={railRef} role="tablist" aria-label="Thumbnails">
-          {ids.map((id, k) => (
-            <button key={id} type="button" role="tab" aria-selected={k === i} aria-current={k === i} aria-label={`Photo ${k + 1}`} onClick={() => go(k)}>
-              <Image src={photo(id).src} alt="" width={photo(id).w} height={photo(id).h} sizes="56px" />
-            </button>
-          ))}
+        <div className="rail" ref={railRef}>
+          <div className="rail__track" ref={trackRef} role="tablist" aria-label="Thumbnails">
+            {ids.map((id, k) => (
+              <button key={id} type="button" role="tab" aria-selected={k === i} aria-current={k === i} aria-label={`Photo ${k + 1}`} onClick={() => go(k)}>
+                <Image src={photo(id).src} alt="" width={photo(id).w} height={photo(id).h} sizes="96px" />
+              </button>
+            ))}
+          </div>
         </div>
       </div>
       <div className="browser__bar mt-near">
@@ -109,7 +129,7 @@ export default function PhotoBrowser({ ids, label }: { ids: PhotoId[]; label: st
                 {i + 1} / {two(n)}
                 {n}
               </span>
-              <span className="muted">← → to move · Esc to close</span>
+              <span className="muted">← → to browse · Esc to close</span>
             </div>
           </div>,
           document.body,

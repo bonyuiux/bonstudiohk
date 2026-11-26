@@ -2,16 +2,17 @@ import type { Metadata } from "next";
 import Shell from "@/components/Shell";
 import PageHead from "@/components/PageHead";
 import Btn from "@/components/Btn";
+import { thankYou } from "@/content/pages";
 
 // Kept at the original address. Useful as a conversion page in Google Ads / Meta.
-export const metadata: Metadata = { title: "Thank you | Bon Studio", robots: { index: false, follow: false } };
+export const metadata: Metadata = { title: "Thank You | Bon Studio", robots: { index: false, follow: false } };
 
 export default function ThankYou() {
   return (
     <Shell>
-      <PageHead title="Thanks, got it.">Your message is open in WhatsApp. Press send and I’ll reply within a day. If WhatsApp didn’t open, message me on +852 6576 3288.</PageHead>
+      <PageHead title={thankYou.title}>{thankYou.intro}</PageHead>
       <div className="mt-block">
-        <Btn href="/">Go to home</Btn>
+        <Btn href="/">{thankYou.button}</Btn>
       </div>
     </Shell>
   );

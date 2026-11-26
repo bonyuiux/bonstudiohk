@@ -15,11 +15,11 @@ export default function EnquiryForm() {
     const f = new FormData(e.currentTarget);
     const v = (k: string) => String(f.get(k) ?? "").trim();
     if (!v("name")) {
-      setError("Please add your name.");
+      setError("Please enter your name.");
       return;
     }
     setError("");
-    const text = [`Hi Bon Studio! I'm ${v("name")}.`, v("phone") && `Phone: ${v("phone")}`, v("email") && `Email: ${v("email")}`, v("message") && `\n${v("message")}`]
+    const text = [`Hi Bon! I’m ${v("name")}.\n`, v("phone") && `Phone: ${v("phone")}`, v("email") && `Email: ${v("email")}`, v("message") && `\n${v("message")}`]
       .filter(Boolean)
       .join("\n");
     const url = whatsappUrl(text);
@@ -48,7 +48,7 @@ export default function EnquiryForm() {
       </label>
       <label>
         <span className="t-small muted">Message</span>
-        <textarea name="message" placeholder="Your message" />
+        <textarea name="message" placeholder="Tell me a little about your shoot." />
       </label>
       {error && (
         <p role="alert" className="t-small" style={{ color: "var(--brown)" }}>
@@ -57,7 +57,7 @@ export default function EnquiryForm() {
       )}
       <div>
         <button type="submit" className="btn">
-          Send on WhatsApp
+          Send via WhatsApp
         </button>
       </div>
     </form>

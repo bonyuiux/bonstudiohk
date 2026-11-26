@@ -7,7 +7,7 @@ import { pageMeta } from "@/lib/seo";
 
 export const metadata = pageMeta({
   title: "Contact Bon Studio | Hong Kong Photographer",
-  description: "Get in touch with Bon Studio for portrait, wedding or travel photography in Hong Kong. Inquiries and bookings available via Instagram or WhatsApp.",
+  description: "Get in touch with Bon Studio about portrait, wedding, event or commercial photography in Hong Kong. Available via WhatsApp and email.",
   path: "/contact",
 });
 

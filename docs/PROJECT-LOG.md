@@ -29,6 +29,12 @@
 
 ## Log (newest first)
 
+### 2026-11-26 (night): Owner's copy, line language, Kengo Hino-style gallery
+- **Copy:** the owner's final copy applied everywhere, SEO titles and descriptions included (each /work page now has its own). The menu now says "Services". All copy is read from `src/content/` (new: `homeSections`, `serviceItemsLong`, `categoryButton`, `thankYou`, `notFound`, `site.footer`). Unused `services`, `nav` and `enquiryTypes` were removed from `site.ts`. Conventions are in `docs/COPY.md`.
+- **Line language** is now a rule (`docs/DESIGN.md`, CLAUDE.md/AGENTS.md): progress line, frame corners, drawn underline, hairline. The thumbnail frame now has 4 corners and "focuses in"; keyboard focus uses the corners instead of a brown box.
+- **Gallery (default = layout A + viewfinder corners, pending the owner's pick):** the gallery is one window-tall screen marked by 16px viewfinder corners. Photos are centred (they used to be left-aligned, which left gaps). Thumbnails are an even 3:2 (96×64) column that slides so the current one stays in the middle. Phones get a 4:5 stage and a 60×40 strip.
+- Choice page for the owner: `docs/choices/bon-gallery-choices.html` (4 layouts, 3 ways to mark the area, 7 line-drawn polish ideas).
+
 ### 2026-11-26 (evening): Owner said no to the last round. Rollback + fixes
 - Home below the hero is back to the previous version: two-column gallery, "Service", "Contact us". WorksIndex removed. `serviceItems` copy reverted (also shows on /service).
 - Hero: no progressive blur, no slow zoom, no pill button. There's now one text + arrow link (`.textlink`).

@@ -3,7 +3,7 @@ import PageHead from "@/components/PageHead";
 import PhotoBrowser from "@/components/PhotoBrowser";
 import Btn from "@/components/Btn";
 import JsonLd from "@/components/JsonLd";
-import { flat, type CategoryPage } from "@/content/pages";
+import { categoryButton, flat, type CategoryPage } from "@/content/pages";
 import { serviceLd } from "@/lib/seo";
 
 /** Portrait / Wedding / Event: title + paragraph, the photo browser, a button. 48px between blocks. */
@@ -17,7 +17,7 @@ export default function Category({ page }: { page: CategoryPage }) {
       </div>
       <div className="mt-block">
         <Btn href="/contact" cta="category">
-          Ask about a date
+          {categoryButton}
         </Btn>
       </div>
     </Shell>

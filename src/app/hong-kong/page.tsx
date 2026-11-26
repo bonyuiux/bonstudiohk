@@ -7,8 +7,7 @@ import JsonLd from "@/components/JsonLd";
 import { flat, hongKong } from "@/content/pages";
 import { pageMeta, serviceLd } from "@/lib/seo";
 
-const seoTitle = "Travel & Tourist Photoshoot Hong Kong | Bon Studio";
-const seoDescription = "Travel photography sessions in Hong Kong for visitors and travelers. Capture your time in the city with natural portraits at iconic and hidden locations.";
+const { seoTitle, seoDescription } = hongKong;
 
 export const metadata = pageMeta({ title: seoTitle, description: seoDescription, path: "/hong-kong", image: "/images/hk-harbourfront-run.jpg" });
 
@@ -25,7 +24,7 @@ export default function HongKong() {
       </div>
       <div className="mt-block">
         <Btn href="/contact" cta="hong_kong">
-          Book a walk
+          {hongKong.button}
         </Btn>
       </div>
     </Shell>

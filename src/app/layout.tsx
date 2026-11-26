@@ -13,7 +13,7 @@ const jost = Jost({ variable: "--font-jost-loaded", subsets: ["latin"], weight: 
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
-  title: { default: "Hong Kong Photographer | Couple, Pre-Wedding & Travel Portraits | Bon Studio", template: "%s" },
+  title: { default: "Hong Kong Photographer | Portrait & Wedding Photography | Bon Studio", template: "%s" },
   description: site.description,
   applicationName: site.name,
   alternates: { canonical: "/" },

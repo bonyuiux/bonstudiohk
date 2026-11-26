@@ -1,12 +1,12 @@
 import Shell from "@/components/Shell";
-import PageHead from "@/components/PageHead";
+import PageHead, { Paras } from "@/components/PageHead";
 import Photo from "@/components/Photo";
 import { about } from "@/content/pages";
 import { pageMeta } from "@/lib/seo";
 
 export const metadata = pageMeta({
-  title: "About Bon Studio | Hong Kong Portrait & Travel Photographer",
-  description: "Meet Bon, the photographer behind Bon Studio. A Hong Kong-based photographer capturing natural moments for couples, travelers, and families through calm, light-filled photography.",
+  title: "About Bon | Hong Kong Photographer | Bon Studio",
+  description: "Meet Bon, a photographer based in Hong Kong, specialising in portraits, couples, weddings and travel photography.",
   path: "/about",
   image: "/images/couple-caravan.jpg",
 });
@@ -16,7 +16,9 @@ export default function About() {
     <Shell active="/about">
       <PageHead title={about.title}>
         <p>{about.lead}</p>
-        <p className="muted mt-near">{about.body}</p>
+        <div className="mt-near">
+          <Paras text={about.body} className="muted" />
+        </div>
       </PageHead>
       <div className="pair mt-block">
         {about.photos.map((id, i) => (

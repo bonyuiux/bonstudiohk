@@ -3,12 +3,12 @@ import PageHead from "@/components/PageHead";
 import Photo from "@/components/Photo";
 import ServiceItems from "@/components/ServiceItems";
 import Btn from "@/components/Btn";
-import { servicePage, serviceItems } from "@/content/pages";
+import { servicePage, serviceItemsLong } from "@/content/pages";
 import { pageMeta } from "@/lib/seo";
 
 export const metadata = pageMeta({
-  title: "Photography Services in Hong Kong | Portrait, Wedding & Commercial | Bon Studio",
-  description: "Photography services by Bon Studio in Hong Kong including couple portraits, pre-wedding photography, family sessions, travel portraits and commercial photography.",
+  title: "Photography Services Hong Kong | Portrait, Wedding & Commercial | Bon Studio",
+  description: "Explore Bon Studio’s photography services in Hong Kong, including couple portraits, family sessions, pre-wedding shoots, wedding photography and commercial work.",
   path: "/service",
 });
 
@@ -17,11 +17,11 @@ export default function Service() {
     <Shell active="/service">
       <PageHead title={servicePage.title} />
       <div className="mt-block">
-        <ServiceItems items={serviceItems} />
+        <ServiceItems items={serviceItemsLong} />
       </div>
       <div className="mt-block">
         <Btn href="/contact" cta="service_page">
-          Get in touch
+          {servicePage.button}
         </Btn>
       </div>
       <div className="pair mt-block">
