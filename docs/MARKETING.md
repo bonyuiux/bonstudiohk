@@ -3,6 +3,8 @@
 The goal: every enquiry is tracked back to the ad, post or search that brought it, and follow-up runs on its own.
 This file covers what is built (phase 1) and what comes next (phases 2–3).
 
+**Owner-facing plan (2026-11-27):** the Claude doc "Bon Studio marketing plan" (https://claude.ai/artifact/92Xc992Tsw9ZgcnH2VVpmv). Order: go live → Google Business Profile → reviews → answer-shaped content (prices, Q&A, location pages, journal) → listings → WhatsApp follow-up → ads. Research summary: Business Profile and reviews drive both local ranking and AI recommendations, while llms.txt has no measurable effect, so we skip it.
+
 ## Phase 1: built into the code
 
 ### Tags (switch on by adding an ID)
