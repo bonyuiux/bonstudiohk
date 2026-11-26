@@ -60,6 +60,10 @@ A full-bleed carousel: the film clip, then four photos (`home.slides` in `src/co
 
 Bottom-right: a sliding counter (01 / 05) and thin lines that fill as each slide plays. It pauses on hover and when the tab is hidden, and responds to swipe and the arrow keys. No zoom, no blur.
 
+## Home below the hero
+
+Gallery (`PhotoColumns`, with the sidebar) → **statement**: a full-width band with no sidebar, centred: one line in `t-display`, then one in `t-body` muted, 16 apart (64svh tall on tablet and desktop, section padding on phones) → "Have something in mind?" and the enquiry form, on the footer's grid (sidebar column empty) → footer. Copy: `homeSections` in `pages.ts`.
+
 ## Photo browser (category and /work pages)
 
 After kengohino.com, in layout C (owner's pick): **the photos come first and the text is their caption.** The gallery is one screen a little shorter than the window, so the page title always shows below it in the first view. That's the cue that there's text underneath. The photo sits on a **soft panel** (`--surface`, a mount 32px on desktop and 16px on phones) and is always centred, landscape or portrait. On the right is a column of **even 3:2 thumbnails** (96×64, 4px apart) that slides so the current one stays at the vertical centre, inside the frame corners. Click the left or right half of the photo (the cursor says "← Prev" / "Next →"), use the arrow keys, or pick a thumbnail. "Full screen" opens the photo on its own. Phones get a 4:5 panel and a sideways 60×40 strip. Under it: title → paragraph → (Hong Kong: sessions) → button. Component: `PhotoBrowser`.

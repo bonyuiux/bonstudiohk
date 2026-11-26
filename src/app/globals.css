@@ -394,24 +394,26 @@
   position: absolute;
   left: -4px;
   right: -8px;
-  bottom: -8px;
+  bottom: -12px;
   width: calc(100% + 12px);
-  height: 16px;
+  height: 24px;
   overflow: visible;
   pointer-events: none;
 }
-.hand path {
+.hand__ink {
+  fill: currentColor;
+}
+/* the mask's pen: a thick stroke along the centre line that reveals the ink as it moves */
+.hand__pen {
   fill: none;
-  stroke: currentColor;
-  stroke-width: 1.5;
+  stroke: #fff;
+  stroke-width: 10;
   stroke-linecap: round;
-  stroke-linejoin: round;
-  vector-effect: non-scaling-stroke;
   stroke-dasharray: 1;
   stroke-dashoffset: 1;
-  animation: hand-draw 1.4s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+  animation: hand-draw 1.6s cubic-bezier(0.55, 0, 0.25, 1) forwards;
 }
-.hand--late path {
+.hand--late .hand__pen {
   animation-delay: 1.2s;
 }
 @keyframes hand-draw {
@@ -420,7 +422,7 @@
   }
 }
 @media (prefers-reduced-motion: reduce) {
-  .hand path {
+  .hand__pen {
     animation: none;
     stroke-dashoffset: 0;
   }
@@ -678,6 +680,27 @@
     aspect-ratio: auto;
     height: 400px;
   }
+}
+
+/* ---------- Home: full-width statement and the form (no sidebar) ---------- */
+
+.statement {
+  display: grid;
+  place-items: center;
+  padding: var(--section) var(--gutter);
+  text-align: center;
+}
+/* tablet + desktop: a full, quiet band of its own (as on the original Framer home) */
+@media (min-width: 810px) {
+  .statement {
+    min-height: 64svh;
+  }
+}
+.statement__in {
+  max-width: 640px;
+}
+.home-contact {
+  padding-top: 0;
 }
 
 /* ---------- Footer: compact, page colour, thin line on top ---------- */

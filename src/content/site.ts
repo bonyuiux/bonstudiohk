@@ -3,7 +3,7 @@
 export const site = {
   name: "Bon Studio",
   url: "https://bonstudiohk.com",
-  tagline: "For the moments worth keeping.",
+  tagline: "Framing memories in the making.",
   description:
     "Bon Studio is an independent photographer based in Hong Kong, specialising in portraits, couples, weddings and travel photography.",
   city: "Hong Kong",

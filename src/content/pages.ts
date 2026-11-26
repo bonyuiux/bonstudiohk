@@ -12,7 +12,7 @@ export type Slide = { kind: "video" | "photo"; id?: PhotoId; label: string; link
 
 export const home = {
   // Big line on the hero. The second line is each slide's label; the button follows the slide.
-  tagline: "For the moments worth keeping.",
+  tagline: "Framing memories in the making.",
   slides: [
     { kind: "video", label: "Couples in Glencoe, Scotland", link: { label: "View portraits", href: "/portrait" } },
     { kind: "photo", id: "dolomites-meadow-leap", label: "A trip to the Dolomites", link: { label: "View portraits", href: "/portrait" } },
@@ -26,16 +26,13 @@ export const home = {
   ] as Columns,
 };
 
-/** Home: the short service list. */
-export const serviceItems = [
-  { name: "Portrait", desc: "Couples, families, friends, pets and travel portraits." },
-  { name: "Wedding", desc: "Registry weddings, pre-wedding shoots and full wedding days." },
-  { name: "Commercial", desc: "Brand campaigns, product photography, corporate portraits and social content." },
-];
-
 /** Home sections below the hero. */
 export const homeSections = {
-  services: { title: "Services", button: "Explore services" },
+  // full-width statement after the gallery (the sidebar ends there)
+  statement: {
+    lead: "I capture quiet moments as they unfold, finding beauty in the little things along the way.",
+    line: "A Hong Kong-based photographer specialising in portraits, couples, weddings and travel photography.",
+  },
   contact: {
     title: "Have something in mind?",
     intro: "Tell me a little about the shoot, when and where you’d like to take the photos. The form opens WhatsApp with your message ready to send.",

@@ -29,6 +29,10 @@
 
 ## Log (newest first)
 
+### 2026-11-27: Hero line, home structure
+- Hero slogan: "Framing memories in the making." The hand line is now a tapered ink stroke (thin start, swell, fine upward flick), revealed by a moving mask so it draws like a pen. The old line with its end loop looked unfinished.
+- Home is now hero → gallery (with sidebar) → full-width statement (no sidebar): "I capture quiet moments as they unfold…" / "A Hong Kong-based photographer…" → "Have something in mind?" + form → footer. The Services section was removed from home (it stays on /service).
+
 ### 2026-11-26 (late): Owner's gallery + polish picks applied
 - Picks (`docs/choices/bon-gallery-choices.html`): layout **C, photo first, text as caption**; area **C, soft panel**; polish **1, handwritten line on the hero**.
 - Category, Hong Kong and /work pages now open on the photo browser; title → paragraph → (sessions) → button follow it.
