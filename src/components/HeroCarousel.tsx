@@ -7,8 +7,6 @@ import { home } from "@/content/pages";
 import { photo } from "@/content/photos";
 import MobileNav from "./MobileNav";
 import { TextEffect } from "./motion-primitives/text-effect";
-import { ProgressiveBlur } from "./motion-primitives/progressive-blur";
-import { Magnetic } from "./motion-primitives/magnetic";
 import { SlidingNumber } from "./motion-primitives/sliding-number";
 import { ArrowIcon } from "./icons";
 
@@ -16,7 +14,8 @@ const SLIDE_MS = 6000;
 
 /**
  * Full-bleed, self-playing carousel (film clip + photos). Logo top-left.
- * Bottom-left: the big line (stays), the slide's label (changes) and a button to that category.
+ * Bottom-left: the big line (stays), the slide's label (changes) and a text link to that category.
+ * No zoom, no blur, no pill button (owner, 2026-11-26).
  * Bottom-right: counter + thin line indicator. Pauses on hover and when the tab is hidden.
  */
 export default function HeroCarousel() {
@@ -77,7 +76,6 @@ export default function HeroCarousel() {
         </div>
       ))}
       <div className="hero__shade" />
-      <ProgressiveBlur className="hero__blur" direction="bottom" blurIntensity={0.4} />
 
       <MobileNav overHero />
       <Link href="/" className="hero__logo" aria-label="Bon Studio — home">
@@ -94,14 +92,10 @@ export default function HeroCarousel() {
               {slide.label}
             </TextEffect>
           </div>
-          <div>
-            <Magnetic intensity={0.24} range={120}>
-              <Link href={slide.link.href} className="btn btn--light" data-cta="hero">
-                {slide.link.label}
-                <ArrowIcon />
-              </Link>
-            </Magnetic>
-          </div>
+          <Link href={slide.link.href} className="textlink t-body" data-cta="hero">
+            {slide.link.label}
+            <ArrowIcon />
+          </Link>
         </div>
         <div className="hero__ctrl">
           <span className="t-small counter-row" aria-hidden>

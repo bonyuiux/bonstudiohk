@@ -110,8 +110,9 @@ export function Cursor({
       ref={cursorRef}
       className={cn('pointer-events-none fixed left-0 top-0 z-50', className)}
       style={{
-        x: cursorXSpring,
-        y: cursorYSpring,
+        // no springConfig = follow the pointer exactly, no lag (Bon Studio patch)
+        x: springConfig ? cursorXSpring : cursorX,
+        y: springConfig ? cursorYSpring : cursorY,
         translateX: '-50%',
         translateY: '-50%',
       }}

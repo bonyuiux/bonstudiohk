@@ -27,9 +27,9 @@ export const home = {
 };
 
 export const serviceItems = [
-  { name: "Portrait", desc: "Couples, families, friends, and the occasional dog." },
-  { name: "Wedding", desc: "Registry office mornings, pre-wedding walks and full days." },
-  { name: "Commercial", desc: "Campaigns, products and headshots for brands like KAVU and KEEN." },
+  { name: "Portrait", desc: "Couples / Family / Pet / Travel Portraits" },
+  { name: "Wedding", desc: "Registry Office / Pre-Wedding / Full Wedding" },
+  { name: "Commercial", desc: "Brand Campaigns / Products / Corporate Headshots / Social Media" },
 ];
 
 export type CategoryPage = {
@@ -155,11 +155,3 @@ export const flat = (c: Columns, c2?: Columns): PhotoId[] => {
   return out;
 };
 
-/** Home: one row per category. */
-export const worksIndex = [
-  { name: "Portrait", note: "Couples, families, travellers", href: "/portrait", ids: flat(categories.portrait.gallery) },
-  { name: "Wedding", note: "Registry office to full day", href: "/wedding", ids: flat(categories.wedding.gallery) },
-  { name: "Hong Kong", note: "Walking sessions in the city", href: "/hong-kong", ids: flat(hongKong.gallery) },
-  { name: "Event", note: "Talks, ceremonies, sport", href: "/event", ids: flat(categories.event.gallery, categories.event.gallery2) },
-  { name: "Commercial", note: "KAVU, KEEN and others", href: "/work/commercial", ids: [...work.commercial.left, ...work.commercial.right] },
-];

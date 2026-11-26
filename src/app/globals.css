@@ -107,8 +107,8 @@
 .t-display {
   font-family: var(--display);
   font-weight: 400;
-  font-size: 32px;
-  line-height: 40px;
+  font-size: 28px;
+  line-height: 36px;
   text-wrap: balance;
 }
 .t-heading {
@@ -132,8 +132,8 @@
 }
 @media (min-width: 810px) {
   .t-display {
-    font-size: 40px;
-    line-height: 48px;
+    font-size: 32px;
+    line-height: 40px;
   }
   .t-heading {
     font-size: 20px;
@@ -142,8 +142,8 @@
 }
 @media (min-width: 1200px) {
   .t-display {
-    font-size: 48px;
-    line-height: 56px;
+    font-size: 40px;
+    line-height: 48px;
   }
 }
 .muted {
@@ -151,6 +151,11 @@
 }
 .measure {
   max-width: 640px;
+}
+/* Page titles: trim the line's top leading so the capital's top sits exactly on the
+   same line as the sidebar logo (browsers without text-box keep the old 4px gap). */
+.pagehead > .t-display {
+  text-box: trim-start cap alphabetic;
 }
 
 /* ---------- Shell: sidebar + content ---------- */
@@ -320,12 +325,6 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transform: scale(1.06);
-  transition: transform 7s linear;
-}
-.hero__slide.is-active img,
-.hero__slide.is-active video {
-  transform: scale(1);
 }
 .hero__shade {
   position: absolute;
@@ -638,34 +637,47 @@
   }
 }
 
-/* ---------- Footer ---------- */
+/* ---------- Footer: compact, page colour, thin line on top ---------- */
 
 .foot {
-  background: var(--footer);
-  color: var(--on-dark);
+  border-top: 1px solid var(--line);
 }
 .foot .shell {
-  padding-top: var(--section);
-  padding-bottom: var(--top);
+  padding-top: var(--block);
+  padding-bottom: var(--block);
+  align-items: start;
 }
-.foot__logo {
-  display: none;
+.foot__body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--list);
 }
-@media (min-width: 810px) {
-  .foot__logo {
-    display: block;
-  }
+.foot__ask {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  column-gap: var(--near);
+  row-gap: var(--tight);
 }
-.foot__logo img {
-  display: block;
-  width: 110px;
-  height: auto;
+.foot__meta {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: var(--tight) var(--list);
 }
-.foot .muted {
-  color: var(--on-dark-muted);
+.foot__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--tight) var(--list);
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
-.foot .rows a {
-  border-color: rgba(245, 243, 240, 0.32);
+.foot__links a {
+  transition: color 0.2s ease;
+}
+.foot__links a:hover {
+  color: var(--brown);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -729,7 +741,8 @@
   position: relative;
   isolation: isolate;
 }
-.has-light > :not(.light) {
+/* zero specificity, so it never overrides a child's own position (the sidebar is sticky) */
+:where(.has-light > :not(.light)) {
   position: relative;
   z-index: 1;
 }
@@ -757,11 +770,22 @@ body::after {
 .hero__label {
   min-height: 24px;
 }
-.hero__blur {
-  position: absolute;
-  inset: auto 0 0 0;
-  height: 48%;
-  pointer-events: none;
+/* the hero's only link: text + arrow, no pill */
+.textlink {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--tight);
+  width: fit-content;
+  padding-bottom: 4px;
+  border-bottom: 1px solid currentColor;
+  transition: gap 0.24s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease;
+}
+.textlink svg {
+  width: 16px;
+  height: 16px;
+}
+.textlink:hover {
+  gap: var(--near);
 }
 
 /* ==========================================================================
@@ -945,78 +969,6 @@ body::after {
   .viewer {
     cursor: auto;
   }
-}
-
-/* ==========================================================================
-   Works index (home): one row per category, a horizontal strip of photos.
-   ========================================================================== */
-
-.works {
-  display: flex;
-  flex-direction: column;
-  gap: var(--block);
-}
-.works__head {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: var(--list);
-}
-.works__head a {
-  border-bottom: 1px solid var(--line);
-}
-.works__strip {
-  position: relative;
-  margin-top: var(--near);
-}
-.strip {
-  display: flex;
-  gap: var(--gallery-gap);
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  scrollbar-width: none;
-  padding-bottom: 4px;
-}
-.strip::-webkit-scrollbar {
-  display: none;
-}
-.strip > * {
-  scroll-snap-align: start;
-  flex: none;
-}
-.strip__photo {
-  position: relative;
-  display: block;
-  height: 240px;
-  overflow: hidden;
-  border-radius: 4px;
-  background: var(--surface);
-}
-@media (min-width: 810px) {
-  .strip__photo {
-    height: 280px;
-  }
-}
-@media (min-width: 1200px) {
-  .strip__photo {
-    height: 320px;
-  }
-}
-.strip__photo img {
-  height: 100%;
-  width: auto;
-  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-}
-.strip__photo:hover img {
-  transform: scale(1.04);
-}
-.strip__fade {
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 4px;
-  width: 64px;
-  pointer-events: none;
 }
 
 @media (prefers-reduced-motion: reduce) {

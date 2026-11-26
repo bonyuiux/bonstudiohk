@@ -66,7 +66,7 @@ export default function PhotoBrowser({ ids, label }: { ids: PhotoId[]; label: st
           </TransitionPanel>
           <button type="button" className="browser__half browser__half--prev" aria-label="Previous photo" onMouseEnter={() => setSide("prev")} onClick={() => go(i - 1)} />
           <button type="button" className="browser__half browser__half--next" aria-label="Next photo" onMouseEnter={() => setSide("next")} onClick={() => go(i + 1)} />
-          <Cursor attachToParent springConfig={{ bounce: 0.001 }} variants={{ initial: { scale: 0.6, opacity: 0 }, animate: { scale: 1, opacity: 1 }, exit: { scale: 0.6, opacity: 0 } }}>
+          <Cursor attachToParent variants={{ initial: { scale: 0.6, opacity: 0 }, animate: { scale: 1, opacity: 1 }, exit: { scale: 0.6, opacity: 0 } }}>
             <span className="browser__cursor t-small">{side === "prev" ? "← Prev" : "Next →"}</span>
           </Cursor>
         </div>

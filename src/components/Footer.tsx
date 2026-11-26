@@ -1,45 +1,42 @@
-import Image from "next/image";
+import Link from "next/link";
 import { site } from "@/content/site";
-import Btn from "./Btn";
-import Light from "./Light";
+import { ArrowIcon } from "./icons";
 
-/** Footer on the same grid as every page: logo in the sidebar column, words in the content column. */
+/**
+ * Compact footer on the page colour, on the same grid as every page:
+ * sidebar column left empty; one line to start a conversation, the contact links, and the year.
+ */
 export default function Footer() {
-  const rows = [
-    { label: "Instagram", value: site.instagram.handle, href: site.instagram.url },
-    { label: "Email", value: site.email, href: `mailto:${site.email}` },
-    { label: "Tel & WhatsApp", value: site.phoneDisplay, href: `https://wa.me/${site.whatsappNumber}` },
+  const links = [
+    { label: site.instagram.handle, href: site.instagram.url },
+    { label: site.email, href: `mailto:${site.email}` },
+    { label: `WhatsApp ${site.phoneDisplay}`, href: `https://wa.me/${site.whatsappNumber}` },
   ];
   return (
-    <footer className="foot has-light">
-      <Light dark />
+    <footer className="foot">
       <div className="shell">
-        <div className="foot__logo">
-          <Image src="/brand/wordmark-white.png" alt="Bon Studio" width={723} height={126} />
-        </div>
-        <div className="shell__content">
-          <div className="measure">
-            <h2 className="t-display">Got a date in mind?</h2>
-            <p className="t-body muted mt-near">{site.replyPromise}</p>
-            <div className="mt-block">
-              <Btn href="/contact" light cta="footer">
-                Message me
-              </Btn>
-            </div>
-          </div>
-          <div className="rows mt-block">
-            {rows.map((r) => (
-              <div key={r.label}>
-                <p className="t-small muted">{r.label}</p>
-                <a className="t-body mt-tight" style={{ display: "inline-block" }} href={r.href} target={r.href.startsWith("http") ? "_blank" : undefined} rel={r.href.startsWith("http") ? "noopener" : undefined} data-location="footer">
-                  {r.value}
-                </a>
-              </div>
-            ))}
-          </div>
-          <p className="t-small muted" style={{ marginTop: "var(--section)" }}>
-            © {new Date().getFullYear()} Bon Studio
+        {/* the sidebar column stays empty: the sticky sidebar logo is still on screen here */}
+        <div aria-hidden />
+        <div className="shell__content foot__body">
+          <p className="t-body foot__ask">
+            <span>Got a date in mind?</span>
+            <Link href="/contact" className="textlink" data-cta="footer">
+              Message me
+              <ArrowIcon />
+            </Link>
           </p>
+          <div className="foot__meta t-small">
+            <ul className="foot__links">
+              {links.map((l) => (
+                <li key={l.href}>
+                  <a href={l.href} target={l.href.startsWith("http") ? "_blank" : undefined} rel={l.href.startsWith("http") ? "noopener" : undefined} data-location="footer">
+                    {l.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+            <p className="muted">© {new Date().getFullYear()} Bon Studio</p>
+          </div>
         </div>
       </div>
     </footer>
