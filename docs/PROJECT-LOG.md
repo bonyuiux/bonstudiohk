@@ -29,6 +29,15 @@
 
 ## Log (newest first)
 
+### 2026-11-26 (evening): Owner said no to the last round. Rollback + fixes
+- Home below the hero is back to the previous version: two-column gallery, "Service", "Contact us". WorksIndex removed. `serviceItems` copy reverted (also shows on /service).
+- Hero: no progressive blur, no slow zoom, no pill button. There's now one text + arrow link (`.textlink`).
+- **Bug fixed:** the window-light rule `.has-light > :not(.light)` overrode `.side`'s `position: sticky`. The sidebar was pushed 48px down and stopped sticking. The rule now uses `:where()` (zero specificity).
+- Page titles are one step smaller (28/32/40) and trimmed to cap height with `text-box`, so the capital lines up with the sidebar logo.
+- Photo browser cursor follows the pointer exactly, with no spring lag (`cursor.tsx` patched).
+- Footer: compact, page colour, thin top line, no light patch, no second logo.
+- Open choices for the owner (title size, footer, hero link, texture): `docs/choices/bon-studio-choices.html`. Shipped defaults are 1B, 2A, 3A, 4A.
+
 ### 2026-11-26 (later): Copy rewrite, hero B+C, photo browser, works index, Motion Primitives, window light
 - Copy rewritten after Dan Taylor Watt's "How to AI-proof your writing" and the humanizer skill (see `docs/COPY.md`; ⚑ lines need the owner's check). No em dashes left in page copy.
 - Hero: versions B + C combined (big line + per-slide label + category button); version switcher removed.
