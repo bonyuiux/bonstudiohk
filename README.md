@@ -41,7 +41,7 @@ npm run dev      # http://localhost:3000
 
 ## Design
 
-See [`docs/DESIGN.md`](docs/DESIGN.md): two typefaces (Italiana + Jost), four type roles, one spacing scale, a quiet text sidebar, and a carousel hero with three versions to choose from (pill at the top right of the home page). The exact Framer replica is kept at git tag `og-replica`.
+See [`docs/DESIGN.md`](docs/DESIGN.md): two typefaces (Italiana + Jost), four type roles, one spacing scale, a quiet text sidebar, and a carousel hero with three versions to choose from (pill at the top right of the home page). The exact Framer replica is kept at branch `archive/og-replica`.
 
 Design-system skills for Claude Code are installed in `.claude/skills/design-system-ops`. How to use them: [`docs/DESIGN-SYSTEM-OPS.md`](docs/DESIGN-SYSTEM-OPS.md).
 

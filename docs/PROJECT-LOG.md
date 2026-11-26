@@ -13,7 +13,7 @@
 
 ## Decisions
 
-- **Current direction (2026-11-26):** the original Framer structure, with a simplified type and spacing system and a carousel hero (see `docs/DESIGN.md`). The exact replica is at tag `og-replica`.
+- **Current direction (2026-11-26):** the original Framer structure, with a simplified type and spacing system and a carousel hero (see `docs/DESIGN.md`). The exact replica is on branch `archive/og-replica`.
 - **Enquiries go to WhatsApp** (owner's choice). The form writes a message from the answers and opens WhatsApp, then shows `/thankyou`. There is no server, database or email service to maintain.
 - **Facebook link:** the Framer contact page said "Facebook" but had no URL, so it is left out. Add it to `site.ts` if there is a page.
 - Location captions from the Framer gallery ("Croatia, 2025"…) were not attached to specific photos in Framer, so they are not shown, to avoid labelling photos wrongly.
@@ -35,7 +35,7 @@
 - Now: 2 families (Italiana = logo face, Jost), 4 roles, 2 weights; spacing scale 8/16/24/48/section; text-only sidebar with a dot for the current page, sticky at 48px; phone Menu; hero = auto carousel (film + 4 photos) with a line indicator and **3 text versions (A image only / B tagline / C captions) in a temporary switcher**. About-statement section removed. /work pages now use the shell instead of a second hero. Inter dropped; form fields use Jost 16 (no iOS zoom).
 - Verified at 1440/900/390px: exactly 4 text styles per screen size, no odd pixel values, no console errors.
 - Installed design-system-ops (36 skills) at `.claude/skills/design-system-ops`; guide in `docs/DESIGN-SYSTEM-OPS.md`.
-- The previous exact Framer replica is kept at tag `og-replica`.
+- The previous exact Framer replica is kept on branch `archive/og-replica`.
 
 ### 2026-11-25: 1:1 replica of the original Framer site (owner decision: "back to OG, 100%")
 - All redesign work (paper/dark versions, new type system) is replaced by an exact rebuild of the live Framer site. Measured every text element, photo and section on all 12 pages at 1440, 810 and 390px, rebuilt to those numbers, then diffed: text and photos land within 3px of the original everywhere checked.
