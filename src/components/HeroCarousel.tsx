@@ -2,60 +2,31 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useCallback, useEffect, useRef, useState, useSyncExternalStore, type CSSProperties } from "react";
+import { useCallback, useEffect, useRef, useState, type CSSProperties } from "react";
 import { home } from "@/content/pages";
 import { photo } from "@/content/photos";
 import MobileNav from "./MobileNav";
+import { TextEffect } from "./motion-primitives/text-effect";
+import { ProgressiveBlur } from "./motion-primitives/progressive-blur";
+import { Magnetic } from "./motion-primitives/magnetic";
+import { SlidingNumber } from "./motion-primitives/sliding-number";
+import { ArrowIcon } from "./icons";
 
 const SLIDE_MS = 6000;
-type Variant = "a" | "b" | "c";
-const VARIANTS: { key: Variant; label: string }[] = [
-  { key: "a", label: "A · Image only" },
-  { key: "b", label: "B · Tagline" },
-  { key: "c", label: "C · Captions" },
-];
-
-// Chosen version lives in the URL (?hero=) or localStorage; read it as an external store.
-const EVT = "bs-hero";
-function readVariant(): Variant {
-  const q = new URLSearchParams(window.location.search).get("hero");
-  let saved: string | null = null;
-  try {
-    saved = localStorage.getItem("bs_hero");
-  } catch {}
-  const v = q ?? saved;
-  return v === "b" || v === "c" ? v : "a";
-}
-function subscribe(cb: () => void) {
-  window.addEventListener(EVT, cb);
-  return () => window.removeEventListener(EVT, cb);
-}
 
 /**
- * Full-bleed, self-playing carousel (film clip + photos), logo top-left, minimal line indicator.
- * Three text versions to choose from — switch with the pill at the bottom right, or ?hero=a|b|c.
+ * Full-bleed, self-playing carousel (film clip + photos). Logo top-left.
+ * Bottom-left: the big line (stays), the slide's label (changes) and a button to that category.
+ * Bottom-right: counter + thin line indicator. Pauses on hover and when the tab is hidden.
  */
 export default function HeroCarousel() {
   const n = home.slides.length;
   const [i, setI] = useState(0);
   const [paused, setPaused] = useState(false);
-  const variant = useSyncExternalStore(subscribe, readVariant, () => "a" as Variant);
   const videoRef = useRef<HTMLVideoElement>(null);
   const touchX = useRef<number | null>(null);
-
-  const choose = (v: Variant) => {
-    try {
-      localStorage.setItem("bs_hero", v);
-    } catch {}
-    const u = new URL(window.location.href);
-    u.searchParams.set("hero", v);
-    window.history.replaceState(null, "", u);
-    window.dispatchEvent(new Event(EVT));
-  };
-
   const go = useCallback((to: number) => setI(((to % n) + n) % n), [n]);
 
-  // auto-advance; pauses on hover/focus and when the tab is hidden
   useEffect(() => {
     if (paused) return;
     const t = setTimeout(() => go(i + 1), SLIDE_MS);
@@ -106,6 +77,7 @@ export default function HeroCarousel() {
         </div>
       ))}
       <div className="hero__shade" />
+      <ProgressiveBlur className="hero__blur" direction="bottom" blurIntensity={0.4} />
 
       <MobileNav overHero />
       <Link href="/" className="hero__logo" aria-label="Bon Studio — home">
@@ -113,23 +85,30 @@ export default function HeroCarousel() {
       </Link>
 
       <div className="hero__foot">
-        <div className="hero__text">
-          {variant === "b" && <p className="hero__tagline t-display">{home.tagline}</p>}
-          {variant === "c" && (
-            <div className="hero__caption" aria-live="polite">
-              <p className="t-small">{slide.caption}</p>
-              <Link href={slide.link.href} className="t-small" data-cta="hero_caption">
+        <div className="hero__text hero__copy">
+          <TextEffect as="h1" per="word" preset="fade-in-blur" speedReveal={0.8} className="hero__tagline t-display">
+            {home.tagline}
+          </TextEffect>
+          <div className="hero__label" aria-live="polite">
+            <TextEffect key={i} as="p" per="word" preset="fade-in-blur" speedReveal={1.6} className="t-body">
+              {slide.label}
+            </TextEffect>
+          </div>
+          <div>
+            <Magnetic intensity={0.24} range={120}>
+              <Link href={slide.link.href} className="btn btn--light" data-cta="hero">
                 {slide.link.label}
+                <ArrowIcon />
               </Link>
-            </div>
-          )}
+            </Magnetic>
+          </div>
         </div>
         <div className="hero__ctrl">
-          {variant === "c" && (
-            <span className="t-small counter">
-              {String(i + 1).padStart(2, "0")} / {String(n).padStart(2, "0")}
-            </span>
-          )}
+          <span className="t-small counter-row" aria-hidden>
+            <span>0</span>
+            <SlidingNumber value={i + 1} />
+            <span>&nbsp;/ 0{n}</span>
+          </span>
           <div className={`dots ${paused ? "is-paused" : ""}`} style={{ "--slide-ms": `${SLIDE_MS}ms` } as CSSProperties}>
             {home.slides.map((_, k) => (
               <button key={`${k}-${k === i ? i : "x"}`} type="button" aria-label={`Show photo ${k + 1}`} aria-current={k === i} className={k === i ? "is-active" : k < i ? "is-done" : ""} onClick={() => go(k)}>
@@ -138,16 +117,6 @@ export default function HeroCarousel() {
             ))}
           </div>
         </div>
-      </div>
-
-      {/* Temporary: pick a hero version. Remove <div className="preview"> once you've chosen. */}
-      <div className="preview t-small" role="group" aria-label="Hero version (preview only)">
-        <span>Hero</span>
-        {VARIANTS.map((v) => (
-          <button key={v.key} type="button" aria-pressed={variant === v.key} title={v.label} onClick={() => choose(v.key)}>
-            {v.key.toUpperCase()}
-          </button>
-        ))}
       </div>
     </section>
   );

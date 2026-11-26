@@ -10,10 +10,13 @@
     "photos": "python3 scripts/optimize-photos.py"
   },
   "dependencies": {
+    "clsx": "^2.1.1",
     "motion": "^14.0.0",
     "next": "16.4.5",
     "react": "19.3.0",
-    "react-dom": "19.3.0"
+    "react-dom": "19.3.0",
+    "react-use-measure": "^2.1.7",
+    "tailwind-merge": "^3.7.1"
   },
   "devDependencies": {
     "@tailwindcss/turbopack": "^4",

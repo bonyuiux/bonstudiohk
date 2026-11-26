@@ -4,7 +4,7 @@ import type { PhotoId } from "./photos";
 export const site = {
   name: "Bon Studio",
   url: "https://bonstudiohk.com",
-  tagline: "A soft pause in time, carefully preserved.",
+  tagline: "Photographs of people, unposed.",
   description:
     "Bon Studio is a Hong Kong photographer specializing in natural portrait photography for couples, travelers, and families. Photoshoots across Victoria Harbour, Lamma Island, The Peak, and other beautiful locations in Hong Kong.",
   city: "Hong Kong",
@@ -13,7 +13,7 @@ export const site = {
   phoneE164: "+85265763288",
   whatsappNumber: "85265763288", // digits only, used for wa.me links
   instagram: { handle: "@bonstudiohk", url: "https://www.instagram.com/bonstudiohk" },
-  replyPromise: "I usually reply within 24 hours.",
+  replyPromise: "I reply within a day, usually on WhatsApp.",
   founded: 2025,
 };
 
@@ -53,7 +53,7 @@ export const services: {
     key: "wedding",
     title: "Wedding",
     items: "Registry office · Pre-wedding · Full day",
-    blurb: "Quiet, honest coverage of the day — from the registry office to the last dance.",
+    blurb: "The whole day, from the registry office to the last dance.",
     href: "/wedding",
     cover: "lamma-pier-dance",
   },

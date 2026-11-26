@@ -1,24 +1,23 @@
 import Shell from "@/components/Shell";
 import PageHead from "@/components/PageHead";
-import Photo from "@/components/Photo";
+import PhotoBrowser from "@/components/PhotoBrowser";
 import { work } from "@/content/pages";
 import type { PhotoId } from "@/content/photos";
 
-/** /work/*: title, then photos in their own shape (two columns; one on phones). */
+/** /work/*: title, then the photo browser. */
 export default function Work({ k }: { k: keyof typeof work }) {
   const w = work[k];
-  const item = (id: PhotoId) => (
-    <div key={id} className="work-photo">
-      <Photo id={id} sizes="(min-width: 810px) 40vw, 100vw" />
-    </div>
-  );
+  const ids: PhotoId[] = [];
+  for (let n = 0; n < Math.max(w.left.length, w.right.length); n++) {
+    if (w.left[n]) ids.push(w.left[n]);
+    if (w.right[n]) ids.push(w.right[n]);
+  }
   const title = w.word.charAt(0).toUpperCase() + w.word.slice(1);
   return (
     <Shell>
       <PageHead title={title} />
-      <div className="work-cols mt-block">
-        <div className="gal__col">{w.left.map(item)}</div>
-        <div className="gal__col">{w.right.map(item)}</div>
+      <div className="mt-block">
+        <PhotoBrowser ids={ids} label={title} />
       </div>
     </Shell>
   );

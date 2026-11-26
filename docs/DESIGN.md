@@ -38,11 +38,25 @@ Example (Hong Kong page): title → 16 → intro → 48 → sessions (name → 8
 
 ## Home hero
 
-A full-bleed carousel: the film clip, then four photos (`home.slides` in `src/content/pages.ts`). Each slide shows for 6 seconds with a slow crossfade and settle. The logo sits top-left at the same size as the sidebar logo. A line indicator fills as each slide plays; it pauses on hover and when the tab is hidden. It also responds to swipe and the arrow keys, and reduced motion removes the zoom.
+A full-bleed carousel: the film clip, then four photos (`home.slides` in `src/content/pages.ts`). Each slide shows for 6 seconds with a slow crossfade and settle. The logo sits top-left at sidebar size. Bottom-left (versions B and C combined):
+- the big line in Italiana, which stays
+- the slide's label as the second line, changing with each slide
+- a button to that category
 
-**Three text versions to choose from** (temporary pill at the top right, or `?hero=a|b|c`):
-- **A: Image only.** Logo and indicator, nothing else (closest to mikiyatakimoto.com).
-- **B: Tagline.** "A soft pause in time, carefully preserved." bottom-left at display size (48px, was 64px centred).
-- **C: Captions.** Each slide names its shoot and place ("Wedding · Hong Kong") with a link to that page, plus a 01 / 05 counter.
+Bottom-right: a sliding counter (01 / 05) and thin lines that fill as each slide plays. It pauses on hover and when the tab is hidden, responds to swipe and the arrow keys, and a progressive blur sits behind the text.
 
-Once you've chosen, delete the `<div className="preview">` block in `src/components/HeroCarousel.tsx` and keep the chosen version (ask Claude: "keep hero version B and remove the switcher").
+## Photo browser (category and /work pages)
+
+After kengohino.com: one large photo at a time with a thumbnail rail on the right (a strip under the photo on phones); the current thumbnail has corner marks. Click the left or right half (the cursor says "← Prev" / "Next →"), use the arrow keys or pick a thumbnail. The counter slides. "Full screen" opens the photo on its own ("Close" cursor, Esc). Photos crossfade with a light blur. Component: `PhotoBrowser`.
+
+## Home: Recent work
+
+One row per category: name (heading), one line (muted), "See all N"; then a strip of photos at a shared height that scrolls sideways with snap. Rows fade up on arrival, photos stagger in, and the right edge melts into a progressive blur. Component: `WorksIndex`, data `worksIndex` in `pages.ts`.
+
+## Motion
+
+Micro-animations come from [Motion Primitives](https://motion-primitives.com) (MIT), copied into `src/components/motion-primitives/`: TextEffect (hero text), ProgressiveBlur, Magnetic (buttons drift toward the pointer), SlidingNumber (counters), TransitionPanel (photo changes), Cursor (Prev/Next/Close), InView and AnimatedGroup (home rows). Reduced-motion settings are respected.
+
+## Texture
+
+A soft patch of window light with a shadow mullion drifts slowly at the top-right of every page, a darker version sits in the footer (`Light` component), and a faint film grain covers the page. It's decorative only, and turns off with reduced motion.

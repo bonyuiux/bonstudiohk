@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { site } from "@/content/site";
 import Btn from "./Btn";
+import Light from "./Light";
 
 /** Footer on the same grid as every page: logo in the sidebar column, words in the content column. */
 export default function Footer() {
@@ -10,18 +11,19 @@ export default function Footer() {
     { label: "Tel & WhatsApp", value: site.phoneDisplay, href: `https://wa.me/${site.whatsappNumber}` },
   ];
   return (
-    <footer className="foot">
+    <footer className="foot has-light">
+      <Light dark />
       <div className="shell">
         <div className="foot__logo">
           <Image src="/brand/wordmark-white.png" alt="Bon Studio" width={723} height={126} />
         </div>
         <div className="shell__content">
           <div className="measure">
-            <h2 className="t-display">Let’s capture something timeless.</h2>
+            <h2 className="t-display">Got a date in mind?</h2>
             <p className="t-body muted mt-near">{site.replyPromise}</p>
             <div className="mt-block">
               <Btn href="/contact" light cta="footer">
-                Let&apos;s connect
+                Message me
               </Btn>
             </div>
           </div>

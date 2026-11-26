@@ -1,10 +1,10 @@
 import Shell from "@/components/Shell";
 import PageHead from "@/components/PageHead";
-import PhotoColumns from "@/components/PhotoColumns";
+import PhotoBrowser from "@/components/PhotoBrowser";
 import ServiceItems from "@/components/ServiceItems";
 import Btn from "@/components/Btn";
 import JsonLd from "@/components/JsonLd";
-import { hongKong } from "@/content/pages";
+import { flat, hongKong } from "@/content/pages";
 import { pageMeta, serviceLd } from "@/lib/seo";
 
 const seoTitle = "Travel & Tourist Photoshoot Hong Kong | Bon Studio";
@@ -21,11 +21,11 @@ export default function HongKong() {
         <ServiceItems items={hongKong.sessions} />
       </div>
       <div className="mt-block">
-        <PhotoColumns columns={hongKong.gallery} />
+        <PhotoBrowser ids={flat(hongKong.gallery)} label="Hong Kong" />
       </div>
       <div className="mt-block">
         <Btn href="/contact" cta="hong_kong">
-          Get in touch
+          Book a walk
         </Btn>
       </div>
     </Shell>

@@ -9,7 +9,7 @@ export const metadata: Metadata = { title: "Thank you | Bon Studio", robots: { i
 export default function ThankYou() {
   return (
     <Shell>
-      <PageHead title="Thank you for your message!">We will get back to you within 24 hours. If WhatsApp didn’t open, send the form again or message +852 6576 3288.</PageHead>
+      <PageHead title="Thanks, got it.">Your message is open in WhatsApp. Press send and I’ll reply within a day. If WhatsApp didn’t open, message me on +852 6576 3288.</PageHead>
       <div className="mt-block">
         <Btn href="/">Go to home</Btn>
       </div>

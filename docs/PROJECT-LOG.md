@@ -29,6 +29,14 @@
 
 ## Log (newest first)
 
+### 2026-11-26 (later): Copy rewrite, hero B+C, photo browser, works index, Motion Primitives, window light
+- Copy rewritten after Dan Taylor Watt's "How to AI-proof your writing" and the humanizer skill (see `docs/COPY.md`; ⚑ lines need the owner's check). No em dashes left in page copy.
+- Hero: versions B + C combined (big line + per-slide label + category button); version switcher removed.
+- Category and /work pages: Kengo Hino-style `PhotoBrowser`. Home: `WorksIndex` (row per category, sideways strip).
+- Installed 8 Motion Primitives components (patched AnimatedGroup and Magnetic for React 19 lint rules). Added clsx, tailwind-merge, react-use-measure.
+- Window-light texture (`Light`) on every page + footer; faint grain overlay.
+- Verified at 1440/900/390: still exactly 4 text styles per screen size, no odd values, no console errors.
+
 ### 2026-11-26: New type + spacing system, Rinko-style nav, carousel hero (owner's pain points)
 - Pain points: too many type sizes and styles (labels above titles, descriptions, tags); inconsistent spacing (5–6 values in one block on the Hong Kong page); the sticky sidebar touched the top; the hero text was too big and too loose; the "I capture quiet moments" section was unnecessary.
 - References: rinkokawauchi.com/publications (minimal left text menu, clear spacing), mikiyatakimoto.com (full-bleed image, name top-left).

@@ -680,3 +680,347 @@
     transform: scaleX(1);
   }
 }
+
+/* ==========================================================================
+   Window light. A soft, slowly drifting patch of daylight with a shadow
+   mullion, as if sun came through a window onto the wall. Purely decorative;
+   sits behind content. Plus a faint film grain over the whole page.
+   ========================================================================== */
+
+.light {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+}
+.light__pane {
+  position: absolute;
+  top: -12%;
+  right: -8%;
+  width: min(820px, 64vw);
+  height: min(920px, 110vh);
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.9) 0 44%, rgba(255, 255, 255, 0) 44% 52%, rgba(255, 255, 255, 0.9) 52% 100%);
+  -webkit-mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.5) 60%, transparent);
+  mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.5) 60%, transparent);
+  transform: skewX(-24deg) rotate(-6deg);
+  filter: blur(24px);
+  opacity: 0.56;
+  animation: light-drift 26s ease-in-out infinite alternate;
+}
+.light__shade {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(115deg, rgba(58, 48, 38, 0.08), rgba(58, 48, 38, 0) 48%);
+}
+.light--dark .light__pane {
+  opacity: 0.08;
+}
+.light--dark .light__shade {
+  background: linear-gradient(115deg, rgba(0, 0, 0, 0.32), rgba(0, 0, 0, 0) 56%);
+}
+@keyframes light-drift {
+  to {
+    transform: skewX(-22deg) rotate(-4deg) translate(-32px, 24px);
+    opacity: 0.4;
+  }
+}
+.has-light {
+  position: relative;
+  isolation: isolate;
+}
+.has-light > :not(.light) {
+  position: relative;
+  z-index: 1;
+}
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  pointer-events: none;
+  opacity: 0.05;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.9 0'/></filter><rect width='160' height='160' filter='url(%23n)'/></svg>");
+}
+
+/* ==========================================================================
+   Hero, B + C combined: big line, the slide's label as the second line,
+   and a button to that category.
+   ========================================================================== */
+
+.hero__copy {
+  display: flex;
+  flex-direction: column;
+  gap: var(--near);
+}
+.hero__label {
+  min-height: 24px;
+}
+.hero__blur {
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 48%;
+  pointer-events: none;
+}
+
+/* ==========================================================================
+   Photo browser (category pages): one big photo, a thumbnail rail,
+   counter, click left/right to move, full screen view.
+   ========================================================================== */
+
+.browser {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--near);
+}
+@media (min-width: 810px) {
+  .browser {
+    grid-template-columns: minmax(0, 1fr) 64px;
+    gap: var(--list);
+  }
+}
+.browser__stage {
+  position: relative;
+  height: min(72svh, 760px);
+  cursor: none;
+  user-select: none;
+}
+@media (max-width: 809px) {
+  .browser__stage {
+    height: auto;
+    aspect-ratio: 1 / 1;
+    cursor: auto;
+  }
+}
+.browser__frame {
+  position: absolute;
+  inset: 0;
+}
+.browser__frame img {
+  object-fit: contain;
+  object-position: left center;
+}
+@media (max-width: 809px) {
+  .browser__frame img {
+    object-position: center;
+  }
+}
+.browser__half {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 50%;
+  z-index: 2;
+  background: none;
+  border: 0;
+  cursor: none;
+}
+@media (max-width: 809px) {
+  .browser__half {
+    cursor: auto;
+  }
+}
+.browser__half--prev {
+  left: 0;
+}
+.browser__half--next {
+  right: 0;
+}
+.browser__cursor {
+  padding: 4px 12px;
+  border-radius: 999px;
+  background: rgba(245, 243, 240, 0.88);
+  color: var(--ink);
+  backdrop-filter: blur(8px);
+  white-space: nowrap;
+}
+.browser__bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--list);
+}
+.browser__bar button {
+  background: none;
+  border: 0;
+  padding: 0;
+  color: inherit;
+  cursor: pointer;
+  border-bottom: 1px solid var(--line);
+}
+.counter-row {
+  display: inline-flex;
+  align-items: center;
+  font-variant-numeric: tabular-nums;
+}
+.counter-row * {
+  line-height: 20px;
+}
+.rail {
+  display: flex;
+  gap: var(--tight);
+  overflow-x: auto;
+  scrollbar-width: none;
+  padding: 4px;
+  margin: -4px;
+}
+.rail::-webkit-scrollbar {
+  display: none;
+}
+@media (min-width: 810px) {
+  .rail {
+    flex-direction: column;
+    overflow-x: visible;
+    overflow-y: auto;
+    max-height: min(72svh, 760px);
+  }
+}
+.rail button {
+  position: relative;
+  flex: none;
+  width: 48px;
+  padding: 0;
+  border: 0;
+  background: var(--surface);
+  cursor: pointer;
+  opacity: 0.56;
+  transition: opacity 0.3s ease;
+}
+@media (min-width: 810px) {
+  .rail button {
+    width: 56px;
+  }
+}
+.rail button:hover,
+.rail button[aria-current="true"] {
+  opacity: 1;
+}
+.rail button img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+/* corner marks on the current thumbnail */
+.rail button[aria-current="true"]::before,
+.rail button[aria-current="true"]::after {
+  content: "";
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border: 1px solid var(--ink);
+}
+.rail button[aria-current="true"]::before {
+  top: -4px;
+  left: -4px;
+  border-right: 0;
+  border-bottom: 0;
+}
+.rail button[aria-current="true"]::after {
+  bottom: -4px;
+  right: -4px;
+  border-left: 0;
+  border-top: 0;
+}
+.viewer {
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  background: var(--paper);
+  cursor: none;
+}
+.viewer img {
+  object-fit: contain;
+  padding: var(--top) var(--gutter) 64px;
+}
+.viewer__bar {
+  position: absolute;
+  left: var(--gutter);
+  right: var(--gutter);
+  bottom: 24px;
+  display: flex;
+  justify-content: space-between;
+}
+@media (max-width: 809px) {
+  .viewer {
+    cursor: auto;
+  }
+}
+
+/* ==========================================================================
+   Works index (home): one row per category, a horizontal strip of photos.
+   ========================================================================== */
+
+.works {
+  display: flex;
+  flex-direction: column;
+  gap: var(--block);
+}
+.works__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--list);
+}
+.works__head a {
+  border-bottom: 1px solid var(--line);
+}
+.works__strip {
+  position: relative;
+  margin-top: var(--near);
+}
+.strip {
+  display: flex;
+  gap: var(--gallery-gap);
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  padding-bottom: 4px;
+}
+.strip::-webkit-scrollbar {
+  display: none;
+}
+.strip > * {
+  scroll-snap-align: start;
+  flex: none;
+}
+.strip__photo {
+  position: relative;
+  display: block;
+  height: 240px;
+  overflow: hidden;
+  border-radius: 4px;
+  background: var(--surface);
+}
+@media (min-width: 810px) {
+  .strip__photo {
+    height: 280px;
+  }
+}
+@media (min-width: 1200px) {
+  .strip__photo {
+    height: 320px;
+  }
+}
+.strip__photo img {
+  height: 100%;
+  width: auto;
+  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.strip__photo:hover img {
+  transform: scale(1.04);
+}
+.strip__fade {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 4px;
+  width: 64px;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .light__pane {
+    animation: none;
+  }
+}

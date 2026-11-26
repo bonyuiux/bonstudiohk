@@ -5,7 +5,7 @@ import Btn from "@/components/Btn";
 export default function NotFound() {
   return (
     <Shell>
-      <PageHead title="This page could not be found.">It may have moved. The menu has everything else.</PageHead>
+      <PageHead title="Nothing here.">This page may have moved. Everything else is in the menu.</PageHead>
       <div className="mt-block">
         <Btn href="/">Go to home</Btn>
       </div>

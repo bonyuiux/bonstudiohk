@@ -8,17 +8,17 @@ export type Columns = [Shot[], Shot[]];
 const l = (id: PhotoId): Shot => ({ id, shape: "l" });
 const p = (id: PhotoId): Shot => ({ id, shape: "p" });
 
-export type Slide = { kind: "video" | "photo"; id?: PhotoId; caption: string; link: { label: string; href: string } };
+export type Slide = { kind: "video" | "photo"; id?: PhotoId; label: string; link: { label: string; href: string } };
 
 export const home = {
-  tagline: "A soft pause in time, carefully preserved.",
-  // Hero carousel, in order. The first slide is the existing film clip.
+  // Big line on the hero. The second line is each slide's label; the button follows the slide.
+  tagline: "Photographs of people, unposed.",
   slides: [
-    { kind: "video", caption: "Couples · Glencoe, Scotland", link: { label: "View portrait", href: "/portrait" } },
-    { kind: "photo", id: "dolomites-meadow-leap", caption: "Travel · Dolomites, Italy", link: { label: "View portrait", href: "/portrait" } },
-    { kind: "photo", id: "bride-veil-coast", caption: "Wedding · Hong Kong", link: { label: "View wedding", href: "/wedding" } },
-    { kind: "photo", id: "hk-footbridge-portrait", caption: "Hong Kong photoshoot · Central", link: { label: "View Hong Kong", href: "/hong-kong" } },
-    { kind: "photo", id: "family-harbourfront", caption: "Family · Hong Kong harbourfront", link: { label: "View portrait", href: "/portrait" } },
+    { kind: "video", label: "Couples, Glencoe in Scotland", link: { label: "See portraits", href: "/portrait" } },
+    { kind: "photo", id: "dolomites-meadow-leap", label: "Travel, the Dolomites", link: { label: "See portraits", href: "/portrait" } },
+    { kind: "photo", id: "bride-veil-coast", label: "Wedding, on the Hong Kong coast", link: { label: "See weddings", href: "/wedding" } },
+    { kind: "photo", id: "hk-footbridge-portrait", label: "Hong Kong photoshoot, Central", link: { label: "See Hong Kong sessions", href: "/hong-kong" } },
+    { kind: "photo", id: "family-harbourfront", label: "Family, by the harbour", link: { label: "See portraits", href: "/portrait" } },
   ] as Slide[],
   gallery: [
     [l("iceland-highlands"), p("sheep-below-cliff"), l("dolomites-meadow-leap"), p("couple-laughing-grass")],
@@ -27,9 +27,9 @@ export const home = {
 };
 
 export const serviceItems = [
-  { name: "Portrait", desc: "Couples / Family / Pet / Travel Portraits" },
-  { name: "Wedding", desc: "Registry Office / Pre-Wedding / Full Wedding" },
-  { name: "Commercial", desc: "Brand Campaigns / Products / Corporate Headshots / Social Media" },
+  { name: "Portrait", desc: "Couples, families, friends, and the occasional dog." },
+  { name: "Wedding", desc: "Registry office mornings, pre-wedding walks and full days." },
+  { name: "Commercial", desc: "Campaigns, products and headshots for brands like KAVU and KEEN." },
 ];
 
 export type CategoryPage = {
@@ -47,7 +47,7 @@ export const categories: Record<"portrait" | "wedding" | "event", CategoryPage> 
   portrait: {
     path: "/portrait",
     title: "Portrait",
-    intro: "For couples, families, and travelers in Hong Kong and beyond — a moment kept in time.",
+    intro: "Couples, families, friends, a few dogs. I give you a little direction, then mostly get out of the way, so you end up looking like yourselves.",
     gallery: [
       [l("lakeside-arch-portrait"), p("beanie-warm-drink"), l("family-harbourfront"), p("ferry-deck-portrait")],
       [p("dunes-portrait"), p("harbour-promenade-portrait"), l("valley-church-couple"), l("family-cabin-build")],
@@ -59,7 +59,7 @@ export const categories: Record<"portrait" | "wedding" | "event", CategoryPage> 
   wedding: {
     path: "/wedding",
     title: "Wedding",
-    intro: "For the quiet moments between two people in love. Photographed in Hong Kong and wherever the story leads.",
+    intro: "Registry office mornings, pre-wedding walks out to the Lamma pier, the odd full day. I would rather catch your mum wiping her eyes at the back than line everyone up twice.",
     gallery: [
       [l("bride-veil-coast"), p("couple-orange-house"), l("wedding-toast-bw"), p("garden-path-couple")],
       [p("bride-window-light"), p("lamma-pier-dance"), l("football-jersey-couple"), l("wedding-guests-cheer")],
@@ -71,7 +71,7 @@ export const categories: Record<"portrait" | "wedding" | "event", CategoryPage> 
   event: {
     path: "/event",
     title: "Event",
-    intro: "Corporate, school and sports events, birthdays and family gatherings — covered end to end.",
+    intro: "Talks, graduations, gala dinners, volleyball matches, birthdays. I stay out of the speaker’s way and still get the room.",
     gallery: [
       [l("event-harbour-talk"), p("event-ceremony-students"), l("event-group-photo"), p("event-photo-booth")],
       [p("event-podium-speech"), p("event-seminar-speaker"), l("event-gala-dinner"), l("event-team-lineup")],
@@ -83,18 +83,18 @@ export const categories: Record<"portrait" | "wedding" | "event", CategoryPage> 
     enquiry: "event",
     // the Framer site reused the wedding title here; this one describes the page
     seoTitle: "Event Photographer Hong Kong | Corporate, School & Sports | Bon Studio",
-    seoDescription: "Event photography in Hong Kong for corporate functions, school ceremonies, sports and family gatherings — covered end to end by Bon Studio.",
+    seoDescription: "Event photography in Hong Kong for corporate functions, school ceremonies, sports and family gatherings, covered end to end by Bon Studio.",
   },
 };
 
 export const hongKong = {
   label: "Hong Kong Photoshoot",
-  title: "A photoshoot that feels like a walk through the city",
-  intro: "Capture your journey through Hong Kong with a local photographer — natural photos for couples, families, and travelers visiting the city.",
+  title: "Hong Kong, the way I walk it",
+  intro: "You’re here for a few days. I live here. We walk somewhere I know well, the Central harbourfront or a backstreet with good light, and you leave with photos that don’t look like everyone else’s.",
   sessions: [
-    { name: "Short City Session", desc: "~1 hour • 1 location • ideal for couples or solo travelers" },
-    { name: "Story Walk", desc: "~1.5–2 hours • 2 locations • relaxed walking shoot" },
-    { name: "Extended Session", desc: "~3 hours • deeper exploration of the city" },
+    { name: "Short City Session", desc: "About an hour in one place. Good for a couple, or someone travelling alone." },
+    { name: "Story Walk", desc: "An hour and a half to two hours, two places, at walking pace." },
+    { name: "Extended Session", desc: "About three hours. Enough to see more of the city without rushing." },
   ],
   gallery: [
     [p("hk-harbourfront-run"), p("hk-street-couple"), p("hk-promenade-walk")],
@@ -104,23 +104,22 @@ export const hongKong = {
 
 export const about = {
   label: "About",
-  title: "A soft pause in time, carefully preserved.",
-  lead: "Bon Studio is a Hong Kong–based photography studio focused on calm, natural portraits.",
-  body: "I’m drawn to the in-between moments — when light settles, expressions soften, and things feel quietly alive. With a minimalist and airy approach, I photograph couples, people, and travelers in a way that feels relaxed and unforced. The goal isn’t to stage a moment, but to notice it and keep it.",
+  title: "Hi, I’m Bon.",
+  lead: "I run Bon Studio from Hong Kong, and I photograph people.",
+  body: "I don’t like stiff poses, and I doubt you do either. My favourite frames happen a second after someone stops performing for the camera: a laugh, a look away, wind getting into a veil. So I pick the light, give you a little direction and wait for that second. Mostly that means couples and families in Hong Kong, travellers passing through, trips to places like the Dolomites and the Faroe Islands, and brands that want pictures that look lived in.",
   photos: ["couple-caravan", "clifftop-traveller"] as [PhotoId, PhotoId],
 };
 
 export const servicePage = {
   label: "Service",
-  title: "Moments with the people who matter.",
+  title: "What I shoot",
   photos: ["family-cabin-build", "girl-and-dog"] as [PhotoId, PhotoId],
 };
 
 export const contactPage = {
   label: "Contact",
-  title: "Let's connect!",
-  intro: "Share your idea, your story, or a moment you’d like to remember. Whether it’s a portrait session, a couple shoot, or a visit to Hong Kong — I’d love to hear about it.",
-  intro2: "We’d love to hear from you!",
+  title: "Say hello",
+  intro: "Tell me the date, the place and who’s coming. A rough idea is fine. I reply within a day, usually on WhatsApp.",
 };
 
 /** /work/* pages: hero + large rounded photos in their natural shape. `rows` = left/right pairs, top to bottom. */
@@ -141,3 +140,26 @@ export const work: Record<"portrait" | "wedding" | "commercial", { word: string;
     right: ["kavu-campaign-2", "kavu-campaign-4", "keen-uneek-yellow", "event-harbour-talk", "brand-workshop"],
   },
 };
+
+/** Every photo of a category, in page order (used by the photo browser and the home index). */
+export const flat = (c: Columns, c2?: Columns): PhotoId[] => {
+  const out: PhotoId[] = [];
+  for (const cols of [c, c2]) {
+    if (!cols) continue;
+    const [a, b] = cols;
+    for (let k = 0; k < Math.max(a.length, b.length); k++) {
+      if (a[k]) out.push(a[k].id);
+      if (b[k]) out.push(b[k].id);
+    }
+  }
+  return out;
+};
+
+/** Home: one row per category. */
+export const worksIndex = [
+  { name: "Portrait", note: "Couples, families, travellers", href: "/portrait", ids: flat(categories.portrait.gallery) },
+  { name: "Wedding", note: "Registry office to full day", href: "/wedding", ids: flat(categories.wedding.gallery) },
+  { name: "Hong Kong", note: "Walking sessions in the city", href: "/hong-kong", ids: flat(hongKong.gallery) },
+  { name: "Event", note: "Talks, ceremonies, sport", href: "/event", ids: flat(categories.event.gallery, categories.event.gallery2) },
+  { name: "Commercial", note: "KAVU, KEEN and others", href: "/work/commercial", ids: [...work.commercial.left, ...work.commercial.right] },
+];
