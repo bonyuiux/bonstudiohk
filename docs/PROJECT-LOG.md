@@ -29,6 +29,14 @@
 
 ## Log (newest first)
 
+### 2026-11-26 (late): Owner's gallery + polish picks applied
+- Picks (`docs/choices/bon-gallery-choices.html`): layout **C, photo first, text as caption**; area **C, soft panel**; polish **1, handwritten line on the hero**.
+- Category, Hong Kong and /work pages now open on the photo browser; title → paragraph → (sessions) → button follow it.
+- **Cue that there's text underneath** (owner asked): the photo screen is a little shorter than the window, so the page title always shows in the first view (desktop: title at 813px in a 900px window; tablet: 641/1000; phone: 603/844). Tablet and phone use a square panel so landscape photos aren't lost in a tall one.
+- Soft panel: `--surface` behind the photo, a 32px mount (16px on phones). The viewfinder corners around the stage were removed (the panel marks the area now). Thumbnails keep the frame corners.
+- Hand line: a pen-stroke swash under the hero line (`.hero__line` + `.hand`), drawn after the words arrive and again on hover. Added to the line language as "Hand line" (one per site).
+- Verified at 1440/900/390: 4 text styles each, no odd values, no console errors.
+
 ### 2026-11-26 (night): Owner's copy, line language, Kengo Hino-style gallery
 - **Copy:** the owner's final copy applied everywhere, SEO titles and descriptions included (each /work page now has its own). The menu now says "Services". All copy is read from `src/content/` (new: `homeSections`, `serviceItemsLong`, `categoryButton`, `thankYou`, `notFound`, `site.footer`). Unused `services`, `nav` and `enquiryTypes` were removed from `site.ts`. Conventions are in `docs/COPY.md`.
 - **Line language** is now a rule (`docs/DESIGN.md`, CLAUDE.md/AGENTS.md): progress line, frame corners, drawn underline, hairline. The thumbnail frame now has 4 corners and "focuses in"; keyboard focus uses the corners instead of a brown box.

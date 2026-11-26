@@ -22,6 +22,7 @@ export default function HeroCarousel() {
   const n = home.slides.length;
   const [i, setI] = useState(0);
   const [paused, setPaused] = useState(false);
+  const [stroke, setStroke] = useState(0); // bumps to redraw the hand line
   const videoRef = useRef<HTMLVideoElement>(null);
   const touchX = useRef<number | null>(null);
   const go = useCallback((to: number) => setI(((to % n) + n) % n), [n]);
@@ -84,9 +85,15 @@ export default function HeroCarousel() {
 
       <div className="hero__foot">
         <div className="hero__text hero__copy">
-          <TextEffect as="h1" per="word" preset="fade-in-blur" speedReveal={0.8} className="hero__tagline t-display">
-            {home.tagline}
-          </TextEffect>
+          {/* the big line, with a pen-stroke swash that draws itself in on load and again on hover */}
+          <div className="hero__line" onMouseEnter={() => setStroke((k) => k + 1)}>
+            <TextEffect as="h1" per="word" preset="fade-in-blur" speedReveal={0.8} className="hero__tagline t-display">
+              {home.tagline}
+            </TextEffect>
+            <svg key={stroke} className={`hand ${stroke ? "" : "hand--late"}`} viewBox="0 0 400 24" preserveAspectRatio="none" aria-hidden>
+              <path pathLength={1} d="M4 16 C 70 8, 130 22, 200 14 S 310 4, 342 12 C 360 17, 372 10, 366 5 C 358 0, 346 8, 354 16 C 362 24, 388 18, 396 14" />
+            </svg>
+          </div>
           <div className="hero__label" aria-live="polite">
             <TextEffect key={i} as="p" per="word" preset="fade-in-blur" speedReveal={1.6} className="t-body">
               {slide.label}

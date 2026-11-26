@@ -4,7 +4,7 @@ import PhotoBrowser from "@/components/PhotoBrowser";
 import { work } from "@/content/pages";
 import type { PhotoId } from "@/content/photos";
 
-/** /work/*: title, then the photo browser. */
+/** /work/*: the photo browser, then the title as its caption. */
 export default function Work({ k }: { k: keyof typeof work }) {
   const w = work[k];
   const ids: PhotoId[] = [];
@@ -15,9 +15,9 @@ export default function Work({ k }: { k: keyof typeof work }) {
   const title = w.word.charAt(0).toUpperCase() + w.word.slice(1);
   return (
     <Shell>
-      <PageHead title={title} />
+      <PhotoBrowser ids={ids} label={title} />
       <div className="mt-block">
-        <PhotoBrowser ids={ids} label={title} />
+        <PageHead title={title} />
       </div>
     </Shell>
   );

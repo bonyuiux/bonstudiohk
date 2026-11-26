@@ -382,6 +382,49 @@
 .hero__tagline {
   max-width: 560px;
 }
+/* Hand line: one pen-stroke swash under the hero line (line language). Draws in once the words have
+   arrived, and again on hover. */
+.hero__line {
+  position: relative;
+  width: fit-content;
+  max-width: 100%;
+  padding-bottom: var(--tight);
+}
+.hand {
+  position: absolute;
+  left: -4px;
+  right: -8px;
+  bottom: -8px;
+  width: calc(100% + 12px);
+  height: 16px;
+  overflow: visible;
+  pointer-events: none;
+}
+.hand path {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: hand-draw 1.4s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+}
+.hand--late path {
+  animation-delay: 1.2s;
+}
+@keyframes hand-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hand path {
+    animation: none;
+    stroke-dashoffset: 0;
+  }
+}
 /* indicator: thin lines, the active one fills over the slide's time */
 .dots {
   display: flex;
@@ -827,37 +870,31 @@ body::after {
     gap: var(--list);
   }
 }
-/* The gallery is one screen: as tall as the window minus the page's top and bottom margin and the counter bar
-   (after kengohino.com). Every photo is centred in it. */
+/* The gallery is the first thing on the page (layout C, owner's pick): one screen, a little shorter than the window,
+   so the page title always shows below it in the first view. That is the cue that the text is underneath.
+   Height = window - top margin - counter bar (36) - 48 gap - title line (40) - 48 breathing room. */
 .browser__stage {
-  --screen: calc(100svh - 2 * var(--top) - 36px);
+  --screen: calc(100svh - var(--top) - 36px - 2 * var(--block) - 40px);
   position: relative;
-  height: clamp(400px, var(--screen), 960px);
+  height: clamp(360px, var(--screen), 920px);
+  background: var(--surface);
   cursor: none;
   user-select: none;
 }
-/* line language: viewfinder corners mark the whole screen */
-.browser__stage::after {
-  content: "";
-  position: absolute;
-  inset: -8px;
-  pointer-events: none;
-  z-index: 3;
-  --c: var(--ink);
-  background:
-    linear-gradient(var(--c), var(--c)) top left / 16px 1px no-repeat,
-    linear-gradient(var(--c), var(--c)) top left / 1px 16px no-repeat,
-    linear-gradient(var(--c), var(--c)) top right / 16px 1px no-repeat,
-    linear-gradient(var(--c), var(--c)) top right / 1px 16px no-repeat,
-    linear-gradient(var(--c), var(--c)) bottom left / 16px 1px no-repeat,
-    linear-gradient(var(--c), var(--c)) bottom left / 1px 16px no-repeat,
-    linear-gradient(var(--c), var(--c)) bottom right / 16px 1px no-repeat,
-    linear-gradient(var(--c), var(--c)) bottom right / 1px 16px no-repeat;
+/* tablet: a square panel (a tall one leaves landscape photos small), never taller than the screen */
+@media (min-width: 810px) and (max-width: 1199px) {
+  .browser__stage {
+    height: auto;
+    aspect-ratio: 1 / 1;
+    max-height: clamp(360px, var(--screen), 920px);
+  }
 }
+/* phone: square too, capped so the strip, counter and title still show in the first view */
 @media (max-width: 809px) {
   .browser__stage {
     height: auto;
-    aspect-ratio: 4 / 5;
+    aspect-ratio: 1 / 1;
+    max-height: calc(100svh - 320px);
     cursor: auto;
   }
 }
@@ -865,9 +902,16 @@ body::after {
   position: absolute;
   inset: 0;
 }
+/* soft panel (owner's pick): the photo sits on a mount of slightly darker paper */
 .browser__frame img {
   object-fit: contain;
   object-position: center;
+  padding: var(--near);
+}
+@media (min-width: 810px) {
+  .browser__frame img {
+    padding: 32px;
+  }
 }
 .browser__half {
   position: absolute;
@@ -939,11 +983,16 @@ body::after {
   .rail {
     display: block;
     overflow: hidden;
+    position: relative;
     padding: 0 8px;
     margin: 0 -8px;
-    height: clamp(400px, calc(100svh - 2 * var(--top) - 36px), 960px);
   }
+  /* out of flow, so the rail takes the panel's height instead of the whole column's */
   .rail__track {
+    position: absolute;
+    top: 0;
+    left: 8px;
+    right: 8px;
     display: flex;
     flex-direction: column;
     gap: 4px;

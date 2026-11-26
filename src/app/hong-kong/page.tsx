@@ -15,12 +15,12 @@ export default function HongKong() {
   return (
     <Shell active="/hong-kong">
       <JsonLd data={serviceLd(seoTitle, seoDescription, "/hong-kong")} />
-      <PageHead title={hongKong.title}>{hongKong.intro}</PageHead>
+      <PhotoBrowser ids={flat(hongKong.gallery)} label="Hong Kong" />
       <div className="mt-block">
-        <ServiceItems items={hongKong.sessions} />
+        <PageHead title={hongKong.title}>{hongKong.intro}</PageHead>
       </div>
       <div className="mt-block">
-        <PhotoBrowser ids={flat(hongKong.gallery)} label="Hong Kong" />
+        <ServiceItems items={hongKong.sessions} />
       </div>
       <div className="mt-block">
         <Btn href="/contact" cta="hong_kong">
